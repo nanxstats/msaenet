@@ -19,10 +19,6 @@
 #'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
 #'                            seed = 1001)
 #'
-#' aenet.fit = aenet(dat$x.tr, dat$y.tr,
-#'                   alphas = seq(0.2, 0.8, 0.2), seed = 1002)
-#' plot(aenet.fit)
-#'
 #' msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
 #'                       alphas = seq(0.2, 0.8, 0.2),
 #'                       nsteps = 3L, seed = 1003)
