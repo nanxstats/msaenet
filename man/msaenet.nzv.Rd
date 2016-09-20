@@ -14,7 +14,7 @@ by \code{\link{aenet}} or \code{\link{msaenet}}.}
 Indices vector of non-zero variables in the model.
 }
 \description{
-Get the indices of non-zero variables from AENet/MSAEnet model objects.
+Get the indices of non-zero variables from AENet/MSAENet model objects.
 }
 \examples{
 dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,

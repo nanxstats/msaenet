@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.msaenet.R
 \name{print.msaenet}
 \alias{print.msaenet}
-\title{Print AENet/MSAEnet Model Information}
+\title{Print AENet/MSAENet Model Information}
 \usage{
 \method{print}{msaenet}(x, ...)
 }
@@ -12,7 +12,7 @@
 \item{...}{Additional parameters for \code{\link{print}}.}
 }
 \description{
-Print AENet/MSAEnet model objects
+Print AENet/MSAENet model objects
 (currently, only printing the model from the final step).
 }
 \examples{

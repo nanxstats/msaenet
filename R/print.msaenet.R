@@ -1,6 +1,6 @@
-#' Print AENet/MSAEnet Model Information
+#' Print AENet/MSAENet Model Information
 #'
-#' Print AENet/MSAEnet model objects
+#' Print AENet/MSAENet model objects
 #' (currently, only printing the model from the final step).
 #'
 #' @param x An object of class \code{msaenet}.

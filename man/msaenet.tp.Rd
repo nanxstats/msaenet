@@ -16,7 +16,7 @@ by \code{\link{aenet}} or \code{\link{msaenet}}.}
 Number of true positive variables in the model.
 }
 \description{
-Get the number of true positive selections from AENet/MSAEnet model objects,
+Get the number of true positive selections from AENet/MSAENet model objects,
 given the indices of true variables (if known).
 }
 \examples{

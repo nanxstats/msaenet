@@ -1,6 +1,6 @@
-#' Make Predictions from an AENet/MSAEnet Model
+#' Make Predictions from an AENet/MSAENet Model
 #'
-#' Make predictions on new data by an AENet/MSAEnet model object.
+#' Make predictions on new data by an AENet/MSAENet model object.
 #'
 #' @param object An object of class \code{msaenet} produced
 #' by \code{\link{aenet}} or \code{\link{msaenet}}.

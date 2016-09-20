@@ -1,6 +1,6 @@
-#' Plot AENet/MSAEnet Model Objects
+#' Plot AENet/MSAENet Model Objects
 #'
-#' Plot AENet/MSAEnet model objects.
+#' Plot AENet/MSAENet model objects.
 #'
 #' @param x An object of class \code{msaenet} produced
 #' by \code{\link{aenet}} or \code{\link{msaenet}}.

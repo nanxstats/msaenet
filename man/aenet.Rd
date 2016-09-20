@@ -64,4 +64,9 @@ msaenet.rmse(dat$y.te, aenet.pred)
 \author{
 Nan Xiao <\url{http://nanx.me}>
 }
+\references{
+Zou, Hui, and Hao Helen Zhang. (2009).
+On the Adaptive Elastic-Net with a Diverging Number of Parameters.
+\emph{The Annals of Statistics} 37(4), 1733--51.
+}
 

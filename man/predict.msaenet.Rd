@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict.msaenet.R
 \name{predict.msaenet}
 \alias{predict.msaenet}
-\title{Make Predictions from an AENet/MSAEnet Model}
+\title{Make Predictions from an AENet/MSAENet Model}
 \usage{
 \method{predict}{msaenet}(object, newx, ...)
 }
@@ -18,7 +18,7 @@ by \code{\link{aenet}} or \code{\link{msaenet}}.}
 Numeric matrix of the predicted values.
 }
 \description{
-Make predictions on new data by an AENet/MSAEnet model object.
+Make predictions on new data by an AENet/MSAENet model object.
 }
 \examples{
 dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,

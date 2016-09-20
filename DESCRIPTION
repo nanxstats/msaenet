@@ -4,7 +4,7 @@ Title: Multi-Step Adaptive Elastic-Net
 Version: 1.0
 Author: Nan Xiao <me@nanx.me>
 Maintainer: Nan Xiao <me@nanx.me>
-Description: Multi-step adaptive elastic-net (MSAEnet) algorithm for feature selection in high-dimensional regressions.
+Description: Multi-step adaptive elastic-net (MSAENet) algorithm for feature selection in high-dimensional regressions.
 License: GPL
 URL: http://msaenet.com
 Encoding: UTF-8

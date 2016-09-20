@@ -1,6 +1,6 @@
 #' Get Indices of Non-Zero Variables
 #'
-#' Get the indices of non-zero variables from AENet/MSAEnet model objects.
+#' Get the indices of non-zero variables from AENet/MSAENet model objects.
 #'
 #' @param object An object of class \code{msaenet} produced
 #' by \code{\link{aenet}} or \code{\link{msaenet}}.
@@ -33,7 +33,7 @@ msaenet.nzv = function(object) {
 
 #' Get the Number of False Positive Selections
 #'
-#' Get the number of false positive selections from AENet/MSAEnet model objects,
+#' Get the number of false positive selections from AENet/MSAENet model objects,
 #' given the indices of true variables (if known).
 #'
 #' @param object An object of class \code{msaenet} produced
@@ -68,7 +68,7 @@ msaenet.fp = function(object, true.idx) {
 
 #' Get the Number of True Positive Selections
 #'
-#' Get the number of true positive selections from AENet/MSAEnet model objects,
+#' Get the number of true positive selections from AENet/MSAENet model objects,
 #' given the indices of true variables (if known).
 #'
 #' @param object An object of class \code{msaenet} produced

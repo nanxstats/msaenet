@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.msaenet.R
 \name{plot.msaenet}
 \alias{plot.msaenet}
-\title{Plot AENet/MSAEnet Model Objects}
+\title{Plot AENet/MSAENet Model Objects}
 \usage{
 \method{plot}{msaenet}(x, ...)
 }
@@ -13,7 +13,7 @@ by \code{\link{aenet}} or \code{\link{msaenet}}.}
 \item{...}{Other parameters (not used).}
 }
 \description{
-Plot AENet/MSAEnet model objects.
+Plot AENet/MSAENet model objects.
 }
 \examples{
 dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
