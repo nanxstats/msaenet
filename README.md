@@ -1,6 +1,7 @@
 # msaenet
 
 [![Build Status](https://travis-ci.org/road2stat/msaenet.svg?branch=master)](https://travis-ci.org/road2stat/msaenet)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/road2stat/msaenet?branch=master&svg=true)](https://ci.appveyor.com/project/road2stat/msaenet)
 [![CRAN Version](http://www.r-pkg.org/badges/version/msaenet)](http://www.r-pkg.org/badges/version/msaenet)
 [![Downloads from the RStudio CRAN mirror](http://cranlogs.r-pkg.org/badges/msaenet)](http://cranlogs.r-pkg.org/badges/msaenet)
 
