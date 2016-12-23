@@ -7,6 +7,27 @@
 
 `msaenet` implements the multi-step adaptive elastic-net (MSAENet) algorithm for feature selection in high-dimensional regressions.
 
+## Paper Citation
+
+Formatted citation:
+
+Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net: reducing false positives in high-dimensional variable selection. _Journal of Statistical Computation and Simulation_ 85(18), 3755-3765.
+
+BibTeX entry:
+
+```
+@article{xiao2015msaenet,
+  title={Multi-step adaptive elastic-net: reducing false positives in high-dimensional variable selection},
+  author={Xiao, Nan and Xu, Qing-Song},
+  journal={Journal of Statistical Computation and Simulation},
+  volume={85},
+  number={18},
+  pages={3755--3765},
+  year={2015},
+  publisher={Taylor \& Francis}
+}
+```
+
 ## Installation
 
 To download and install `msaenet` from CRAN:
@@ -29,24 +50,3 @@ library("msaenet")
 ```
 
 and you are all set. See [the vignette](http://msaenet.com/doc/) (can also be opened with `vignette("msaenet")` in R) for a quick-start guide.
-
-## Paper Citation
-
-Formatted citation:
-
-Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net: reducing false positives in high-dimensional variable selection. _Journal of Statistical Computation and Simulation_ 85(18), 3755-3765.
-
-BibTeX entry:
-
-```
-@article{xiao2015msaenet,
-  title={Multi-step adaptive elastic-net: reducing false positives in high-dimensional variable selection},
-  author={Xiao, Nan and Xu, Qing-Song},
-  journal={Journal of Statistical Computation and Simulation},
-  volume={85},
-  number={18},
-  pages={3755--3765},
-  year={2015},
-  publisher={Taylor \& Francis}
-}
-```
