@@ -34,7 +34,7 @@ and you are all set. See [the vignette](http://msaenet.com/doc/) (can also be op
 
 Formatted citation:
 
-Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net: reducing false positives in high-dimensional variable selection. Journal of Statistical Computation and Simulation 85(18), 3755-3765.
+Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net: reducing false positives in high-dimensional variable selection. _Journal of Statistical Computation and Simulation_ 85(18), 3755-3765.
 
 BibTeX entry:
 
