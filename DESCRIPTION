@@ -5,7 +5,7 @@ Version: 1.0
 Author: Nan Xiao <me@nanx.me>
 Maintainer: Nan Xiao <me@nanx.me>
 Description: Multi-step adaptive elastic-net (MSAENet) algorithm for feature selection in high-dimensional regressions proposed in Xiao and Xu (2015) <DOI:10.1080/00949655.2015.1016944>.
-License: GPL
+License: GPL-3 | file LICENSE
 URL: http://msaenet.com
 Encoding: UTF-8
 LazyData: true
