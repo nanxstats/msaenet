@@ -21,13 +21,54 @@
 #'                       nsteps = 3L, seed = 1003)
 #'
 #' msaenet.nzv(msaenet.fit)
+#'
+#' # coefficients of non-zero variables
+#' coef(msaenet.fit)[msaenet.nzv(msaenet.fit)]
 
 msaenet.nzv = function(object) {
 
   if (!('msaenet' %in% class(object)))
     stop('object class must be "msaenet"')
 
-  return(which(as.vector(object$'beta') != 0))
+  idx = which(as.vector(object$'beta') != 0)
+  idx
+
+}
+
+#' Extract AENet/MSAENet Model Coefficients
+#'
+#' Extract coefficients from the final model in AENet/MSAENet model objects.
+#'
+#' @param object An object of class \code{msaenet} produced
+#' by \code{\link{aenet}} or \code{\link{msaenet}}.
+#' @param ... Additional parameters for \code{\link{coef}} (not used).
+#'
+#' @return A numerical vector of model coefficients.
+#'
+#' @method coef msaenet
+#'
+#' @author Nan Xiao <\url{http://nanx.me}>
+#'
+#' @export
+#'
+#' @examples
+#' dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
+#'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
+#'                            seed = 1001)
+#'
+#' msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
+#'                       alphas = seq(0.2, 0.8, 0.2),
+#'                       nsteps = 3L, seed = 1003)
+#'
+#' coef(msaenet.fit)
+
+coef.msaenet = function(object, ...) {
+
+  if (!('msaenet' %in% class(object)))
+    stop('object class must be "msaenet"')
+
+  bhat = as.vector(object$'beta')
+  bhat
 
 }
 

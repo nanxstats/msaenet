@@ -1,0 +1,38 @@
+templates:
+  params:
+    bootswatch: flatly
+
+reference:
+  - title: "Data Simulation"
+    desc: >
+      Functions for generating simulation data.
+    contents:
+      - msaenet.sim.gaussian
+  - title: "Model Fitting"
+    desc: "Functions for fitting AENet/MSAENet models."
+    contents:
+      - aenet
+      - msaenet
+  - title: "Model Inspection"
+    desc: >
+      Functions for inspecting the fitted AENet/MSAENet models.
+    contents:
+      - msaenet.nzv
+      - msaenet.tp
+      - msaenet.fp
+      - coef.msaenet
+  - title: "Plot and Prediction"
+    desc: >
+      Functions for plot, print, and make predictions based on the
+      fitted AENet/MSAENet model.
+    contents:
+      - plot.msaenet
+      - predict.msaenet
+      - print.msaenet
+  - title: "Model Evaluation"
+    desc: >
+      Utility functions for computing RMSE, MAE, and RMSLE.
+    contents:
+      - msaenet.rmse
+      - msaenet.mae
+      - msaenet.rmsle

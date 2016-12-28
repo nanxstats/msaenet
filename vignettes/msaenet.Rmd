@@ -1,5 +1,5 @@
 ---
-title: "A Quick Introduction to `msaenet`"
+title: "A Quick Introduction to msaenet"
 author: "Nan Xiao <<http://nanx.me>>"
 date: "`r Sys.Date()`"
 bibliography: msaenet.bib
@@ -48,10 +48,12 @@ msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
 The parameter `alphas` sets the alpha tuning grid for elastic-net in all adaptive estimation steps. `nsteps` indicates how many adaptive estimation steps should be used.
 
 The internal parameter tuning is done automatically by k-fold cross-validation, and the parameters which produce the minimum prediction errors will be selected. You could also set `parallel = TRUE` and run
+
 ```{r, eval=FALSE}
 library(doParallel)
 registerDoParallel(detectCores())
 ```
+
 before calling this function to make the parameter tuning run in parallel. This will probably save some time if the `alphas` grid is denser and the data size is larger.
 
 Let's inspect the fitted model, by looking into the selected variables (variables with non-zero coefficients), and the number of false positive selections/true positive selections:
@@ -71,9 +73,11 @@ msaenet.mae(dat$y.te, msaenet.pred)
 ```
 
 Make a parallel coordinates plot showing the coefficient changes of all the variables across every estimation step:
+
 ```{r, fig.width = 8, fig.height = 8, out.width = 600, out.height = 600}
 plot(msaenet.fit)
 ```
+
 The y-axis in the plot represents the relative effect sizes (standardized into [0, 1]) of the variables.
 
 The vanilla adaptive elastic-net [@zou2009aenet] is also supported in the `msaenet` package. Please check the function `aenet()` for details. All the analyses above apply to the models fitted by `aenet()` as well.
