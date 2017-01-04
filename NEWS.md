@@ -1,3 +1,17 @@
+# msaenet 2.0 (2017-01-05)
+
+## New Features
+
+- Added support for adaptive MCP-net. See `?amnet` for details.
+- Added support for adaptive SCAD-net. See `?asnet` for details.
+- Added support for multi-step adaptive MCP-net (MSAMNet). See `?msamnet` for details.
+- Added support for multi-step adaptive SCAD-net (MSASNet). See `?msasnet` for details.
+- Added `msaenet.nzv.all()` for showing the indices of non-zero variables in all estimation steps.
+
+## Improvements
+
+- More flexible `predict.msaenet` method allowing users to specify prediction type.
+
 # msaenet 1.1 (2016-12-28)
 
 ## New Features

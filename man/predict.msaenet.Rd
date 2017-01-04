@@ -2,23 +2,26 @@
 % Please edit documentation in R/predict-msaenet.R
 \name{predict.msaenet}
 \alias{predict.msaenet}
-\title{Make Predictions from an AENet/MSAENet Model}
+\title{Make Predictions from an msaenet Model}
 \usage{
 \method{predict}{msaenet}(object, newx, ...)
 }
 \arguments{
 \item{object}{An object of class \code{msaenet} produced
-by \code{\link{aenet}} or \code{\link{msaenet}}.}
+by \code{\link{aenet}}, \code{amnet}, \code{asnet},
+\code{\link{msaenet}}, \code{\link{msamnet}}, or \code{\link{msasnet}}.}
 
 \item{newx}{New data to predict with.}
 
-\item{...}{Additional parameters for \code{\link{predict}}.}
+\item{...}{Additional parameters, particularly prediction \code{type} in
+\code{\link[glmnet]{predict.glmnet}}, \code{\link[ncvreg]{predict.ncvreg}},
+or \code{\link[ncvreg]{predict.ncvsurv}}.}
 }
 \value{
 Numeric matrix of the predicted values.
 }
 \description{
-Make predictions on new data by an AENet/MSAENet model object.
+Make predictions on new data by a msaenet model object.
 }
 \examples{
 dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,

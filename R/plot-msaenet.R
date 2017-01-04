@@ -1,9 +1,10 @@
-#' Plot AENet/MSAENet Model Objects
+#' Plot msaenet Model Objects
 #'
-#' Plot AENet/MSAENet model objects.
+#' Plot msaenet model objects.
 #'
 #' @param x An object of class \code{msaenet} produced
-#' by \code{\link{aenet}} or \code{\link{msaenet}}.
+#' by \code{\link{aenet}}, \code{amnet}, \code{asnet},
+#' \code{\link{msaenet}}, \code{\link{msamnet}}, or \code{\link{msasnet}}.
 #' @param ... Other parameters (not used).
 #'
 #' @method plot msaenet
@@ -26,21 +27,18 @@
 
 plot.msaenet = function(x, ...) {
 
-  if (!('msaenet' %in% class(x)))
+  if (!.is.msaenet(x))
     stop('object class must be "msaenet"')
 
-  if ('msaenet.msaenet' %in% class(x)) {
+  if (.is.multistep(x))
     beta.mat = do.call(cbind, x$'beta.list')
-    colnames(beta.mat) = paste('Step', 1L:ncol(beta.mat))
-    p = parallelplot(~ beta.mat, horizontal.axis = FALSE)
-  }
 
-  if ('msaenet.aenet' %in% class(x)) {
+  if (.is.adaptive(x))
     beta.mat = as.matrix(cbind(x$'beta.first', x$'beta'))
-    colnames(beta.mat) = paste('Step', 1L:2L)
-    p = parallelplot(~ beta.mat, horizontal.axis = FALSE)
-  }
 
+  colnames(beta.mat) = paste('Step', 1L:ncol(beta.mat))
+
+  p = parallelplot(~ beta.mat, horizontal.axis = FALSE)
   print(p)
 
 }

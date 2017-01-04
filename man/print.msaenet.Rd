@@ -2,18 +2,18 @@
 % Please edit documentation in R/print-msaenet.R
 \name{print.msaenet}
 \alias{print.msaenet}
-\title{Print AENet/MSAENet Model Information}
+\title{Print msaenet Model Information}
 \usage{
 \method{print}{msaenet}(x, ...)
 }
 \arguments{
 \item{x}{An object of class \code{msaenet}.}
 
-\item{...}{Additional parameters for \code{\link{print}}.}
+\item{...}{Additional parameters for \code{\link{print}} (not used).}
 }
 \description{
-Print AENet/MSAENet model objects
-(currently, only printing the model from the final step).
+Print msaenet model objects (currently, only
+printing the model information of the final step).
 }
 \examples{
 dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,

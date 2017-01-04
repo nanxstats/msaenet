@@ -9,15 +9,20 @@ reference:
     contents:
       - msaenet.sim.gaussian
   - title: "Model Fitting"
-    desc: "Functions for fitting AENet/MSAENet models."
+    desc: "Functions for fitting adaptive and multi-step estimation models based on elastic-net, MCP-net, or SCAD-net penalties."
     contents:
       - aenet
       - msaenet
+      - amnet
+      - msamnet
+      - asnet
+      - msasnet
   - title: "Model Inspection"
     desc: >
       Functions for inspecting the fitted AENet/MSAENet models.
     contents:
       - msaenet.nzv
+      - msaenet.nzv.all
       - msaenet.tp
       - msaenet.fp
       - coef.msaenet

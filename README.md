@@ -5,8 +5,9 @@
 [![CRAN Version](http://www.r-pkg.org/badges/version/msaenet)](https://cran.r-project.org/package=msaenet)
 [![Downloads from the RStudio CRAN mirror](http://cranlogs.r-pkg.org/badges/msaenet)](https://cran.r-project.org/package=msaenet)
 
-`msaenet` implements the multi-step adaptive elastic-net (MSAENet) algorithm for feature selection in high-dimensional regressions proposed in
-    Xiao and Xu (2015) <[DOI:10.1080/00949655.2015.1016944](http://www.tandfonline.com/doi/full/10.1080/00949655.2015.1016944)> ([PDF](https://drive.google.com/file/d/0B1YdO4YnMkAxeFUtZ3FLY1dLN2s/view)).
+`msaenet` implements the multi-step adaptive elastic-net (MSAENet) algorithm for feature selection in high-dimensional regressions proposed in Xiao and Xu (2015) <[DOI:10.1080/00949655.2015.1016944](http://www.tandfonline.com/doi/full/10.1080/00949655.2015.1016944)> ([PDF](https://drive.google.com/file/d/0B1YdO4YnMkAxeFUtZ3FLY1dLN2s/view)).
+
+Multi-step adaptive estimation based on MCP-net and SCAD-net is also supported.
 
 ## Paper Citation
 

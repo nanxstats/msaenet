@@ -1,11 +1,14 @@
-#' Make Predictions from an AENet/MSAENet Model
+#' Make Predictions from an msaenet Model
 #'
-#' Make predictions on new data by an AENet/MSAENet model object.
+#' Make predictions on new data by a msaenet model object.
 #'
 #' @param object An object of class \code{msaenet} produced
-#' by \code{\link{aenet}} or \code{\link{msaenet}}.
+#' by \code{\link{aenet}}, \code{amnet}, \code{asnet},
+#' \code{\link{msaenet}}, \code{\link{msamnet}}, or \code{\link{msasnet}}.
 #' @param newx New data to predict with.
-#' @param ... Additional parameters for \code{\link{predict}}.
+#' @param ... Additional parameters, particularly prediction \code{type} in
+#' \code{\link[glmnet]{predict.glmnet}}, \code{\link[ncvreg]{predict.ncvreg}},
+#' or \code{\link[ncvreg]{predict.ncvsurv}}.
 #'
 #' @return Numeric matrix of the predicted values.
 #'
@@ -31,12 +34,17 @@
 
 predict.msaenet = function(object, newx, ...) {
 
-  if (missing(newx)) stop('Please specify newx')
+  if (missing(newx)) stop('Please specify newx to predict on')
 
-  if (!('msaenet' %in% class(object)))
+  if (!.is.msaenet(object))
     stop('object class must be "msaenet"')
 
-  pred = predict(object$'model', newx = newx)
-  return(pred)
+  if (.is.glmnet(object$'model'))
+    pred = predict(object$'model', newx = newx, ...)
+
+  if (.is.ncvreg(object$'model'))
+    pred = predict(object$'model', X = newx, ...)
+
+  pred
 
 }

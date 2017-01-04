@@ -7,9 +7,10 @@
 #' @param family Response type.
 #' See \code{\link[glmnet]{glmnet}} for details.
 #' @param init Type of the penalty used in the initial
-#' estimation step. Could be \code{"enet"} or \code{"ridge"}.
+#' estimation step. Can be \code{"enet"} or \code{"ridge"}.
 #' @param nfolds Fold numbers of cross-validation.
-#' @param alphas Vector of alphas to use in \code{\link[glmnet]{cv.glmnet}}.
+#' @param alphas Vector of candidate \code{alpha}s to use in
+#' \code{\link[glmnet]{cv.glmnet}}.
 #' @param gamma Scaling factor for adaptive weights:
 #' \code{weights = coefs^(-gamma)}.
 #' @param rule Model selection criterion, \code{"lambda.min"} or
@@ -19,7 +20,7 @@
 #' default is {FALSE}. To enable parallel tuning, load the
 #' \code{doParallel} package and run \code{registerDoParallel()}
 #' with the number of CPU cores before calling this function.
-#' @param verbose Should we print out the progress?
+#' @param verbose Should we print out the estimation progress?
 #'
 #' @return List of coefficients \code{beta} and
 #' \code{glmnet} model object \code{model}.
@@ -32,6 +33,7 @@
 #' \emph{The Annals of Statistics} 37(4), 1733--51.
 #'
 #' @importFrom glmnet glmnet
+#' @importFrom Matrix Matrix
 #'
 #' @export aenet
 #'
@@ -67,66 +69,69 @@ aenet = function(x, y,
   if (verbose) cat('Starting step 1 ...\n')
 
   if (init == 'enet') {
-    enet.y = msaenet.tune.glmnet.alpha(x, y, family = family,
-                                       nfolds = nfolds, alphas = alphas,
-                                       seed = seed, parallel = parallel)
+    enet.cv = msaenet.tune.glmnet(x, y, family = family,
+                                  nfolds = nfolds, alphas = alphas,
+                                  seed = seed, parallel = parallel)
   }
 
   if (init == 'ridge') {
-    enet.y = msaenet.tune.glmnet.alpha(x, y, family = family,
-                                       nfolds = nfolds, alphas = 0,
-                                       seed = seed, parallel = parallel)
+    enet.cv = msaenet.tune.glmnet(x, y, family = family,
+                                  nfolds = nfolds, alphas = 0,
+                                  seed = seed, parallel = parallel)
   }
 
-  best.alpha.enet = enet.y$'best.alpha'
+  best.alpha.enet = enet.cv$'best.alpha'
 
   if (rule == 'lambda.min') {
-    best.lambda.enet = enet.y$'best.model'$'lambda.min'
+    best.lambda.enet = enet.cv$'best.model'$'lambda.min'
   } else if (rule == 'lambda.1se') {
-    best.lambda.enet = enet.y$'best.model'$'lambda.1se'
+    best.lambda.enet = enet.cv$'best.model'$'lambda.1se'
   }
 
-  enet.all = glmnet(x, y, family = family,
-                    lambda = best.lambda.enet,
-                    alpha  = best.alpha.enet)
+  enet.full = glmnet(x, y, family = family,
+                     lambda = best.lambda.enet,
+                     alpha  = best.alpha.enet)
 
-  bhat = as.matrix(enet.all$beta)
-  if(all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
+  bhat = as.matrix(enet.full$'beta')
+  if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
 
   adpen = (pmax(abs(bhat), .Machine$double.eps))^(-gamma)
 
   if (verbose) cat('Starting step 2 ...\n')
 
-  aenet.y = msaenet.tune.glmnet.alpha(x, y, family = family, nfolds = nfolds,
-                                      penalty.factor = adpen,
-                                      alphas = alphas,
-                                      seed = seed + 1L,
-                                      parallel = parallel)
+  aenet.cv = msaenet.tune.glmnet(x, y, family = family, nfolds = nfolds,
+                                 penalty.factor = adpen,
+                                 alphas = alphas,
+                                 seed = seed + 1L,
+                                 parallel = parallel)
 
-  best.alpha.aenet = aenet.y$'best.alpha'
+  best.alpha.aenet = aenet.cv$'best.alpha'
 
   if (rule == 'lambda.min') {
-    best.lambda.aenet = aenet.y$'best.model'$'lambda.min'
+    best.lambda.aenet = aenet.cv$'best.model'$'lambda.min'
   } else if (rule == 'lambda.1se') {
-    best.lambda.aenet = aenet.y$'best.model'$'lambda.1se'
+    best.lambda.aenet = aenet.cv$'best.model'$'lambda.1se'
   }
 
-  aenet.all = glmnet(x, y, family = family,
-                     lambda = best.lambda.aenet,
-                     penalty.factor = adpen,
-                     alpha  = best.alpha.aenet)
+  aenet.full = glmnet(x, y, family = family,
+                      penalty.factor = adpen,
+                      lambda = best.lambda.aenet,
+                      alpha  = best.alpha.aenet)
 
-  aenet.model = list('beta' = aenet.all$'beta',
-                     'model' = aenet.all,
-                     'best.alpha.enet' = best.alpha.enet,
-                     'best.alpha.aenet' = best.alpha.aenet,
-                     'best.lambda.enet' = best.lambda.enet,
+  # final beta stored as sparse matrix
+  bhat.full = Matrix(aenet.full$'beta', sparse = TRUE)
+
+  aenet.model = list('beta'  = bhat.full,
+                     'model' = aenet.full,
+                     'beta.first'  = enet.full$'beta',
+                     'model.first' = enet.full,
+                     'best.alpha.enet'   = best.alpha.enet,
+                     'best.alpha.aenet'  = best.alpha.aenet,
+                     'best.lambda.enet'  = best.lambda.enet,
                      'best.lambda.aenet' = best.lambda.aenet,
-                     'beta.first' = enet.all$'beta',
-                     'model.first' = enet.all,
                      'adpen' = adpen,
-                     'seed' = seed,
-                     'call' = call)
+                     'seed'  = seed,
+                     'call'  = call)
 
   class(aenet.model) = c('msaenet', 'msaenet.aenet')
   return(aenet.model)

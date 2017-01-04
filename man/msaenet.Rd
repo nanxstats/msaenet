@@ -18,7 +18,7 @@ msaenet(x, y, family = c("gaussian", "binomial", "poisson", "multinomial",
 \item{family}{Response type.}
 
 \item{init}{Type of the penalty used in the initial
-estimation step. Could be \code{"enet"} or \code{"ridge"}.
+estimation step. Can be \code{"enet"} or \code{"ridge"}.
 See \code{\link[glmnet]{glmnet}} for details.}
 
 \item{nsteps}{How many adaptive estimation steps? At least 2.
@@ -26,7 +26,8 @@ We assume adaptive elastic-net has only 1 adaptive estimation step.}
 
 \item{nfolds}{Fold numbers of cross-validation.}
 
-\item{alphas}{Vector of alphas to use in \code{\link[glmnet]{cv.glmnet}}.}
+\item{alphas}{Vector of candidate \code{alpha}s to use in
+\code{\link[glmnet]{cv.glmnet}}.}
 
 \item{gamma}{Scaling factor for adaptive weights:
 \code{weights = coefs^(-gamma)}.}
@@ -42,7 +43,7 @@ default is {FALSE}. To enable parallel tuning, load the
 \code{doParallel} package and run \code{registerDoParallel()}
 with the number of CPU cores before calling this function.}
 
-\item{verbose}{Should we print out the progress?}
+\item{verbose}{Should we print out the estimation progress?}
 }
 \value{
 List of coefficients \code{beta} and

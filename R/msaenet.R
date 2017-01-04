@@ -6,12 +6,13 @@
 #' @param y Response vector.
 #' @param family Response type.
 #' @param init Type of the penalty used in the initial
-#' estimation step. Could be \code{"enet"} or \code{"ridge"}.
+#' estimation step. Can be \code{"enet"} or \code{"ridge"}.
 #' See \code{\link[glmnet]{glmnet}} for details.
 #' @param nsteps How many adaptive estimation steps? At least 2.
 #' We assume adaptive elastic-net has only 1 adaptive estimation step.
 #' @param nfolds Fold numbers of cross-validation.
-#' @param alphas Vector of alphas to use in \code{\link[glmnet]{cv.glmnet}}.
+#' @param alphas Vector of candidate \code{alpha}s to use in
+#' \code{\link[glmnet]{cv.glmnet}}.
 #' @param gamma Scaling factor for adaptive weights:
 #' \code{weights = coefs^(-gamma)}.
 #' @param rule Model selection criterion, \code{"lambda.min"} or
@@ -22,7 +23,7 @@
 #' default is {FALSE}. To enable parallel tuning, load the
 #' \code{doParallel} package and run \code{registerDoParallel()}
 #' with the number of CPU cores before calling this function.
-#' @param verbose Should we print out the progress?
+#' @param verbose Should we print out the estimation progress?
 #'
 #' @return List of coefficients \code{beta} and
 #' \code{glmnet} model object \code{model}.
@@ -81,15 +82,15 @@ msaenet = function(x, y,
   if (verbose) cat('Starting step 1 ...\n')
 
   if (init == 'enet') {
-    model.cv = msaenet.tune.glmnet.alpha(x, y, family = family,
-                                         nfolds = nfolds, alphas = alphas,
-                                         seed = seed, parallel = parallel)
+    model.cv = msaenet.tune.glmnet(x, y, family = family,
+                                   nfolds = nfolds, alphas = alphas,
+                                   seed = seed, parallel = parallel)
   }
 
   if (init == 'ridge') {
-    model.cv = msaenet.tune.glmnet.alpha(x, y, family = family,
-                                         nfolds = nfolds, alphas = 0,
-                                         seed = seed, parallel = parallel)
+    model.cv = msaenet.tune.glmnet(x, y, family = family,
+                                   nfolds = nfolds, alphas = 0,
+                                   seed = seed, parallel = parallel)
   }
 
   best.alphas[[1L]] = model.cv$'best.alpha'
@@ -109,7 +110,7 @@ msaenet = function(x, y,
          Please try to change rule, alphas, seed, nfolds, or increase sample size.')
 
   bhat = as.matrix(model.list[[1L]][['beta']])
-  if(all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
+  if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
   beta.list[[1L]] = bhat
 
   # MSAEnet steps
@@ -122,11 +123,11 @@ msaenet = function(x, y,
 
     if (verbose) cat('Starting step', i + 1, '...\n')
 
-    model.cv = msaenet.tune.glmnet.alpha(x, y, family = family, nfolds = nfolds,
-                                         penalty.factor = adapen.list[[i]],
-                                         alphas = alphas,
-                                         seed = seed + i,
-                                         parallel = parallel)
+    model.cv = msaenet.tune.glmnet(x, y, family = family, nfolds = nfolds,
+                                   penalty.factor = adapen.list[[i]],
+                                   alphas = alphas,
+                                   seed = seed + i,
+                                   parallel = parallel)
 
     best.alphas[[i + 1L]] = model.cv$'best.alpha'
 
@@ -146,7 +147,7 @@ msaenet = function(x, y,
            Please try to change rule, alphas, seed, nfolds, or increase sample size.')
 
     bhat = as.matrix(model.list[[i + 1L]][['beta']])
-    if(all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
+    if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
     beta.list[[i + 1L]] = bhat
 
   }
