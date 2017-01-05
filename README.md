@@ -7,7 +7,7 @@
 
 `msaenet` implements the multi-step adaptive elastic-net (MSAENet) algorithm for feature selection in high-dimensional regressions proposed in Xiao and Xu (2015) <[DOI:10.1080/00949655.2015.1016944](http://www.tandfonline.com/doi/full/10.1080/00949655.2015.1016944)> ([PDF](https://drive.google.com/file/d/0B1YdO4YnMkAxeFUtZ3FLY1dLN2s/view)).
 
-Multi-step adaptive estimation based on MCP-net and SCAD-net is also supported.
+Multi-step adaptive estimation based on MCP-net or SCAD-net is also supported.
 
 ## Paper Citation
 
