@@ -30,6 +30,23 @@ BibTeX entry:
 }
 ```
 
+## Gallery
+
+### Adaptive Elastic-Net / Multi-Step Adaptive Elastic-Net
+
+<img src="http://msaenet.com/img/aenet.png" width="49%" alt="aenet">
+<img src="http://msaenet.com/img/msaenet.png" width="49%" alt="msaenet">
+
+### Adaptive MCP-Net / Multi-Step Adaptive MCP-Net
+
+<img src="http://msaenet.com/img/amnet.png" width="49%" alt="amnet">
+<img src="http://msaenet.com/img/msamnet.png" width="49%" alt="msamnet">
+
+### Adaptive SCAD-Net / Multi-Step Adaptive SCAD-Net
+
+<img src="http://msaenet.com/img/asnet.png" width="49%" alt="asnet">
+<img src="http://msaenet.com/img/msasnet.png" width="49%" alt="msasnet">
+
 ## Installation
 
 To download and install `msaenet` from CRAN:
