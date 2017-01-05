@@ -45,10 +45,4 @@ Or try the development version on GitHub:
 devtools::install_github("road2stat/msaenet")
 ```
 
-To load the package in R, simply use
-
-```r
-library("msaenet")
-```
-
-and you are all set. See [the vignette](http://msaenet.com/doc/) (can be opened with `vignette("msaenet")` in R) for a quick-start guide.
+See [the vignette](http://msaenet.com/doc/) (can be opened with `vignette("msaenet")` in R) for a quick-start guide.
