@@ -6,8 +6,9 @@
 \usage{
 msasnet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
   init = c("snet", "ridge"), nsteps = 2L, nfolds = 5L, gammas = c(2.01,
-  2.3, 3.7, 200), alphas = seq(0.05, 0.95, 0.05), gamma = 1, seed = 1001,
-  parallel = FALSE, verbose = FALSE)
+  2.3, 3.7, 200), alphas = seq(0.05, 0.95, 0.05), eps = 1e-04,
+  max.iter = 10000L, gamma = 1, seed = 1001, parallel = FALSE,
+  verbose = FALSE)
 }
 \arguments{
 \item{x}{Data matrix.}
@@ -31,6 +32,10 @@ We assume adaptive SCAD-net has only 1 adaptive estimation step.}
 \item{gammas}{Vector of candidate \code{gamma}s to use in SCAD-Net.}
 
 \item{alphas}{Vector of candidate \code{alpha}s to use in SCAD-Net.}
+
+\item{eps}{Convergence threshhold to use in SCAD-net.}
+
+\item{max.iter}{Maximum number of iterations to use in SCAD-net.}
 
 \item{gamma}{Scaling factor for adaptive weights:
 \code{weights = coefs^(-gamma)}.}

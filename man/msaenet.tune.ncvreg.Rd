@@ -4,7 +4,7 @@
 \alias{msaenet.tune.ncvreg}
 \title{Automatic parameter tuning for ncvreg by k-fold cross-validation}
 \usage{
-msaenet.tune.ncvreg(..., family, gammas, alphas, seed, parallel)
+msaenet.tune.ncvreg(..., family, gammas, alphas, eps, max.iter, seed, parallel)
 }
 \value{
 best model object, best gamma, and best alpha

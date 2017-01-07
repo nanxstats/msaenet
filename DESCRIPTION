@@ -1,14 +1,14 @@
 Package: msaenet
 Type: Package
 Title: Multi-Step Adaptive Elastic-Net
-Version: 2.0
+Version: 2.1
 Authors@R: c(person("Nan", "Xiao", email = "me@nanx.me", role = c("aut", "cre")))
 Maintainer: Nan Xiao <me@nanx.me>
 Description: Multi-step adaptive elastic-net (MSAENet) algorithm for
     feature selection in high-dimensional regressions proposed in
     Xiao and Xu (2015) <DOI:10.1080/00949655.2015.1016944>,
-    with additional support for multi-step adaptive MCP-Net
-    (MSAMNet) and multi-step adaptive SCAD-Net (MSASNet) methods.
+    with additional support for multi-step adaptive MCP-net
+    (MSAMNet) and multi-step adaptive SCAD-net (MSASNet) methods.
 License: GPL-3 | file LICENSE
 URL: http://msaenet.com, https://github.com/road2stat/msaenet
 Encoding: UTF-8
@@ -19,7 +19,7 @@ Depends:
     R (>= 3.0.2)
 Imports:
     glmnet,
-    ncvreg (>= 3.7-0),
+    ncvreg (>= 3.8-0),
     foreach,
     mvtnorm,
     Matrix,

@@ -14,6 +14,8 @@
 #' @param nfolds Fold numbers of cross-validation.
 #' @param gammas Vector of candidate \code{gamma}s to use in MCP-Net.
 #' @param alphas Vector of candidate \code{alpha}s to use in MCP-Net.
+#' @param eps Convergence threshhold to use in MCP-net.
+#' @param max.iter Maximum number of iterations to use in MCP-net.
 #' @param gamma Scaling factor for adaptive weights:
 #' \code{weights = coefs^(-gamma)}.
 #' @param seed Random seed for cross-validation fold division.
@@ -53,6 +55,7 @@ amnet = function(x, y,
                  init = c('mnet', 'ridge'),
                  nfolds = 5L,
                  gammas = c(1.01, 1.7, 3, 100), alphas = seq(0.05, 0.95, 0.05),
+                 eps = 1e-4, max.iter = 10000L,
                  gamma = 1,
                  seed = 1001, parallel = FALSE, verbose = FALSE) {
 
@@ -68,6 +71,7 @@ amnet = function(x, y,
                                   nfolds = nfolds,
                                   family = family,
                                   gammas = gammas, alphas = alphas,
+                                  eps = eps, max.iter = max.iter,
                                   seed = seed, parallel = parallel)
   }
 
@@ -76,6 +80,7 @@ amnet = function(x, y,
                                   nfolds = nfolds,
                                   family = family,
                                   gammas = gammas, alphas = 1e-16,
+                                  eps = eps, max.iter = max.iter,
                                   seed = seed, parallel = parallel)
   }
 
@@ -87,7 +92,8 @@ amnet = function(x, y,
                       gamma  = best.gamma.mnet,
                       alpha  = best.alpha.mnet,
                       lambda = best.lambda.mnet,
-                      family = family)
+                      family = family,
+                      eps = eps, max.iter = max.iter)
 
   bhat = .ncv.coef(mnet.full, nvar)
   if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
@@ -101,6 +107,7 @@ amnet = function(x, y,
                                  family = family,
                                  penalty.factor = adpen,
                                  gammas = gammas, alphas = alphas,
+                                 eps = eps, max.iter = max.iter,
                                  seed = seed + 1L, parallel = parallel)
 
   best.gamma.amnet  = amnet.cv$'best.gamma'
@@ -112,7 +119,8 @@ amnet = function(x, y,
                        gamma  = best.gamma.amnet,
                        alpha  = best.alpha.amnet,
                        lambda = best.lambda.amnet,
-                       family = family)
+                       family = family,
+                       eps = eps, max.iter = max.iter)
 
   # final beta stored as sparse matrix
   bhat.full  = Matrix(.ncv.coef(amnet.full, nvar), sparse = TRUE)

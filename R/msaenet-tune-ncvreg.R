@@ -12,7 +12,8 @@
 #'
 #' @keywords internal
 
-msaenet.tune.ncvreg = function(..., family, gammas, alphas, seed, parallel) {
+msaenet.tune.ncvreg = function(..., family, gammas, alphas,
+                               eps, max.iter, seed, parallel) {
 
   if (!parallel) {
 
@@ -26,10 +27,12 @@ msaenet.tune.ncvreg = function(..., family, gammas, alphas, seed, parallel) {
         set.seed(seed)
         if (family == "cox") {
           model.list[[i]][[j]] =
-            cv.ncvsurv(..., gamma = gammas[i], alpha = alphas[j], max.iter = 5e+4)
+            cv.ncvsurv(..., gamma = gammas[i], alpha = alphas[j],
+                       eps = eps, max.iter = max.iter)
         } else {
           model.list[[i]][[j]] =
-            cv.ncvreg(..., family = family, gamma = gammas[i], alpha = alphas[j], max.iter = 5e+4)
+            cv.ncvreg(..., family = family, gamma = gammas[i], alpha = alphas[j],
+                      eps = eps, max.iter = max.iter)
         }
       }
     }
@@ -40,13 +43,15 @@ msaenet.tune.ncvreg = function(..., family, gammas, alphas, seed, parallel) {
       model.list <- foreach(gammas = gammas) %:%
         foreach(alphas = alphas) %dopar% {
           set.seed(seed)
-          cv.ncvsurv(..., gamma = gammas, alpha = alphas, max.iter = 5e+4)
+          cv.ncvsurv(..., gamma = gammas, alpha = alphas,
+                     eps = eps, max.iter = max.iter)
         }
     } else {
       model.list <- foreach(gammas = gammas) %:%
         foreach(alphas = alphas) %dopar% {
           set.seed(seed)
-          cv.ncvreg(..., family = family, gamma = gammas, alpha = alphas, max.iter = 5e+4)
+          cv.ncvreg(..., family = family, gamma = gammas, alpha = alphas,
+                    eps = eps, max.iter = max.iter)
         }
     }
 
@@ -65,28 +70,14 @@ msaenet.tune.ncvreg = function(..., family, gammas, alphas, seed, parallel) {
 }
 
 # wrapper for ncvreg::ncvreg and ncvreg::ncvsurv with two hotfixes
-.ncvnet = function (..., lambda, family) {
+.ncvnet = function (..., lambda, family, eps, max.iter) {
 
   if (family == 'cox') {
-
-    # hotfix for ncvreg >= 3.7-0
-    # support single lambda value as input
-
-    # fit with an additional lambda: 0
-    fit = ncvreg::ncvsurv(..., lambda = c(lambda, 0L), max.iter = 5e+4)
-
-    # remove the last lambda related values
-    len = length(fit$'lambda')
-    fit$'beta'   = fit$'beta'[, -len, drop = FALSE]
-    fit$'iter'   = fit$'iter'[-len]
-    fit$'lambda' = fit$'lambda'[-len]
-    fit$'loss'   = fit$'loss'[-len]
-    fit$'W'      = fit$'W'[, -len, drop = FALSE]
-
+    fit = ncvreg::ncvsurv(..., lambda = lambda,
+                          eps = eps, max.iter = max.iter)
   } else {
-
-    fit = ncvreg::ncvreg(..., family = family, lambda = lambda, max.iter = 5e+4)
-
+    fit = ncvreg::ncvreg(..., family = family, lambda = lambda,
+                         eps = eps, max.iter = max.iter)
   }
 
   fit

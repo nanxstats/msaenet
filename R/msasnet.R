@@ -16,6 +16,8 @@
 #' @param nfolds Fold numbers of cross-validation.
 #' @param gammas Vector of candidate \code{gamma}s to use in SCAD-Net.
 #' @param alphas Vector of candidate \code{alpha}s to use in SCAD-Net.
+#' @param eps Convergence threshhold to use in SCAD-net.
+#' @param max.iter Maximum number of iterations to use in SCAD-net.
 #' @param gamma Scaling factor for adaptive weights:
 #' \code{weights = coefs^(-gamma)}.
 #' @param seed Two random seeds for cross-validation fold division
@@ -58,6 +60,7 @@ msasnet = function(x, y,
                    init = c('snet', 'ridge'),
                    nsteps = 2L, nfolds = 5L,
                    gammas = c(2.01, 2.3, 3.7, 200), alphas = seq(0.05, 0.95, 0.05),
+                   eps = 1e-4, max.iter = 10000L,
                    gamma = 1,
                    seed = 1001, parallel = FALSE, verbose = FALSE) {
 
@@ -82,6 +85,7 @@ msasnet = function(x, y,
                                    nfolds = nfolds,
                                    family = family,
                                    gammas = gammas, alphas = alphas,
+                                   eps = eps, max.iter = max.iter,
                                    seed = seed, parallel = parallel)
   }
 
@@ -90,6 +94,7 @@ msasnet = function(x, y,
                                    nfolds = nfolds,
                                    family = family,
                                    gammas = gammas, alphas = 1e-16,
+                                   eps = eps, max.iter = max.iter,
                                    seed = seed, parallel = parallel)
   }
 
@@ -101,7 +106,8 @@ msasnet = function(x, y,
                              gamma  = best.gammas[[1L]],
                              alpha  = best.alphas[[1L]],
                              lambda = best.lambdas[[1L]],
-                             family = family)
+                             family = family,
+                             eps = eps, max.iter = max.iter)
 
   if (.ncvdf(model.list[[1L]]) < 0.5)
     stop('Null model produced by the full fit (all coefficients are zero).
@@ -124,6 +130,7 @@ msasnet = function(x, y,
                                    family = family,
                                    penalty.factor = adapen.list[[i]],
                                    gammas = gammas, alphas = alphas,
+                                   eps = eps, max.iter = max.iter,
                                    seed = seed + i, parallel = parallel)
 
     best.gammas[[i + 1L]]  = model.cv$'best.gamma'
@@ -135,7 +142,8 @@ msasnet = function(x, y,
                                    gamma  = best.gammas[[i + 1L]],
                                    alpha  = best.alphas[[i + 1L]],
                                    lambda = best.lambdas[[i + 1L]],
-                                   family = family)
+                                   family = family,
+                                   eps = eps, max.iter = max.iter)
 
     if (.ncvdf(model.list[[i + 1L]]) < 0.5)
       stop('Null model produced by the full fit (all coefficients are zero).

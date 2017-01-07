@@ -14,6 +14,8 @@
 #' @param nfolds Fold numbers of cross-validation.
 #' @param gammas Vector of candidate \code{gamma}s to use in SCAD-Net.
 #' @param alphas Vector of candidate \code{alpha}s to use in SCAD-Net.
+#' @param eps Convergence threshhold to use in SCAD-net.
+#' @param max.iter Maximum number of iterations to use in SCAD-net.
 #' @param gamma Scaling factor for adaptive weights:
 #' \code{weights = coefs^(-gamma)}.
 #' @param seed Random seed for cross-validation fold division.
@@ -53,6 +55,7 @@ asnet = function(x, y,
                  init = c('snet', 'ridge'),
                  nfolds = 5L,
                  gammas = c(2.01, 2.3, 3.7, 200), alphas = seq(0.05, 0.95, 0.05),
+                 eps = 1e-4, max.iter = 10000L,
                  gamma = 1,
                  seed = 1001, parallel = FALSE, verbose = FALSE) {
 
@@ -68,6 +71,7 @@ asnet = function(x, y,
                                   nfolds = nfolds,
                                   family = family,
                                   gammas = gammas, alphas = alphas,
+                                  eps = eps, max.iter = max.iter,
                                   seed = seed, parallel = parallel)
   }
 
@@ -76,6 +80,7 @@ asnet = function(x, y,
                                   nfolds = nfolds,
                                   family = family,
                                   gammas = gammas, alphas = 1e-16,
+                                  eps = eps, max.iter = max.iter,
                                   seed = seed, parallel = parallel)
   }
 
@@ -87,7 +92,8 @@ asnet = function(x, y,
                       gamma  = best.gamma.snet,
                       alpha  = best.alpha.snet,
                       lambda = best.lambda.snet,
-                      family = family)
+                      family = family,
+                      eps = eps, max.iter = max.iter)
 
   bhat = .ncv.coef(snet.full, nvar)
   if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
@@ -101,6 +107,7 @@ asnet = function(x, y,
                                  family = family,
                                  penalty.factor = adpen,
                                  gammas = gammas, alphas = alphas,
+                                 eps = eps, max.iter = max.iter,
                                  seed = seed + 1L, parallel = parallel)
 
   best.gamma.asnet  = asnet.cv$'best.gamma'
@@ -112,7 +119,8 @@ asnet = function(x, y,
                        gamma  = best.gamma.asnet,
                        alpha  = best.alpha.asnet,
                        lambda = best.lambda.asnet,
-                       family = family)
+                       family = family,
+                       eps = eps, max.iter = max.iter)
 
   # final beta stored as sparse matrix
   bhat.full  = Matrix(.ncv.coef(asnet.full, nvar), sparse = TRUE)

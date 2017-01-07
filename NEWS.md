@@ -1,3 +1,9 @@
+# msaenet 2.1 (2017-01-07)
+
+## Improvements
+
+- Added arguments `max.iter` and `epsilon` for MCP-net and SCAD-net functions to have finer control over convergence criterion.
+
 # msaenet 2.0 (2017-01-05)
 
 ## New Features
