@@ -49,6 +49,7 @@
 #' msaenet.tp(asnet.fit, 1:5)
 #' asnet.pred = predict(asnet.fit, dat$x.te)
 #' msaenet.rmse(dat$y.te, asnet.pred)
+#' plot(asnet.fit)
 
 asnet = function(x, y,
                  family = c('gaussian', 'binomial', 'poisson', 'cox'),

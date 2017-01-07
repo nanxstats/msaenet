@@ -61,6 +61,7 @@ msaenet.fp(aenet.fit, 1:5)
 msaenet.tp(aenet.fit, 1:5)
 aenet.pred = predict(aenet.fit, dat$x.te)
 msaenet.rmse(dat$y.te, aenet.pred)
+plot(aenet.fit)
 }
 \author{
 Nan Xiao <\url{http://nanx.me}>
