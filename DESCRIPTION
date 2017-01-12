@@ -1,6 +1,6 @@
 Package: msaenet
 Type: Package
-Title: Multi-Step Adaptive Elastic-Net
+Title: Multi-Step Adaptive Estimation Methods for Sparse Regressions
 Version: 2.1
 Authors@R: c(person("Nan", "Xiao", email = "me@nanx.me", role = c("aut", "cre")))
 Maintainer: Nan Xiao <me@nanx.me>

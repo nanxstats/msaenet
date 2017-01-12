@@ -1,8 +1,8 @@
-# msaenet 2.1 (2017-01-07)
+# msaenet 2.1 (2017-01-14)
 
 ## Improvements
 
-- Added arguments `max.iter` and `epsilon` for MCP-net and SCAD-net functions to have finer control over convergence criterion.
+- Added parameters `max.iter` and `epsilon` for MCP-net and SCAD-net related functions to have finer control over convergence criterion. By default, `max.iter = 10000` and `epsilon = 1e-4`.
 
 # msaenet 2.0 (2017-01-05)
 
@@ -12,7 +12,7 @@
 - Added support for adaptive SCAD-net. See `?asnet` for details.
 - Added support for multi-step adaptive MCP-net (MSAMNet). See `?msamnet` for details.
 - Added support for multi-step adaptive SCAD-net (MSASNet). See `?msasnet` for details.
-- Added `msaenet.nzv.all()` for showing the indices of non-zero variables in all estimation steps.
+- Added `msaenet.nzv.all()` for displaying the indices of non-zero variables in all adaptive estimation steps.
 
 ## Improvements
 

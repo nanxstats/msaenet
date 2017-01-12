@@ -62,4 +62,4 @@ Or try the development version on GitHub:
 devtools::install_github("road2stat/msaenet")
 ```
 
-See [the vignette](http://msaenet.com/doc/) (can be opened with `vignette("msaenet")` in R) for a quick-start guide.
+[Browse the package vignette](http://msaenet.com/doc/) (can be opened with `vignette("msaenet")` in R) for a quick-start.

@@ -3,7 +3,7 @@
 \docType{package}
 \name{msaenet-package}
 \alias{msaenet-package}
-\title{Multi-Step Adaptive Elastic-Net}
+\title{Multi-Step Adaptive Estimation Methods for Sparse Regressions}
 \description{
 Multi-step adaptive elastic-net (MSAENet) algorithm for
 feature selection in high-dimensional regressions proposed in

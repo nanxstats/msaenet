@@ -1,4 +1,4 @@
-#' Multi-Step Adaptive Elastic-Net
+#' Multi-Step Adaptive Estimation Methods for Sparse Regressions
 #'
 #' Multi-step adaptive elastic-net (MSAENet) algorithm for
 #' feature selection in high-dimensional regressions proposed in
