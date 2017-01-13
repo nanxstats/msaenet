@@ -1,5 +1,9 @@
 # msaenet 2.1 (2017-01-14)
 
+## New Features
+
+- Added function `msaenet.fn()` for computing the number of false negative selections in msaenet models.
+
 ## Improvements
 
 - Added parameters `max.iter` and `epsilon` for MCP-net and SCAD-net related functions to have finer control over convergence criterion. By default, `max.iter = 10000` and `epsilon = 1e-4`.

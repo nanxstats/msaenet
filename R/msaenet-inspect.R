@@ -153,7 +153,43 @@ msaenet.fp = function(object, true.idx) {
   if (!.is.msaenet(object))
     stop('object class must be "msaenet"')
 
-  return(length(setdiff(msaenet.nzv(object), true.idx)))
+  length(setdiff(msaenet.nzv(object), true.idx))
+
+}
+
+#' Get the Number of False Negative Selections
+#'
+#' Get the number of false negative selections from msaenet model objects,
+#' given the indices of true variables (if known).
+#'
+#' @param object An object of class \code{msaenet} produced
+#' by \code{\link{aenet}}, \code{amnet}, \code{asnet},
+#' \code{\link{msaenet}}, \code{\link{msamnet}}, or \code{\link{msasnet}}.
+#' @param true.idx Vector. Indices of true variables.
+#'
+#' @return Number of false negative variables in the model.
+#'
+#' @author Nan Xiao <\url{http://nanx.me}>
+#'
+#' @export msaenet.fn
+#'
+#' @examples
+#' dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
+#'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
+#'                            seed = 1001)
+#'
+#' msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
+#'                       alphas = seq(0.2, 0.8, 0.2),
+#'                       nsteps = 3L, seed = 1003)
+#'
+#' msaenet.fn(msaenet.fit, 1:5)
+
+msaenet.fn = function(object, true.idx) {
+
+  if (!.is.msaenet(object))
+    stop('object class must be "msaenet"')
+
+  length(setdiff(true.idx, msaenet.nzv(object)))
 
 }
 
@@ -189,6 +225,6 @@ msaenet.tp = function(object, true.idx) {
   if (!.is.msaenet(object))
     stop('object class must be "msaenet"')
 
-  return(length(intersect(msaenet.nzv(object), true.idx)))
+  length(intersect(msaenet.nzv(object), true.idx))
 
 }
