@@ -41,13 +41,10 @@ msaenet.sim.gaussian = function(n = 300, p = 500,
   set.seed(seed)
 
   sigma = matrix(0, p, p)
-  for (i in 1:p) {
-    for (j in 1:p) {
-      sigma[i, j] = rho^(abs(i - j))
-    }
-  }
+  corvec = function(i, p, rho) rho^(abs(i - 1L:p))
+  for (i in 1:p) sigma[i, ] = corvec(i, p, rho)
 
-  X = rmvnorm(n = n, mean = rep(0, p), sigma = sigma)
+  X = rmvnorm(n, rep(0, p), sigma)
 
   # non-zero coefficients
   beta0 = matrix(c(coef, rep(0, (p - length(coef)))))

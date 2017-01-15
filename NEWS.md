@@ -1,4 +1,4 @@
-# msaenet 2.1 (2017-01-14)
+# msaenet 2.1 (2017-01-15)
 
 ## New Features
 
@@ -6,6 +6,7 @@
 
 ## Improvements
 
+- Speed improvements in `msaenet.sim.gaussian` by more vectorization when generating correlation matrices.
 - Added parameters `max.iter` and `epsilon` for MCP-net and SCAD-net related functions to have finer control over convergence criterion. By default, `max.iter = 10000` and `epsilon = 1e-4`.
 
 # msaenet 2.0 (2017-01-05)
