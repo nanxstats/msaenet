@@ -2,12 +2,13 @@
 
 ## New Features
 
-- Added functions `msaenet.sim.binomial`, `msaenet.sim.poisson`, `msaenet.sim.cox` to generate simulation data for logistic, Poisson, and Cox regression models.
+- Added functions `msaenet.sim.binomial()`, `msaenet.sim.poisson()`, `msaenet.sim.cox()` to generate simulation data for logistic, Poisson, and Cox regression models.
 - Added function `msaenet.fn()` for computing the number of false negative selections in msaenet models.
+- Added function `msaenet.mse()` for computing mean squared error (MSE).
 
 ## Improvements
 
-- Speed improvements in `msaenet.sim.gaussian` by more vectorization when generating correlation matrices.
+- Speed improvements in `msaenet.sim.gaussian()` by more vectorization when generating correlation matrices.
 - Added parameters `max.iter` and `epsilon` for MCP-net and SCAD-net related functions to have finer control over convergence criterion. By default, `max.iter = 10000` and `epsilon = 1e-4`.
 
 # msaenet 2.0 (2017-01-05)

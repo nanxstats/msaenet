@@ -1,3 +1,18 @@
+#' Mean Squared Error (MSE)
+#'
+#' Compute mean squared error (MSE).
+#'
+#' @param yreal Vector. True response.
+#' @param ypred Vector. Predicted response.
+#'
+#' @return MSE
+#'
+#' @author Nan Xiao <\url{http://nanx.me}>
+#'
+#' @export msaenet.mse
+msaenet.mse = function(yreal, ypred)
+  mean((yreal - ypred)^2)
+
 #' Root Mean Squared Error (RMSE)
 #'
 #' Compute root mean squared error (RMSE).
@@ -10,12 +25,8 @@
 #' @author Nan Xiao <\url{http://nanx.me}>
 #'
 #' @export msaenet.rmse
-msaenet.rmse = function(yreal, ypred) {
-
-  rmse = sqrt(mean((yreal - ypred)^2))
-  return(rmse)
-
-}
+msaenet.rmse = function(yreal, ypred)
+  sqrt(mean((yreal - ypred)^2))
 
 #' Mean Absolute Error (MAE)
 #'
@@ -29,12 +40,8 @@ msaenet.rmse = function(yreal, ypred) {
 #' @author Nan Xiao <\url{http://nanx.me}>
 #'
 #' @export msaenet.mae
-msaenet.mae = function(yreal, ypred) {
-
-  mae = mean(abs(yreal - ypred))
-  return(mae)
-
-}
+msaenet.mae = function(yreal, ypred)
+  mean(abs(yreal - ypred))
 
 #' Root Mean Squared Logarithmic Error (RMSLE)
 #'
@@ -48,9 +55,5 @@ msaenet.mae = function(yreal, ypred) {
 #' @author Nan Xiao <\url{http://nanx.me}>
 #'
 #' @export msaenet.rmsle
-msaenet.rmsle = function(yreal, ypred) {
-
-  rmsle = sqrt(mean((log(ypred + 1) - log(yreal + 1))^2))
-  return(rmsle)
-
-}
+msaenet.rmsle = function(yreal, ypred)
+  sqrt(mean((log(ypred + 1) - log(yreal + 1))^2))

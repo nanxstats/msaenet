@@ -43,5 +43,6 @@ reference:
       Utility functions for computing RMSE, MAE, and RMSLE.
     contents:
       - msaenet.rmse
+      - msaenet.mse
       - msaenet.mae
       - msaenet.rmsle
