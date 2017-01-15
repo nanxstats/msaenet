@@ -2,6 +2,7 @@
 
 ## New Features
 
+- Added functions `msaenet.sim.binomial`, `msaenet.sim.poisson`, `msaenet.sim.cox` to generate simulation data for logistic, Poisson, and Cox regression models.
 - Added function `msaenet.fn()` for computing the number of false negative selections in msaenet models.
 
 ## Improvements

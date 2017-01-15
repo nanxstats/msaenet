@@ -8,6 +8,9 @@ reference:
       Functions for generating simulation data.
     contents:
       - msaenet.sim.gaussian
+      - msaenet.sim.binomial
+      - msaenet.sim.poisson
+      - msaenet.sim.cox
   - title: "Model Fitting"
     desc: "Functions for fitting adaptive and multi-step estimation models based on elastic-net, MCP-net, or SCAD-net penalties."
     contents:

@@ -22,6 +22,7 @@ Imports:
     ncvreg (>= 3.8-0),
     foreach,
     mvtnorm,
+    survival,
     Matrix,
     lattice
 Suggests:
