@@ -37,7 +37,7 @@ dim(dat$x.tr)
 dim(dat$x.te)
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 \references{
 Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net:

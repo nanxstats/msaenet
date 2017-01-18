@@ -64,7 +64,7 @@ msaenet.rmse(dat$y.te, aenet.pred)
 plot(aenet.fit)
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 \references{
 Zou, Hui, and Hao Helen Zhang. (2009).

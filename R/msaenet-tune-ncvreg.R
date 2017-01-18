@@ -2,7 +2,7 @@
 #'
 #' @return best model object, best gamma, and best alpha
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @importFrom ncvreg cv.ncvreg
 #' @importFrom ncvreg cv.ncvsurv

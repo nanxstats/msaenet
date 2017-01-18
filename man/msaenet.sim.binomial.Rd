@@ -38,6 +38,6 @@ table(dat$y.tr)
 table(dat$y.te)
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 

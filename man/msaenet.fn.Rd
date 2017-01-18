@@ -32,6 +32,6 @@ msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
 msaenet.fn(msaenet.fit, 1:5)
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 

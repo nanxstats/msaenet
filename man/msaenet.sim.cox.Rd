@@ -38,7 +38,7 @@ dim(dat$y.tr)
 dim(dat$y.te)
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 \references{
 Simon, N., Friedman, J., Hastie, T., & Tibshirani, R. (2011).

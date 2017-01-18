@@ -36,6 +36,6 @@ dim(dat$x.tr)
 dim(dat$x.te)
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 

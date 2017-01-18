@@ -31,7 +31,7 @@
 #' @return List of coefficients \code{beta} and
 #' \code{ncvreg} model object \code{model}.
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @importFrom ncvreg ncvreg ncvsurv
 #' @importFrom Matrix Matrix

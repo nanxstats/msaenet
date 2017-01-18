@@ -28,7 +28,7 @@
 #' @return List of coefficients \code{beta} and
 #' \code{glmnet} model object \code{model}.
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @references
 #' Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net:

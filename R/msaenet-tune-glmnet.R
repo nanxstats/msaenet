@@ -2,7 +2,7 @@
 #'
 #' @return best model object and best alpha value
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @importFrom glmnet cv.glmnet
 #' @importFrom foreach %dopar%

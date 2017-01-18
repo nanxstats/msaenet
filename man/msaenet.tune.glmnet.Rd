@@ -13,7 +13,7 @@ best model object and best alpha value
 Automatic parameter tuning for glmnet by k-fold cross-validation
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 \keyword{internal}
 

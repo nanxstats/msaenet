@@ -70,7 +70,7 @@ msaenet.rmse(dat$y.te, msaenet.pred)
 plot(msaenet.fit)
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 \references{
 Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net:

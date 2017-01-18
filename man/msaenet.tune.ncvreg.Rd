@@ -13,7 +13,7 @@ best model object, best gamma, and best alpha
 Automatic parameter tuning for ncvreg by k-fold cross-validation
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 \keyword{internal}
 

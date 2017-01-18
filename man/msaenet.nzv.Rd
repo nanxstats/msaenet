@@ -32,6 +32,6 @@ msaenet.nzv(msaenet.fit)
 coef(msaenet.fit)[msaenet.nzv(msaenet.fit)]
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 

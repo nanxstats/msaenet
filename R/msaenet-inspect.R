@@ -8,7 +8,7 @@
 #'
 #' @return Indices vector of non-zero variables in the model.
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.nzv
 #'
@@ -46,7 +46,7 @@ msaenet.nzv = function(object) {
 #'
 #' @return List containing indices vectors of non-zero variables in all steps.
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.nzv.all
 #'
@@ -96,7 +96,7 @@ msaenet.nzv.all = function(object) {
 #'
 #' @method coef msaenet
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export
 #'
@@ -133,7 +133,7 @@ coef.msaenet = function(object, ...) {
 #'
 #' @return Number of false positive variables in the model.
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.fp
 #'
@@ -169,7 +169,7 @@ msaenet.fp = function(object, true.idx) {
 #'
 #' @return Number of false negative variables in the model.
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.fn
 #'
@@ -205,7 +205,7 @@ msaenet.fn = function(object, true.idx) {
 #'
 #' @return Number of true positive variables in the model.
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.tp
 #'

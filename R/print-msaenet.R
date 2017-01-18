@@ -8,7 +8,7 @@
 #'
 #' @method print msaenet
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @importFrom utils capture.output
 #'

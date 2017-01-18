@@ -25,7 +25,7 @@
 #' @return List of coefficients \code{beta} and
 #' \code{glmnet} model object \code{model}.
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @references
 #' Zou, Hui, and Hao Helen Zhang. (2009).

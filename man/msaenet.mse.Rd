@@ -18,6 +18,6 @@ MSE
 Compute mean squared error (MSE).
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 

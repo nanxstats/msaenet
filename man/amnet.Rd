@@ -69,6 +69,6 @@ msaenet.rmse(dat$y.te, amnet.pred)
 plot(amnet.fit)
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 

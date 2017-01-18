@@ -7,7 +7,7 @@
 #'
 #' @return MSE
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.mse
 msaenet.mse = function(yreal, ypred)
@@ -22,7 +22,7 @@ msaenet.mse = function(yreal, ypred)
 #'
 #' @return RMSE
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.rmse
 msaenet.rmse = function(yreal, ypred)
@@ -37,7 +37,7 @@ msaenet.rmse = function(yreal, ypred)
 #'
 #' @return MAE
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.mae
 msaenet.mae = function(yreal, ypred)
@@ -52,7 +52,7 @@ msaenet.mae = function(yreal, ypred)
 #'
 #' @return RMSLE
 #'
-#' @author Nan Xiao <\url{http://nanx.me}>
+#' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.rmsle
 msaenet.rmsle = function(yreal, ypred)

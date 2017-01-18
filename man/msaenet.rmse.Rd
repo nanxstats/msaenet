@@ -18,6 +18,6 @@ RMSE
 Compute root mean squared error (RMSE).
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 

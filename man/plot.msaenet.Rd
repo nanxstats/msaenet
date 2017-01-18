@@ -27,6 +27,6 @@ msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
 plot(msaenet.fit)
 }
 \author{
-Nan Xiao <\url{http://nanx.me}>
+Nan Xiao <\url{https://nanx.me}>
 }
 

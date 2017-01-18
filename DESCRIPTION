@@ -10,7 +10,7 @@ Description: Multi-step adaptive elastic-net (MSAENet) algorithm for
     with additional support for multi-step adaptive MCP-net
     (MSAMNet) and multi-step adaptive SCAD-net (MSASNet) methods.
 License: GPL-3 | file LICENSE
-URL: http://msaenet.com, https://github.com/road2stat/msaenet
+URL: https://msaenet.com, https://github.com/road2stat/msaenet
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
