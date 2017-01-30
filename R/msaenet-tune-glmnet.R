@@ -10,18 +10,22 @@
 #'
 #' @keywords internal
 
-msaenet.tune.glmnet = function(..., alphas, seed, parallel) {
+msaenet.tune.glmnet = function(x, y, family, alphas,
+                               nfolds,
+                               seed, parallel, ...) {
 
   if (!parallel) {
     model.list = vector('list', length(alphas))
     for (i in 1L:length(alphas)) {
       set.seed(seed)
-      model.list[[i]] = cv.glmnet(..., alpha = alphas[i])
+      model.list[[i]] = cv.glmnet(x = x, y = y, family = family,
+                                  nfolds = nfolds, alpha = alphas[i], ...)
     }
   } else {
     model.list <- foreach(alphas = alphas) %dopar% {
       set.seed(seed)
-      cv.glmnet(..., alpha = alphas)
+      cv.glmnet(x = x, y = y, family = family,
+                nfolds = nfolds, alpha = alphas, ...)
     }
   }
 

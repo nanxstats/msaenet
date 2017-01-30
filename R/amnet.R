@@ -68,19 +68,17 @@ amnet = function(x, y,
   if (verbose) cat('Starting step 1 ...\n')
 
   if (init == 'mnet') {
-    mnet.cv = msaenet.tune.ncvreg(x, y, penalty = 'MCP',
-                                  nfolds = nfolds,
-                                  family = family,
+    mnet.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'MCP',
                                   gammas = gammas, alphas = alphas,
+                                  nfolds = nfolds,
                                   eps = eps, max.iter = max.iter,
                                   seed = seed, parallel = parallel)
   }
 
   if (init == 'ridge') {
-    mnet.cv = msaenet.tune.ncvreg(x, y, penalty = 'MCP',
-                                  nfolds = nfolds,
-                                  family = family,
+    mnet.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'MCP',
                                   gammas = gammas, alphas = 1e-16,
+                                  nfolds = nfolds,
                                   eps = eps, max.iter = max.iter,
                                   seed = seed, parallel = parallel)
   }
@@ -89,43 +87,40 @@ amnet = function(x, y,
   best.alpha.mnet  = mnet.cv$'best.alpha'
   best.lambda.mnet = mnet.cv$'best.model'$'lambda.min'
 
-  mnet.full = .ncvnet(x, y, penalty = 'MCP',
+  mnet.full = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
                       gamma  = best.gamma.mnet,
                       alpha  = best.alpha.mnet,
                       lambda = best.lambda.mnet,
-                      family = family,
                       eps = eps, max.iter = max.iter)
 
-  bhat = .ncv.coef(mnet.full, nvar)
+  bhat = .coef.ncvreg(mnet.full, nvar)
   if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
 
   adpen = (pmax(abs(bhat), .Machine$double.eps))^(-scale)
 
   if (verbose) cat('Starting step 2 ...\n')
 
-  amnet.cv = msaenet.tune.ncvreg(x, y, penalty = 'MCP',
-                                 nfolds = nfolds,
-                                 family = family,
-                                 penalty.factor = adpen,
+  amnet.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'MCP',
                                  gammas = gammas, alphas = alphas,
+                                 nfolds = nfolds,
                                  eps = eps, max.iter = max.iter,
-                                 seed = seed + 1L, parallel = parallel)
+                                 seed = seed + 1L, parallel = parallel,
+                                 penalty.factor = adpen)
 
   best.gamma.amnet  = amnet.cv$'best.gamma'
   best.alpha.amnet  = amnet.cv$'best.alpha'
   best.lambda.amnet = amnet.cv$'best.model'$'lambda.min'
 
-  amnet.full = .ncvnet(x, y, penalty = 'MCP',
-                       penalty.factor = adpen,
+  amnet.full = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
                        gamma  = best.gamma.amnet,
                        alpha  = best.alpha.amnet,
                        lambda = best.lambda.amnet,
-                       family = family,
-                       eps = eps, max.iter = max.iter)
+                       eps = eps, max.iter = max.iter,
+                       penalty.factor = adpen)
 
   # final beta stored as sparse matrix
-  bhat.full  = Matrix(.ncv.coef(amnet.full, nvar), sparse = TRUE)
-  bhat.first = Matrix(.ncv.coef(mnet.full,  nvar), sparse = TRUE)
+  bhat.full  = Matrix(.coef.ncvreg(amnet.full, nvar), sparse = TRUE)
+  bhat.first = Matrix(.coef.ncvreg(mnet.full,  nvar), sparse = TRUE)
 
   amnet.model = list('beta'  = bhat.full,
                      'model' = amnet.full,

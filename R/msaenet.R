@@ -84,14 +84,14 @@ msaenet = function(x, y,
   if (verbose) cat('Starting step 1 ...\n')
 
   if (init == 'enet') {
-    model.cv = msaenet.tune.glmnet(x, y, family = family,
-                                   nfolds = nfolds, alphas = alphas,
+    model.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
+                                   alphas = alphas, nfolds = nfolds,
                                    seed = seed, parallel = parallel)
   }
 
   if (init == 'ridge') {
-    model.cv = msaenet.tune.glmnet(x, y, family = family,
-                                   nfolds = nfolds, alphas = 0,
+    model.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
+                                   alphas = 0, nfolds = nfolds,
                                    seed = seed, parallel = parallel)
   }
 
@@ -103,7 +103,7 @@ msaenet = function(x, y,
     best.lambdas[[1L]] = model.cv$'best.model'$'lambda.1se'
   }
 
-  model.list[[1L]] = glmnet(x, y, family = family,
+  model.list[[1L]] = glmnet(x = x, y = y, family = family,
                             lambda = best.lambdas[[1L]],
                             alpha  = best.alphas[[1L]])
 
@@ -125,11 +125,10 @@ msaenet = function(x, y,
 
     if (verbose) cat('Starting step', i + 1, '...\n')
 
-    model.cv = msaenet.tune.glmnet(x, y, family = family, nfolds = nfolds,
-                                   penalty.factor = adapen.list[[i]],
-                                   alphas = alphas,
-                                   seed = seed + i,
-                                   parallel = parallel)
+    model.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
+                                   alphas = alphas, nfolds = nfolds,
+                                   seed = seed + i, parallel = parallel,
+                                   penalty.factor = adapen.list[[i]])
 
     best.alphas[[i + 1L]] = model.cv$'best.alpha'
 
@@ -139,7 +138,7 @@ msaenet = function(x, y,
       best.lambdas[[i + 1L]] = model.cv$'best.model'$'lambda.1se'
     }
 
-    model.list[[i + 1L]] = glmnet(x, y, family = family,
+    model.list[[i + 1L]] = glmnet(x = x, y = y, family = family,
                                   lambda = best.lambdas[[i + 1L]],
                                   alpha = best.alphas[[i + 1L]],
                                   penalty.factor = adapen.list[[i]])

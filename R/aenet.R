@@ -71,14 +71,14 @@ aenet = function(x, y,
   if (verbose) cat('Starting step 1 ...\n')
 
   if (init == 'enet') {
-    enet.cv = msaenet.tune.glmnet(x, y, family = family,
-                                  nfolds = nfolds, alphas = alphas,
+    enet.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
+                                  alphas = alphas, nfolds = nfolds,
                                   seed = seed, parallel = parallel)
   }
 
   if (init == 'ridge') {
-    enet.cv = msaenet.tune.glmnet(x, y, family = family,
-                                  nfolds = nfolds, alphas = 0,
+    enet.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
+                                  alphas = 0, nfolds = nfolds,
                                   seed = seed, parallel = parallel)
   }
 
@@ -90,7 +90,7 @@ aenet = function(x, y,
     best.lambda.enet = enet.cv$'best.model'$'lambda.1se'
   }
 
-  enet.full = glmnet(x, y, family = family,
+  enet.full = glmnet(x = x, y = y, family = family,
                      lambda = best.lambda.enet,
                      alpha  = best.alpha.enet)
 
@@ -101,11 +101,10 @@ aenet = function(x, y,
 
   if (verbose) cat('Starting step 2 ...\n')
 
-  aenet.cv = msaenet.tune.glmnet(x, y, family = family, nfolds = nfolds,
-                                 penalty.factor = adpen,
-                                 alphas = alphas,
-                                 seed = seed + 1L,
-                                 parallel = parallel)
+  aenet.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
+                                 alphas = alphas, nfolds = nfolds,
+                                 seed = seed + 1L, parallel = parallel,
+                                 penalty.factor = adpen)
 
   best.alpha.aenet = aenet.cv$'best.alpha'
 
@@ -115,10 +114,10 @@ aenet = function(x, y,
     best.lambda.aenet = aenet.cv$'best.model'$'lambda.1se'
   }
 
-  aenet.full = glmnet(x, y, family = family,
-                      penalty.factor = adpen,
+  aenet.full = glmnet(x = x, y = y, family = family,
                       lambda = best.lambda.aenet,
-                      alpha  = best.alpha.aenet)
+                      alpha  = best.alpha.aenet,
+                      penalty.factor = adpen)
 
   # final beta stored as sparse matrix
   bhat.full = Matrix(aenet.full$'beta', sparse = TRUE)

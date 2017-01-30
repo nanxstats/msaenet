@@ -4,7 +4,7 @@
 \alias{msaenet.tune.glmnet}
 \title{Automatic parameter tuning for glmnet by k-fold cross-validation}
 \usage{
-msaenet.tune.glmnet(..., alphas, seed, parallel)
+msaenet.tune.glmnet(x, y, family, alphas, nfolds, seed, parallel, ...)
 }
 \value{
 best model object and best alpha value

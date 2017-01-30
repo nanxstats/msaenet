@@ -81,19 +81,17 @@ msamnet = function(x, y,
   if (verbose) cat('Starting step 1 ...\n')
 
   if (init == 'mnet') {
-    model.cv = msaenet.tune.ncvreg(x, y, penalty = 'MCP',
-                                   nfolds = nfolds,
-                                   family = family,
+    model.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'MCP',
                                    gammas = gammas, alphas = alphas,
+                                   nfolds = nfolds,
                                    eps = eps, max.iter = max.iter,
                                    seed = seed, parallel = parallel)
   }
 
   if (init == 'ridge') {
-    model.cv = msaenet.tune.ncvreg(x, y, penalty = 'MCP',
-                                   nfolds = nfolds,
-                                   family = family,
+    model.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'MCP',
                                    gammas = gammas, alphas = 1e-16,
+                                   nfolds = nfolds,
                                    eps = eps, max.iter = max.iter,
                                    seed = seed, parallel = parallel)
   }
@@ -102,18 +100,17 @@ msamnet = function(x, y,
   best.alphas[[1L]]  = model.cv$'best.alpha'
   best.lambdas[[1L]] = model.cv$'best.model'$'lambda.min'
 
-  model.list[[1L]] = .ncvnet(x, y, penalty = 'MCP',
+  model.list[[1L]] = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
                              gamma  = best.gammas[[1L]],
                              alpha  = best.alphas[[1L]],
                              lambda = best.lambdas[[1L]],
-                             family = family,
                              eps = eps, max.iter = max.iter)
 
-  if (.ncv.df(model.list[[1L]]) < 0.5)
+  if (.df.ncvreg(model.list[[1L]]) < 0.5)
     stop('Null model produced by the full fit (all coefficients are zero).
          Please try to change gammas, alphas, seed, nfolds, or increase sample size.')
 
-  bhat = .ncv.coef(model.list[[1L]], nvar)
+  bhat = .coef.ncvreg(model.list[[1L]], nvar)
   if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
   beta.list[[1L]] = bhat
 
@@ -125,31 +122,29 @@ msamnet = function(x, y,
 
     if (verbose) cat('Starting step', i + 1, '...\n')
 
-    model.cv = msaenet.tune.ncvreg(x, y, penalty = 'MCP',
-                                   nfolds = nfolds,
-                                   family = family,
-                                   penalty.factor = adapen.list[[i]],
+    model.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'MCP',
                                    gammas = gammas, alphas = alphas,
+                                   nfolds = nfolds,
                                    eps = eps, max.iter = max.iter,
-                                   seed = seed + i, parallel = parallel)
+                                   seed = seed + i, parallel = parallel,
+                                   penalty.factor = adapen.list[[i]])
 
     best.gammas[[i + 1L]]  = model.cv$'best.gamma'
     best.alphas[[i + 1L]]  = model.cv$'best.alpha'
     best.lambdas[[i + 1L]] = model.cv$'best.model'$'lambda.min'
 
-    model.list[[i + 1L]] = .ncvnet(x, y, penalty = 'MCP',
-                                   penalty.factor = adapen.list[[i]],
+    model.list[[i + 1L]] = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
                                    gamma  = best.gammas[[i + 1L]],
                                    alpha  = best.alphas[[i + 1L]],
                                    lambda = best.lambdas[[i + 1L]],
-                                   family = family,
-                                   eps = eps, max.iter = max.iter)
+                                   eps = eps, max.iter = max.iter,
+                                   penalty.factor = adapen.list[[i]])
 
-    if (.ncv.df(model.list[[i + 1L]]) < 0.5)
+    if (.df.ncvreg(model.list[[i + 1L]]) < 0.5)
       stop('Null model produced by the full fit (all coefficients are zero).
            Please try to change gammas, alphas, seed, nfolds, or increase sample size.')
 
-    bhat = .ncv.coef(model.list[[i + 1L]], nvar)
+    bhat = .coef.ncvreg(model.list[[i + 1L]], nvar)
     if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
     beta.list[[i + 1L]] = bhat
 

@@ -31,7 +31,7 @@ print.msaenet = function(x, ...) {
                            collapse = '\n')), '\n')
 
   if (.is.ncvreg(x$'model')) {
-    model.info = data.frame(.ncv.df(x$'model'),
+    model.info = data.frame(.df.ncvreg(x$'model'),
                             x$'model'$'lambda',
                             x$'model'$'gamma',
                             x$'model'$'alpha')

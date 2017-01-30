@@ -12,8 +12,11 @@
 #'
 #' @keywords internal
 
-msaenet.tune.ncvreg = function(..., family, gammas, alphas,
-                               eps, max.iter, seed, parallel) {
+msaenet.tune.ncvreg = function(x, y, family, penalty,
+                               gammas, alphas,
+                               nfolds,
+                               eps, max.iter,
+                               seed, parallel, ...) {
 
   if (!parallel) {
 
@@ -27,12 +30,16 @@ msaenet.tune.ncvreg = function(..., family, gammas, alphas,
         set.seed(seed)
         if (family == "cox") {
           model.list[[i]][[j]] =
-            cv.ncvsurv(..., gamma = gammas[i], alpha = alphas[j],
-                       eps = eps, max.iter = max.iter)
+            cv.ncvsurv(X = x, y = y, penalty = penalty,
+                       gamma = gammas[i], alpha = alphas[j],
+                       nfolds = nfolds,
+                       eps = eps, max.iter = max.iter, ...)
         } else {
           model.list[[i]][[j]] =
-            cv.ncvreg(..., family = family, gamma = gammas[i], alpha = alphas[j],
-                      eps = eps, max.iter = max.iter)
+            cv.ncvreg(X = x, y = y, family = family, penalty = penalty,
+                      gamma = gammas[i], alpha = alphas[j],
+                      nfolds = nfolds,
+                      eps = eps, max.iter = max.iter, ...)
         }
       }
     }
@@ -43,15 +50,19 @@ msaenet.tune.ncvreg = function(..., family, gammas, alphas,
       model.list <- foreach(gammas = gammas) %:%
         foreach(alphas = alphas) %dopar% {
           set.seed(seed)
-          cv.ncvsurv(..., gamma = gammas, alpha = alphas,
-                     eps = eps, max.iter = max.iter)
+          cv.ncvsurv(X = x, y = y, penalty = penalty,
+                     gamma = gammas, alpha = alphas,
+                     nfolds = nfolds,
+                     eps = eps, max.iter = max.iter, ...)
         }
     } else {
       model.list <- foreach(gammas = gammas) %:%
         foreach(alphas = alphas) %dopar% {
           set.seed(seed)
-          cv.ncvreg(..., family = family, gamma = gammas, alpha = alphas,
-                    eps = eps, max.iter = max.iter)
+          cv.ncvreg(X = x, y = y, family = family, penalty = penalty,
+                    gamma = gammas, alpha = alphas,
+                    nfolds = nfolds,
+                    eps = eps, max.iter = max.iter, ...)
         }
     }
 
@@ -70,27 +81,27 @@ msaenet.tune.ncvreg = function(..., family, gammas, alphas,
 }
 
 # wrapper for ncvreg::ncvreg and ncvreg::ncvsurv with two hotfixes
-.ncvnet = function (..., lambda, family, eps, max.iter) {
+.ncvnet = function (x, y, family, penalty,
+                    gamma, alpha, lambda,
+                    eps, max.iter, ...) {
 
   if (family == 'cox') {
-    fit = ncvreg::ncvsurv(..., lambda = lambda,
-                          eps = eps, max.iter = max.iter)
+    fit = ncvreg::ncvsurv(X = x, y = y, penalty = penalty,
+                          gamma = gamma, alpha = alpha, lambda = lambda,
+                          eps = eps, max.iter = max.iter, ...)
   } else {
-    fit = ncvreg::ncvreg(..., family = family, lambda = lambda,
-                         eps = eps, max.iter = max.iter)
+    fit = ncvreg::ncvreg(X = x, y = y, family = family, penalty = penalty,
+                         gamma = gamma, alpha = alpha, lambda = lambda,
+                         eps = eps, max.iter = max.iter, ...)
   }
 
   fit
 
 }
 
-# returns "df" for ncvreg model objects
-.ncv.df = function(model)
-  sum(abs(as.vector(model[['beta']])[-1L]) > .Machine$double.eps)
-
 # check if ncvreg model object has an intercept
 # return a coef vector without intercept
-.ncv.coef = function(model, nvar) {
+.coef.ncvreg = function(model, nvar) {
 
   nvar.model = length(as.vector(model$'beta'))
 
