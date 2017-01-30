@@ -85,7 +85,7 @@ msaenet.tune.ncvreg = function(..., family, gammas, alphas,
 }
 
 # returns "df" for ncvreg model objects
-.ncvdf = function(model)
+.ncv.df = function(model)
   sum(abs(as.vector(model[['beta']])[-1L]) > .Machine$double.eps)
 
 # check if ncvreg model object has an intercept

@@ -4,20 +4,20 @@
 #'
 #' @param x Data matrix.
 #' @param y Response vector if \code{family} is \code{"gaussian"},
-#' \code{"binomial"} or \code{"poisson"}.
-#' If \code{family} is \code{"cox"}, a response matrix made by
-#' \code{\link[survival]{Surv}}.
+#' \code{"binomial"}, or \code{"poisson"}. If \code{family} is
+#' \code{"cox"}, a response matrix created by \code{\link[survival]{Surv}}.
 #' @param family Model family, can be \code{"gaussian"},
 #' \code{"binomial"}, \code{"poisson"}, or \code{"cox"}.
 #' @param init Type of the penalty used in the initial
 #' estimation step. Can be \code{"mnet"} or \code{"ridge"}.
 #' @param nfolds Fold numbers of cross-validation.
-#' @param gammas Vector of candidate \code{gamma}s to use in MCP-Net.
+#' @param gammas Vector of candidate \code{gamma}s (the concavity parameter)
+#' to use in MCP-Net. Default is 3.
 #' @param alphas Vector of candidate \code{alpha}s to use in MCP-Net.
 #' @param eps Convergence threshhold to use in MCP-net.
 #' @param max.iter Maximum number of iterations to use in MCP-net.
-#' @param gamma Scaling factor for adaptive weights:
-#' \code{weights = coefs^(-gamma)}.
+#' @param scale Scaling factor for adaptive weights:
+#' \code{weights = coefficients^(-scale)}.
 #' @param seed Random seed for cross-validation fold division.
 #' @param parallel Logical. Enable parallel parameter tuning or not,
 #' default is {FALSE}. To enable parallel tuning, load the
@@ -41,7 +41,7 @@
 #'                            seed = 1001)
 #'
 #' amnet.fit = amnet(dat$x.tr, dat$y.tr,
-#'                   gammas = 3, alphas = seq(0.2, 0.8, 0.2), seed = 1002)
+#'                   alphas = seq(0.2, 0.8, 0.2), seed = 1002)
 #'
 #' print(amnet.fit)
 #' msaenet.nzv(amnet.fit)
@@ -55,9 +55,9 @@ amnet = function(x, y,
                  family = c('gaussian', 'binomial', 'poisson', 'cox'),
                  init = c('mnet', 'ridge'),
                  nfolds = 5L,
-                 gammas = c(1.01, 1.7, 3, 100), alphas = seq(0.05, 0.95, 0.05),
+                 gammas = 3, alphas = seq(0.05, 0.95, 0.05),
                  eps = 1e-4, max.iter = 10000L,
-                 gamma = 1,
+                 scale = 1,
                  seed = 1001, parallel = FALSE, verbose = FALSE) {
 
   family = match.arg(family)
@@ -99,7 +99,7 @@ amnet = function(x, y,
   bhat = .ncv.coef(mnet.full, nvar)
   if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
 
-  adpen = (pmax(abs(bhat), .Machine$double.eps))^(-gamma)
+  adpen = (pmax(abs(bhat), .Machine$double.eps))^(-scale)
 
   if (verbose) cat('Starting step 2 ...\n')
 

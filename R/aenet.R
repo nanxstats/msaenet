@@ -3,16 +3,18 @@
 #' Adaptive Elastic-Net
 #'
 #' @param x Data matrix.
-#' @param y Response vector.
-#' @param family Response type.
-#' See \code{\link[glmnet]{glmnet}} for details.
+#' @param y Response vector if \code{family} is \code{"gaussian"},
+#' \code{"binomial"}, or \code{"poisson"}. If \code{family} is
+#' \code{"cox"}, a response matrix created by \code{\link[survival]{Surv}}.
+#' @param family Model family, can be \code{"gaussian"},
+#' \code{"binomial"}, \code{"poisson"}, or \code{"cox"}.
 #' @param init Type of the penalty used in the initial
 #' estimation step. Can be \code{"enet"} or \code{"ridge"}.
 #' @param nfolds Fold numbers of cross-validation.
 #' @param alphas Vector of candidate \code{alpha}s to use in
 #' \code{\link[glmnet]{cv.glmnet}}.
-#' @param gamma Scaling factor for adaptive weights:
-#' \code{weights = coefs^(-gamma)}.
+#' @param scale Scaling factor for adaptive weights:
+#' \code{weights = coefficients^(-scale)}.
 #' @param rule Model selection criterion, \code{"lambda.min"} or
 #' \code{"lambda.1se"}. See \code{\link[glmnet]{cv.glmnet}} for details.
 #' @param seed Random seed for cross-validation fold division.
@@ -54,11 +56,10 @@
 #' plot(aenet.fit)
 
 aenet = function(x, y,
-                 family = c('gaussian', 'binomial', 'poisson',
-                            'multinomial', 'cox', 'mgaussian'),
+                 family = c('gaussian', 'binomial', 'poisson', 'cox'),
                  init = c('enet', 'ridge'),
                  nfolds = 5L,
-                 alphas = seq(0.05, 0.95, 0.05), gamma = 1,
+                 alphas = seq(0.05, 0.95, 0.05), scale = 1,
                  rule = c('lambda.min', 'lambda.1se'),
                  seed = 1001, parallel = FALSE, verbose = FALSE) {
 
@@ -96,7 +97,7 @@ aenet = function(x, y,
   bhat = as.matrix(enet.full$'beta')
   if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
 
-  adpen = (pmax(abs(bhat), .Machine$double.eps))^(-gamma)
+  adpen = (pmax(abs(bhat), .Machine$double.eps))^(-scale)
 
   if (verbose) cat('Starting step 2 ...\n')
 

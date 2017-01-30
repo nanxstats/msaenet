@@ -4,9 +4,8 @@
 #'
 #' @param x Data matrix.
 #' @param y Response vector if \code{family} is \code{"gaussian"},
-#' \code{"binomial"} or \code{"poisson"}.
-#' If \code{family} is \code{"cox"}, a response matrix made by
-#' \code{\link[survival]{Surv}}.
+#' \code{"binomial"}, or \code{"poisson"}. If \code{family} is
+#' \code{"cox"}, a response matrix created by \code{\link[survival]{Surv}}.
 #' @param family Model family, can be \code{"gaussian"},
 #' \code{"binomial"}, \code{"poisson"}, or \code{"cox"}.
 #' @param init Type of the penalty used in the initial
@@ -14,12 +13,13 @@
 #' @param nsteps How many adaptive estimation steps? At least 2.
 #' We assume adaptive SCAD-net has only 1 adaptive estimation step.
 #' @param nfolds Fold numbers of cross-validation.
-#' @param gammas Vector of candidate \code{gamma}s to use in SCAD-Net.
+#' @param gammas Vector of candidate \code{gamma}s (the concavity parameter)
+#' to use in SCAD-Net. Default is 3.7.
 #' @param alphas Vector of candidate \code{alpha}s to use in SCAD-Net.
 #' @param eps Convergence threshhold to use in SCAD-net.
 #' @param max.iter Maximum number of iterations to use in SCAD-net.
-#' @param gamma Scaling factor for adaptive weights:
-#' \code{weights = coefs^(-gamma)}.
+#' @param scale Scaling factor for adaptive weights:
+#' \code{weights = coefficients^(-scale)}.
 #' @param seed Two random seeds for cross-validation fold division
 #' in two estimation steps.
 #' @param parallel Logical. Enable parallel parameter tuning or not,
@@ -44,7 +44,7 @@
 #'                            seed = 1001)
 #'
 #' msasnet.fit = msasnet(dat$x.tr, dat$y.tr,
-#'                       gammas = 3.7, alphas = seq(0.3, 0.9, 0.3),
+#'                       alphas = seq(0.3, 0.9, 0.3),
 #'                       nsteps = 3L, seed = 1003)
 #'
 #' print(msasnet.fit)
@@ -59,9 +59,9 @@ msasnet = function(x, y,
                    family = c('gaussian', 'binomial', 'poisson', 'cox'),
                    init = c('snet', 'ridge'),
                    nsteps = 2L, nfolds = 5L,
-                   gammas = c(2.01, 2.3, 3.7, 200), alphas = seq(0.05, 0.95, 0.05),
+                   gammas = 3.7, alphas = seq(0.05, 0.95, 0.05),
                    eps = 1e-4, max.iter = 10000L,
-                   gamma = 1,
+                   scale = 1,
                    seed = 1001, parallel = FALSE, verbose = FALSE) {
 
   if (nsteps < 2L) stop('nsteps must be an integer >= 2')
@@ -109,7 +109,7 @@ msasnet = function(x, y,
                              family = family,
                              eps = eps, max.iter = max.iter)
 
-  if (.ncvdf(model.list[[1L]]) < 0.5)
+  if (.ncv.df(model.list[[1L]]) < 0.5)
     stop('Null model produced by the full fit (all coefficients are zero).
          Please try to change gammas, alphas, seed, nfolds, or increase sample size.')
 
@@ -120,7 +120,7 @@ msasnet = function(x, y,
   # MSASNet steps
   for (i in 1L:nsteps) {
 
-    adpen.raw = (pmax(abs(beta.list[[i]]), .Machine$double.eps))^(-gamma)
+    adpen.raw = (pmax(abs(beta.list[[i]]), .Machine$double.eps))^(-scale)
     adapen.list[[i]] = as.vector(adpen.raw)
 
     if (verbose) cat('Starting step', i + 1, '...\n')
@@ -145,7 +145,7 @@ msasnet = function(x, y,
                                    family = family,
                                    eps = eps, max.iter = max.iter)
 
-    if (.ncvdf(model.list[[i + 1L]]) < 0.5)
+    if (.ncv.df(model.list[[i + 1L]]) < 0.5)
       stop('Null model produced by the full fit (all coefficients are zero).
            Please try to change gammas, alphas, seed, nfolds, or increase sample size.')
 

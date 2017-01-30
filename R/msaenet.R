@@ -3,8 +3,11 @@
 #' Multi-Step Adaptive Elastic-Net
 #'
 #' @param x Data matrix.
-#' @param y Response vector.
-#' @param family Response type.
+#' @param y Response vector if \code{family} is \code{"gaussian"},
+#' \code{"binomial"}, or \code{"poisson"}. If \code{family} is
+#' \code{"cox"}, a response matrix created by \code{\link[survival]{Surv}}.
+#' @param family Model family, can be \code{"gaussian"},
+#' \code{"binomial"}, \code{"poisson"}, or \code{"cox"}.
 #' @param init Type of the penalty used in the initial
 #' estimation step. Can be \code{"enet"} or \code{"ridge"}.
 #' See \code{\link[glmnet]{glmnet}} for details.
@@ -13,8 +16,8 @@
 #' @param nfolds Fold numbers of cross-validation.
 #' @param alphas Vector of candidate \code{alpha}s to use in
 #' \code{\link[glmnet]{cv.glmnet}}.
-#' @param gamma Scaling factor for adaptive weights:
-#' \code{weights = coefs^(-gamma)}.
+#' @param scale Scaling factor for adaptive weights:
+#' \code{weights = coefficients^(-scale)}.
 #' @param rule Model selection criterion, \code{"lambda.min"} or
 #' \code{"lambda.1se"}. See \code{\link[glmnet]{cv.glmnet}} for details.
 #' @param seed Two random seeds for cross-validation fold division
@@ -58,11 +61,10 @@
 #' plot(msaenet.fit)
 
 msaenet = function(x, y,
-                   family = c('gaussian', 'binomial', 'poisson',
-                              'multinomial', 'cox', 'mgaussian'),
+                   family = c('gaussian', 'binomial', 'poisson', 'cox'),
                    init = c('enet', 'ridge'),
                    nsteps = 2L, nfolds = 5L,
-                   alphas = seq(0.05, 0.95, 0.05), gamma = 1,
+                   alphas = seq(0.05, 0.95, 0.05), scale = 1,
                    rule = c('lambda.min', 'lambda.1se'),
                    seed = 1001, parallel = FALSE, verbose = FALSE) {
 
@@ -116,7 +118,7 @@ msaenet = function(x, y,
   # MSAEnet steps
   for (i in 1L:nsteps) {
 
-    adpen.raw  = (pmax(abs(beta.list[[i]]), .Machine$double.eps))^(-gamma)
+    adpen.raw  = (pmax(abs(beta.list[[i]]), .Machine$double.eps))^(-scale)
     adapen.list[[i]] = as.vector(adpen.raw)
     adpen.name = rownames(adpen.raw)
     names(adapen.list[[i]]) = adpen.name

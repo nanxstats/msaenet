@@ -1,3 +1,11 @@
+# msaenet 2.2 (2017-01-30)
+
+## Improvements
+
+- Renamed argument `gamma` (scaling factor for adaptive weights) to `scale` to avoid possible confusion.
+- Reset the default values of candidate concavity parameter `gammas` to be 3.7 for SCAD-net and 3 for MCP-net.
+- Unified the model `family` in all models to be `"gaussian"`, `"binomial"`, `"poisson"`, and `"cox"`.
+
 # msaenet 2.1 (2017-01-15)
 
 ## New Features

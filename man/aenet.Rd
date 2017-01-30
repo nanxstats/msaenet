@@ -4,18 +4,20 @@
 \alias{aenet}
 \title{Adaptive Elastic-Net}
 \usage{
-aenet(x, y, family = c("gaussian", "binomial", "poisson", "multinomial",
-  "cox", "mgaussian"), init = c("enet", "ridge"), nfolds = 5L,
-  alphas = seq(0.05, 0.95, 0.05), gamma = 1, rule = c("lambda.min",
-  "lambda.1se"), seed = 1001, parallel = FALSE, verbose = FALSE)
+aenet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
+  init = c("enet", "ridge"), nfolds = 5L, alphas = seq(0.05, 0.95, 0.05),
+  scale = 1, rule = c("lambda.min", "lambda.1se"), seed = 1001,
+  parallel = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{x}{Data matrix.}
 
-\item{y}{Response vector.}
+\item{y}{Response vector if \code{family} is \code{"gaussian"},
+\code{"binomial"}, or \code{"poisson"}. If \code{family} is
+\code{"cox"}, a response matrix created by \code{\link[survival]{Surv}}.}
 
-\item{family}{Response type.
-See \code{\link[glmnet]{glmnet}} for details.}
+\item{family}{Model family, can be \code{"gaussian"},
+\code{"binomial"}, \code{"poisson"}, or \code{"cox"}.}
 
 \item{init}{Type of the penalty used in the initial
 estimation step. Can be \code{"enet"} or \code{"ridge"}.}
@@ -25,8 +27,8 @@ estimation step. Can be \code{"enet"} or \code{"ridge"}.}
 \item{alphas}{Vector of candidate \code{alpha}s to use in
 \code{\link[glmnet]{cv.glmnet}}.}
 
-\item{gamma}{Scaling factor for adaptive weights:
-\code{weights = coefs^(-gamma)}.}
+\item{scale}{Scaling factor for adaptive weights:
+\code{weights = coefficients^(-scale)}.}
 
 \item{rule}{Model selection criterion, \code{"lambda.min"} or
 \code{"lambda.1se"}. See \code{\link[glmnet]{cv.glmnet}} for details.}

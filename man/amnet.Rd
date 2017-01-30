@@ -5,17 +5,16 @@
 \title{Adaptive MCP-Net}
 \usage{
 amnet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
-  init = c("mnet", "ridge"), nfolds = 5L, gammas = c(1.01, 1.7, 3, 100),
-  alphas = seq(0.05, 0.95, 0.05), eps = 1e-04, max.iter = 10000L,
-  gamma = 1, seed = 1001, parallel = FALSE, verbose = FALSE)
+  init = c("mnet", "ridge"), nfolds = 5L, gammas = 3, alphas = seq(0.05,
+  0.95, 0.05), eps = 1e-04, max.iter = 10000L, scale = 1, seed = 1001,
+  parallel = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{x}{Data matrix.}
 
 \item{y}{Response vector if \code{family} is \code{"gaussian"},
-\code{"binomial"} or \code{"poisson"}.
-If \code{family} is \code{"cox"}, a response matrix made by
-\code{\link[survival]{Surv}}.}
+\code{"binomial"}, or \code{"poisson"}. If \code{family} is
+\code{"cox"}, a response matrix created by \code{\link[survival]{Surv}}.}
 
 \item{family}{Model family, can be \code{"gaussian"},
 \code{"binomial"}, \code{"poisson"}, or \code{"cox"}.}
@@ -25,7 +24,8 @@ estimation step. Can be \code{"mnet"} or \code{"ridge"}.}
 
 \item{nfolds}{Fold numbers of cross-validation.}
 
-\item{gammas}{Vector of candidate \code{gamma}s to use in MCP-Net.}
+\item{gammas}{Vector of candidate \code{gamma}s (the concavity parameter)
+to use in MCP-Net. Default is 3.}
 
 \item{alphas}{Vector of candidate \code{alpha}s to use in MCP-Net.}
 
@@ -33,8 +33,8 @@ estimation step. Can be \code{"mnet"} or \code{"ridge"}.}
 
 \item{max.iter}{Maximum number of iterations to use in MCP-net.}
 
-\item{gamma}{Scaling factor for adaptive weights:
-\code{weights = coefs^(-gamma)}.}
+\item{scale}{Scaling factor for adaptive weights:
+\code{weights = coefficients^(-scale)}.}
 
 \item{seed}{Random seed for cross-validation fold division.}
 
@@ -58,7 +58,7 @@ dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
                            seed = 1001)
 
 amnet.fit = amnet(dat$x.tr, dat$y.tr,
-                  gammas = 3, alphas = seq(0.2, 0.8, 0.2), seed = 1002)
+                  alphas = seq(0.2, 0.8, 0.2), seed = 1002)
 
 print(amnet.fit)
 msaenet.nzv(amnet.fit)
