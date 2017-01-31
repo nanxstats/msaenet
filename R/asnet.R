@@ -85,7 +85,7 @@ asnet = function(x, y,
 
   best.gamma.snet  = snet.cv$'best.gamma'
   best.alpha.snet  = snet.cv$'best.alpha'
-  best.lambda.snet = snet.cv$'best.model'$'lambda.min'
+  best.lambda.snet = snet.cv$'best.lambda'
 
   snet.full = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
                       gamma  = best.gamma.snet,
@@ -109,7 +109,7 @@ asnet = function(x, y,
 
   best.gamma.asnet  = asnet.cv$'best.gamma'
   best.alpha.asnet  = asnet.cv$'best.alpha'
-  best.lambda.asnet = asnet.cv$'best.model'$'lambda.min'
+  best.lambda.asnet = asnet.cv$'best.lambda'
 
   asnet.full = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
                        gamma  = best.gamma.asnet,
@@ -137,6 +137,6 @@ asnet = function(x, y,
                      'call'  = call)
 
   class(asnet.model) = c('msaenet', 'msaenet.asnet')
-  return(asnet.model)
+  asnet.model
 
 }

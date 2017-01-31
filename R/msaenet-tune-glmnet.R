@@ -1,4 +1,4 @@
-#' Automatic parameter tuning for glmnet by k-fold cross-validation
+#' Automatic parameter tuning for glmnet models
 #'
 #' @return best model object and best alpha value
 #'
@@ -10,8 +10,9 @@
 #'
 #' @keywords internal
 
-msaenet.tune.glmnet = function(x, y, family, alphas,
-                               nfolds,
+msaenet.tune.glmnet = function(x, y, family,
+                               alphas,
+                               nfolds, rule,
                                seed, parallel, ...) {
 
   if (!parallel) {
@@ -29,11 +30,18 @@ msaenet.tune.glmnet = function(x, y, family, alphas,
     }
   }
 
-  # select model for best lambda first (then alpha)
+  # select model for best alpha (then lambda)
   # criterion: minimal cross-validation error
   errors = unlist(lapply(model.list, function(x) min(sqrt(x$'cvm'))))
+  best.model = model.list[[which.min(errors)]]
 
-  return(list('best.model' = model.list[[which.min(errors)]],
-              'best.alpha' = alphas[which.min(errors)]))
+  best.alpha = alphas[which.min(errors)]
+
+  if (rule == 'lambda.min') best.lambda = best.model$'lambda.min'
+  if (rule == 'lambda.1se') best.lambda = best.model$'lambda.1se'
+
+  list('best.model'  = best.model,
+       'best.alpha'  = best.alpha,
+       'best.lambda' = best.lambda)
 
 }

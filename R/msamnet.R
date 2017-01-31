@@ -98,7 +98,7 @@ msamnet = function(x, y,
 
   best.gammas[[1L]]  = model.cv$'best.gamma'
   best.alphas[[1L]]  = model.cv$'best.alpha'
-  best.lambdas[[1L]] = model.cv$'best.model'$'lambda.min'
+  best.lambdas[[1L]] = model.cv$'best.lambda'
 
   model.list[[1L]] = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
                              gamma  = best.gammas[[1L]],
@@ -131,7 +131,7 @@ msamnet = function(x, y,
 
     best.gammas[[i + 1L]]  = model.cv$'best.gamma'
     best.alphas[[i + 1L]]  = model.cv$'best.alpha'
-    best.lambdas[[i + 1L]] = model.cv$'best.model'$'lambda.min'
+    best.lambdas[[i + 1L]] = model.cv$'best.lambda'
 
     model.list[[i + 1L]] = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
                                    gamma  = best.gammas[[i + 1L]],
@@ -164,6 +164,6 @@ msamnet = function(x, y,
                        'call' = call)
 
   class(msamnet.model) = c('msaenet', 'msaenet.msamnet')
-  return(msamnet.model)
+  msamnet.model
 
 }

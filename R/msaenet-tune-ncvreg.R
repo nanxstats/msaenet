@@ -70,13 +70,15 @@ msaenet.tune.ncvreg = function(x, y, family, penalty,
 
   simple.model.list = unlist(model.list, recursive = FALSE)
 
-  # select model for best lambda first (then gamma/alpha)
+  # select model for best gamma/alpha first (then lambda)
   # criterion: minimal cross-validation error
   errors = unlist(lapply(simple.model.list, function(x) min(sqrt(x$'cve'))))
+  best.model = simple.model.list[[which.min(errors)]]
 
-  return(list('best.model' = simple.model.list[[which.min(errors)]],
-              'best.gamma' = simple.model.list[[which.min(errors)]]$'fit'$'gamma',
-              'best.alpha' = simple.model.list[[which.min(errors)]]$'fit'$'alpha'))
+  list('best.model'  = best.model,
+       'best.gamma'  = best.model$'fit'$'gamma',
+       'best.alpha'  = best.model$'fit'$'alpha',
+       'best.lambda' = best.model$'lambda.min')
 
 }
 

@@ -85,27 +85,24 @@ msaenet = function(x, y,
 
   if (init == 'enet') {
     model.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
-                                   alphas = alphas, nfolds = nfolds,
+                                   alphas = alphas,
+                                   nfolds = nfolds, rule = rule,
                                    seed = seed, parallel = parallel)
   }
 
   if (init == 'ridge') {
     model.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
-                                   alphas = 0, nfolds = nfolds,
+                                   alphas = 0,
+                                   nfolds = nfolds, rule = rule,
                                    seed = seed, parallel = parallel)
   }
 
-  best.alphas[[1L]] = model.cv$'best.alpha'
-
-  if (rule == 'lambda.min') {
-    best.lambdas[[1L]] = model.cv$'best.model'$'lambda.min'
-  } else if (rule == 'lambda.1se') {
-    best.lambdas[[1L]] = model.cv$'best.model'$'lambda.1se'
-  }
+  best.alphas[[1L]]  = model.cv$'best.alpha'
+  best.lambdas[[1L]] = model.cv$'best.lambda'
 
   model.list[[1L]] = glmnet(x = x, y = y, family = family,
-                            lambda = best.lambdas[[1L]],
-                            alpha  = best.alphas[[1L]])
+                            alpha  = best.alphas[[1L]],
+                            lambda = best.lambdas[[1L]])
 
   if (model.list[[1L]][['df']] < 0.5)
     stop('Null model produced by the full fit (all coefficients are zero).
@@ -126,21 +123,17 @@ msaenet = function(x, y,
     if (verbose) cat('Starting step', i + 1, '...\n')
 
     model.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
-                                   alphas = alphas, nfolds = nfolds,
+                                   alphas = alphas,
+                                   nfolds = nfolds, rule = rule,
                                    seed = seed + i, parallel = parallel,
                                    penalty.factor = adapen.list[[i]])
 
-    best.alphas[[i + 1L]] = model.cv$'best.alpha'
-
-    if (rule == 'lambda.min') {
-      best.lambdas[[i + 1L]] = model.cv$'best.model'$'lambda.min'
-    } else if (rule == 'lambda.1se') {
-      best.lambdas[[i + 1L]] = model.cv$'best.model'$'lambda.1se'
-    }
+    best.alphas[[i + 1L]]  = model.cv$'best.alpha'
+    best.lambdas[[i + 1L]] = model.cv$'best.lambda'
 
     model.list[[i + 1L]] = glmnet(x = x, y = y, family = family,
-                                  lambda = best.lambdas[[i + 1L]],
                                   alpha = best.alphas[[i + 1L]],
+                                  lambda = best.lambdas[[i + 1L]],
                                   penalty.factor = adapen.list[[i]])
 
     if (model.list[[i + 1L]][['df']] < 0.5)
@@ -166,6 +159,6 @@ msaenet = function(x, y,
                        'call' = call)
 
   class(msaenet.model) = c('msaenet', 'msaenet.msaenet')
-  return(msaenet.model)
+  msaenet.model
 
 }

@@ -2,15 +2,15 @@
 % Please edit documentation in R/msaenet-tune-glmnet.R
 \name{msaenet.tune.glmnet}
 \alias{msaenet.tune.glmnet}
-\title{Automatic parameter tuning for glmnet by k-fold cross-validation}
+\title{Automatic parameter tuning for glmnet models}
 \usage{
-msaenet.tune.glmnet(x, y, family, alphas, nfolds, seed, parallel, ...)
+msaenet.tune.glmnet(x, y, family, alphas, nfolds, rule, seed, parallel, ...)
 }
 \value{
 best model object and best alpha value
 }
 \description{
-Automatic parameter tuning for glmnet by k-fold cross-validation
+Automatic parameter tuning for glmnet models
 }
 \author{
 Nan Xiao <\url{https://nanx.me}>

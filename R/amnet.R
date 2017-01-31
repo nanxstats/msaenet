@@ -85,7 +85,7 @@ amnet = function(x, y,
 
   best.gamma.mnet  = mnet.cv$'best.gamma'
   best.alpha.mnet  = mnet.cv$'best.alpha'
-  best.lambda.mnet = mnet.cv$'best.model'$'lambda.min'
+  best.lambda.mnet = mnet.cv$'best.lambda'
 
   mnet.full = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
                       gamma  = best.gamma.mnet,
@@ -109,7 +109,7 @@ amnet = function(x, y,
 
   best.gamma.amnet  = amnet.cv$'best.gamma'
   best.alpha.amnet  = amnet.cv$'best.alpha'
-  best.lambda.amnet = amnet.cv$'best.model'$'lambda.min'
+  best.lambda.amnet = amnet.cv$'best.lambda'
 
   amnet.full = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
                        gamma  = best.gamma.amnet,
@@ -137,6 +137,6 @@ amnet = function(x, y,
                      'call'  = call)
 
   class(amnet.model) = c('msaenet', 'msaenet.amnet')
-  return(amnet.model)
+  amnet.model
 
 }

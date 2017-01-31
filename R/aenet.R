@@ -72,27 +72,24 @@ aenet = function(x, y,
 
   if (init == 'enet') {
     enet.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
-                                  alphas = alphas, nfolds = nfolds,
+                                  alphas = alphas,
+                                  nfolds = nfolds, rule = rule,
                                   seed = seed, parallel = parallel)
   }
 
   if (init == 'ridge') {
     enet.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
-                                  alphas = 0, nfolds = nfolds,
+                                  alphas = 0,
+                                  nfolds = nfolds, rule = rule,
                                   seed = seed, parallel = parallel)
   }
 
-  best.alpha.enet = enet.cv$'best.alpha'
-
-  if (rule == 'lambda.min') {
-    best.lambda.enet = enet.cv$'best.model'$'lambda.min'
-  } else if (rule == 'lambda.1se') {
-    best.lambda.enet = enet.cv$'best.model'$'lambda.1se'
-  }
+  best.alpha.enet  = enet.cv$'best.alpha'
+  best.lambda.enet = enet.cv$'best.lambda'
 
   enet.full = glmnet(x = x, y = y, family = family,
-                     lambda = best.lambda.enet,
-                     alpha  = best.alpha.enet)
+                     alpha  = best.alpha.enet,
+                     lambda = best.lambda.enet)
 
   bhat = as.matrix(enet.full$'beta')
   if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
@@ -102,21 +99,17 @@ aenet = function(x, y,
   if (verbose) cat('Starting step 2 ...\n')
 
   aenet.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
-                                 alphas = alphas, nfolds = nfolds,
+                                 alphas = alphas,
+                                 nfolds = nfolds, rule = rule,
                                  seed = seed + 1L, parallel = parallel,
                                  penalty.factor = adpen)
 
-  best.alpha.aenet = aenet.cv$'best.alpha'
-
-  if (rule == 'lambda.min') {
-    best.lambda.aenet = aenet.cv$'best.model'$'lambda.min'
-  } else if (rule == 'lambda.1se') {
-    best.lambda.aenet = aenet.cv$'best.model'$'lambda.1se'
-  }
+  best.alpha.aenet  = aenet.cv$'best.alpha'
+  best.lambda.aenet = aenet.cv$'best.lambda'
 
   aenet.full = glmnet(x = x, y = y, family = family,
-                      lambda = best.lambda.aenet,
                       alpha  = best.alpha.aenet,
+                      lambda = best.lambda.aenet,
                       penalty.factor = adpen)
 
   # final beta stored as sparse matrix
@@ -135,6 +128,6 @@ aenet = function(x, y,
                      'call'  = call)
 
   class(aenet.model) = c('msaenet', 'msaenet.aenet')
-  return(aenet.model)
+  aenet.model
 
 }
