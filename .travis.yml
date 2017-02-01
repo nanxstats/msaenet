@@ -1,2 +1,3 @@
-language: R
+language: r
 cache: packages
+cran: http://cran.rstudio.com
