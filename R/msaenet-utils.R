@@ -23,7 +23,7 @@
   deviance + (log(nobs) * df) + (2L * gamma * lchoose(nvar, df))
 
 # deviance vector for glmnet model objects
-.deviance.glmnet = function(model) (1L - model$'dev') * model$'nulldev'
+.deviance.glmnet = function(model) (1L - model$'dev.ratio') * model$'nulldev'
 
 # degree of freedom vector for glmnet model objects
 .df.glmnet = function(model) model$'df'
