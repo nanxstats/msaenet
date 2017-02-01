@@ -5,9 +5,11 @@
 \title{Multi-Step Adaptive Elastic-Net}
 \usage{
 msaenet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
-  init = c("enet", "ridge"), nsteps = 2L, nfolds = 5L,
-  alphas = seq(0.05, 0.95, 0.05), scale = 1, rule = c("lambda.min",
-  "lambda.1se"), seed = 1001, parallel = FALSE, verbose = FALSE)
+  init = c("enet", "ridge"), alphas = seq(0.05, 0.95, 0.05),
+  tune = c("cv", "ebic", "bic", "aic"), nfolds = 5L,
+  rule = c("lambda.min", "lambda.1se"), ebic.gamma = 1, nsteps = 2L,
+  tune.nsteps = c("max", "ebic", "bic", "aic"), ebic.gamma.nsteps = 1,
+  scale = 1, seed = 1001, parallel = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{x}{Data matrix.}
@@ -23,19 +25,39 @@ msaenet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
 estimation step. Can be \code{"enet"} or \code{"ridge"}.
 See \code{\link[glmnet]{glmnet}} for details.}
 
-\item{nsteps}{How many adaptive estimation steps? At least 2.
-We assume adaptive elastic-net has only 1 adaptive estimation step.}
-
-\item{nfolds}{Fold numbers of cross-validation.}
-
 \item{alphas}{Vector of candidate \code{alpha}s to use in
 \code{\link[glmnet]{cv.glmnet}}.}
 
+\item{tune}{Parameter tuning method for each estimation step.
+Possible options are \code{"cv"}, \code{"ebic"}, \code{"bic"},
+and \code{"aic"}. Default is \code{"cv"}.}
+
+\item{nfolds}{Fold numbers of cross-validation when \code{tune = "cv"}.}
+
+\item{rule}{Lambda selection criterion when \code{tune = "cv"},
+can be \code{"lambda.min"} or \code{"lambda.1se"}.
+See \code{\link[glmnet]{cv.glmnet}} for details.}
+
+\item{ebic.gamma}{Parameter for Extended BIC penalizing
+size of the model space when \code{tune = "ebic"},
+default is \code{1}. For details, see Chen and Chen (2008).}
+
+\item{nsteps}{Maximum number of adaptive estimation steps.
+At least \code{2}, assuming adaptive elastic-net has only
+one adaptive estimation step.}
+
+\item{tune.nsteps}{Optimal step number selection method
+(aggregate the optimal model from the each step and compare).
+Options include \code{"max"} (select the final-step model directly),
+or compare these models using \code{"ebic"}, \code{"bic"}, or \code{"aic"}.
+Default is \code{"max"}.}
+
+\item{ebic.gamma.nsteps}{Parameter for Extended BIC penalizing
+size of the model space when \code{tune.nsteps = "ebic"},
+default is \code{1}.}
+
 \item{scale}{Scaling factor for adaptive weights:
 \code{weights = coefficients^(-scale)}.}
-
-\item{rule}{Model selection criterion, \code{"lambda.min"} or
-\code{"lambda.1se"}. See \code{\link[glmnet]{cv.glmnet}} for details.}
 
 \item{seed}{Two random seeds for cross-validation fold division
 in two estimation steps.}
@@ -48,8 +70,8 @@ with the number of CPU cores before calling this function.}
 \item{verbose}{Should we print out the estimation progress?}
 }
 \value{
-List of coefficients \code{beta} and
-\code{glmnet} model object \code{model}.
+List of model coefficients, \code{glmnet} model object,
+and the optimal parameter set.
 }
 \description{
 Multi-Step Adaptive Elastic-Net

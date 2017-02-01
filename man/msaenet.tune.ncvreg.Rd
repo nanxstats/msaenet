@@ -2,19 +2,24 @@
 % Please edit documentation in R/msaenet-tune-ncvreg.R
 \name{msaenet.tune.ncvreg}
 \alias{msaenet.tune.ncvreg}
-\title{Automatic parameter tuning for ncvreg by k-fold cross-validation}
+\title{Automatic (parallel) parameter tuning for ncvreg models}
 \usage{
-msaenet.tune.ncvreg(x, y, family, penalty, gammas, alphas, nfolds, eps,
-  max.iter, seed, parallel, ...)
+msaenet.tune.ncvreg(x, y, family, penalty, gammas, alphas, tune, nfolds,
+  ebic.gamma, eps, max.iter, seed, parallel, ...)
 }
 \value{
-best model object, best gamma, and best alpha
+Optimal model object, parameter set, and criterion value
 }
 \description{
-Automatic parameter tuning for ncvreg by k-fold cross-validation
+Automatic (parallel) parameter tuning for ncvreg models
 }
 \author{
 Nan Xiao <\url{https://nanx.me}>
+}
+\references{
+Chen, Jiahua, and Zehua Chen. (2008).
+Extended Bayesian information criteria for model selection with
+large model spaces. \emph{Biometrika} 95(3), 759--771.
 }
 \keyword{internal}
 

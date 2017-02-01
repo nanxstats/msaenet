@@ -1,6 +1,6 @@
-#' Automatic parameter tuning for ncvreg by k-fold cross-validation
+#' Automatic (parallel) parameter tuning for ncvreg models
 #'
-#' @return best model object, best gamma, and best alpha
+#' @return Optimal model object, parameter set, and criterion value
 #'
 #' @author Nan Xiao <\url{https://nanx.me}>
 #'
@@ -10,82 +10,235 @@
 #' @importFrom foreach %:%
 #' @importFrom foreach foreach
 #'
+#' @references
+#' Chen, Jiahua, and Zehua Chen. (2008).
+#' Extended Bayesian information criteria for model selection with
+#' large model spaces. \emph{Biometrika} 95(3), 759--771.
+#'
 #' @keywords internal
 
 msaenet.tune.ncvreg = function(x, y, family, penalty,
                                gammas, alphas,
+                               tune,
                                nfolds,
+                               ebic.gamma,
                                eps, max.iter,
                                seed, parallel, ...) {
 
-  if (!parallel) {
+  if (tune == 'cv') {
 
-    model.list = vector('list', length(gammas))
-    for (k in 1L:length(model.list)) {
-      model.list[[k]] = vector('list', length(alphas))
-    }
+    if (!parallel) {
 
-    for (i in 1L:length(gammas)) {
-      for (j in 1L:length(alphas)) {
-        set.seed(seed)
-        if (family == "cox") {
-          model.list[[i]][[j]] =
-            cv.ncvsurv(X = x, y = y, penalty = penalty,
-                       gamma = gammas[i], alpha = alphas[j],
-                       nfolds = nfolds,
-                       eps = eps, max.iter = max.iter, ...)
-        } else {
-          model.list[[i]][[j]] =
-            cv.ncvreg(X = x, y = y, family = family, penalty = penalty,
-                      gamma = gammas[i], alpha = alphas[j],
-                      nfolds = nfolds,
-                      eps = eps, max.iter = max.iter, ...)
+      model.list = vector('list', length(gammas))
+      for (k in 1L:length(model.list)) {
+        model.list[[k]] = vector('list', length(alphas))
+      }
+
+      for (i in 1L:length(gammas)) {
+        for (j in 1L:length(alphas)) {
+          set.seed(seed)
+          if (family == "cox") {
+            model.list[[i]][[j]] =
+              cv.ncvsurv(X = x, y = y, penalty = penalty,
+                         gamma = gammas[i], alpha = alphas[j],
+                         nfolds = nfolds,
+                         eps = eps, max.iter = max.iter, ...)
+          } else {
+            model.list[[i]][[j]] =
+              cv.ncvreg(X = x, y = y, family = family, penalty = penalty,
+                        gamma = gammas[i], alpha = alphas[j],
+                        nfolds = nfolds,
+                        eps = eps, max.iter = max.iter, ...)
+          }
         }
       }
+
+    } else {
+
+      if (family == "cox") {
+        model.list <- foreach(gammas = gammas) %:%
+          foreach(alphas = alphas) %dopar% {
+            set.seed(seed)
+            cv.ncvsurv(X = x, y = y, penalty = penalty,
+                       gamma = gammas, alpha = alphas,
+                       nfolds = nfolds,
+                       eps = eps, max.iter = max.iter, ...)
+          }
+      } else {
+        model.list <- foreach(gammas = gammas) %:%
+          foreach(alphas = alphas) %dopar% {
+            set.seed(seed)
+            cv.ncvreg(X = x, y = y, family = family, penalty = penalty,
+                      gamma = gammas, alpha = alphas,
+                      nfolds = nfolds,
+                      eps = eps, max.iter = max.iter, ...)
+          }
+      }
+
     }
+
+    simple.model.list = unlist(model.list, recursive = FALSE)
+
+    errors = unlist(lapply(simple.model.list, function(x) min(sqrt(x$'cve'))))
+    errors.min.idx = which.min(errors)
+    best.model = simple.model.list[[errors.min.idx]]
+
+    best.gamma  = best.model$'fit'$'gamma'
+    best.alpha  = best.model$'fit'$'alpha'
+    best.lambda = best.model$'lambda.min'
+
+    best.criterion = errors[errors.min.idx]
 
   } else {
 
-    if (family == "cox") {
-      model.list <- foreach(gammas = gammas) %:%
-        foreach(alphas = alphas) %dopar% {
+    if (!parallel) {
+
+      model.list = vector('list', length(gammas))
+      for (k in 1L:length(model.list)) {
+        model.list[[k]] = vector('list', length(alphas))
+      }
+
+      for (i in 1L:length(gammas)) {
+        for (j in 1L:length(alphas)) {
           set.seed(seed)
-          cv.ncvsurv(X = x, y = y, penalty = penalty,
-                     gamma = gammas, alpha = alphas,
-                     nfolds = nfolds,
+          if (family == "cox") {
+            model.list[[i]][[j]] =
+              ncvsurv(X = x, y = y, penalty = penalty,
+                      gamma = gammas[i], alpha = alphas[j],
+                      eps = eps, max.iter = max.iter, ...)
+          } else {
+            model.list[[i]][[j]] =
+              ncvreg(X = x, y = y, family = family, penalty = penalty,
+                     gamma = gammas[i], alpha = alphas[j],
                      eps = eps, max.iter = max.iter, ...)
+          }
         }
+      }
+
     } else {
-      model.list <- foreach(gammas = gammas) %:%
-        foreach(alphas = alphas) %dopar% {
-          set.seed(seed)
-          cv.ncvreg(X = x, y = y, family = family, penalty = penalty,
+
+      if (family == "cox") {
+        model.list <- foreach(gammas = gammas) %:%
+          foreach(alphas = alphas) %dopar% {
+            set.seed(seed)
+            ncvsurv(X = x, y = y, penalty = penalty,
                     gamma = gammas, alpha = alphas,
-                    nfolds = nfolds,
                     eps = eps, max.iter = max.iter, ...)
-        }
+          }
+      } else {
+        model.list <- foreach(gammas = gammas) %:%
+          foreach(alphas = alphas) %dopar% {
+            set.seed(seed)
+            ncvreg(X = x, y = y, family = family, penalty = penalty,
+                   gamma = gammas, alpha = alphas,
+                   eps = eps, max.iter = max.iter, ...)
+          }
+      }
+
     }
+
+    simple.model.list = unlist(model.list, recursive = FALSE)
+
+    if (tune == 'aic') {
+
+      ics.list = mapply(.aic,
+                        deviance = lapply(simple.model.list, .deviance.ncvreg),
+                        df       = lapply(simple.model.list, .df.ncvreg),
+                        SIMPLIFY = FALSE)
+
+    }
+
+    if (tune == 'bic') {
+
+      ics.list = mapply(.bic,
+                        deviance = lapply(simple.model.list, .deviance.ncvreg),
+                        df       = lapply(simple.model.list, .df.ncvreg),
+                        nobs     = lapply(simple.model.list, .nobs.ncvreg),
+                        SIMPLIFY = FALSE)
+
+    }
+
+    if (tune == 'ebic') {
+
+      ics.list = mapply(.ebic,
+                        deviance = lapply(simple.model.list, .deviance.ncvreg),
+                        df       = lapply(simple.model.list, .df.ncvreg),
+                        nobs     = lapply(simple.model.list, .nobs.ncvreg),
+                        nvar     = lapply(simple.model.list, .nvar.ncvreg),
+                        gamma    = ebic.gamma,
+                        SIMPLIFY = FALSE)
+
+    }
+
+    ics = sapply(ics.list, function(x) min(x))
+    ics.min.idx = which.min(ics)
+    best.model = simple.model.list[[ics.min.idx]]
+
+    best.gamma  = best.model$'gamma'
+    best.alpha  = best.model$'alpha'
+
+    best.ic.min.idx = which.min(ics.list[[ics.min.idx]])
+    best.lambda = best.model$'lambda'[[best.ic.min.idx]]
+
+    best.criterion = ics.list[[ics.min.idx]][[best.ic.min.idx]]
 
   }
 
-  simple.model.list = unlist(model.list, recursive = FALSE)
+  list('best.model'     = best.model,
+       'best.gamma'     = best.gamma,
+       'best.alpha'     = best.alpha,
+       'best.lambda'    = best.lambda,
+       'best.criterion' = best.criterion)
 
-  # select model for best gamma/alpha first (then lambda)
-  # criterion: minimal cross-validation error
-  errors = unlist(lapply(simple.model.list, function(x) min(sqrt(x$'cve'))))
-  best.model = simple.model.list[[which.min(errors)]]
+}
 
-  list('best.model'  = best.model,
-       'best.gamma'  = best.model$'fit'$'gamma',
-       'best.alpha'  = best.model$'fit'$'alpha',
-       'best.lambda' = best.model$'lambda.min')
+#' Select the number of adaptive estimation steps
+#'
+#' @return optimal step number
+#'
+#' @author Nan Xiao <\url{https://nanx.me}>
+#'
+#' @keywords internal
+
+msaenet.tune.nsteps.ncvreg = function(model.list,
+                                      tune.nsteps, ebic.gamma.nsteps) {
+
+  nmods = length(model.list)
+
+  if (tune.nsteps == 'max') {
+
+    best.step = nmods
+
+  } else {
+
+    if (tune.nsteps == 'aic')
+      ics = .aic(deviance  = sapply(model.list, .deviance.ncvreg),
+                 df        = sapply(model.list, .df.ncvreg))
+
+    if (tune.nsteps == 'bic')
+      ics = .bic(deviance  = sapply(model.list, .deviance.ncvreg),
+                 df        = sapply(model.list, .df.ncvreg),
+                 nobs      = sapply(model.list, .nobs.ncvreg))
+
+    if (tune.nsteps == 'ebic')
+      ics = .ebic(deviance = sapply(model.list, .deviance.ncvreg),
+                  df       = sapply(model.list, .df.ncvreg),
+                  nobs     = sapply(model.list, .nobs.ncvreg),
+                  nvar     = sapply(model.list, .nvar.ncvreg),
+                  gamma    = ebic.gamma.nsteps)
+
+    best.step = which.min(ics)
+
+  }
+
+  best.step
 
 }
 
 # wrapper for ncvreg::ncvreg and ncvreg::ncvsurv with two hotfixes
-.ncvnet = function (x, y, family, penalty,
-                    gamma, alpha, lambda,
-                    eps, max.iter, ...) {
+.ncvnet = function(x, y, family, penalty,
+                   gamma, alpha, lambda,
+                   eps, max.iter, ...) {
 
   if (family == 'cox') {
     fit = ncvreg::ncvsurv(X = x, y = y, penalty = penalty,

@@ -2,18 +2,24 @@
 % Please edit documentation in R/msaenet-tune-glmnet.R
 \name{msaenet.tune.glmnet}
 \alias{msaenet.tune.glmnet}
-\title{Automatic parameter tuning for glmnet models}
+\title{Automatic (parallel) parameter tuning for glmnet models}
 \usage{
-msaenet.tune.glmnet(x, y, family, alphas, nfolds, rule, seed, parallel, ...)
+msaenet.tune.glmnet(x, y, family, alphas, tune, nfolds, rule, ebic.gamma, seed,
+  parallel, ...)
 }
 \value{
-best model object and best alpha value
+Optimal model object, parameter set, and criterion value
 }
 \description{
-Automatic parameter tuning for glmnet models
+Automatic (parallel) parameter tuning for glmnet models
 }
 \author{
 Nan Xiao <\url{https://nanx.me}>
+}
+\references{
+Chen, Jiahua, and Zehua Chen. (2008).
+Extended Bayesian information criteria for model selection with
+large model spaces. \emph{Biometrika} 95(3), 759--771.
 }
 \keyword{internal}
 

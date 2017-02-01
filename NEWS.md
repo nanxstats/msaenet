@@ -1,5 +1,11 @@
 # msaenet 2.2 (2017-01-30)
 
+## New Features
+
+- Added BIC, EBIC, and AIC in addition to k-fold cross-validation for model selection.
+- Added new arguments `tune` and `tune.nsteps` to controls this for selecting the optimal model for each step, and the optimal model across all steps (i.e. the optimal number of estimation steps).
+- Added arguments `ebic.gamma` and `ebic.gamma.nsteps` to control the EBIC tuning parameter, if `ebic` is specified by `tune` or `tune.nsteps`.
+
 ## Improvements
 
 - Renamed argument `gamma` (scaling factor for adaptive weights) to `scale` to avoid possible confusion.

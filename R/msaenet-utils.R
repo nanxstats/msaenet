@@ -39,7 +39,7 @@
 
 # degree of freedom vector for ncvreg model objects
 .df.ncvreg = function(model)
-  sum(abs(as.vector(model$'beta')[-1L]) > .Machine$double.eps)
+  unname(colSums(as.matrix(abs(model$'beta'[-1L, ])) > .Machine$double.eps))
 
 # number of observations in X from ncvreg model objects
 .nobs.ncvreg = function(model) model$'n'

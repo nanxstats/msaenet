@@ -5,9 +5,10 @@
 \title{Adaptive Elastic-Net}
 \usage{
 aenet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
-  init = c("enet", "ridge"), nfolds = 5L, alphas = seq(0.05, 0.95, 0.05),
-  scale = 1, rule = c("lambda.min", "lambda.1se"), seed = 1001,
-  parallel = FALSE, verbose = FALSE)
+  init = c("enet", "ridge"), alphas = seq(0.05, 0.95, 0.05),
+  tune = c("cv", "ebic", "bic", "aic"), nfolds = 5L,
+  rule = c("lambda.min", "lambda.1se"), ebic.gamma = 1, scale = 1,
+  seed = 1001, parallel = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{x}{Data matrix.}
@@ -22,16 +23,25 @@ aenet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
 \item{init}{Type of the penalty used in the initial
 estimation step. Can be \code{"enet"} or \code{"ridge"}.}
 
-\item{nfolds}{Fold numbers of cross-validation.}
-
 \item{alphas}{Vector of candidate \code{alpha}s to use in
 \code{\link[glmnet]{cv.glmnet}}.}
 
+\item{tune}{Parameter tuning method for each estimation step.
+Possible options are \code{"cv"}, \code{"ebic"}, \code{"bic"},
+and \code{"aic"}. Default is \code{"cv"}.}
+
+\item{nfolds}{Fold numbers of cross-validation when \code{tune = "cv"}.}
+
+\item{rule}{Lambda selection criterion when \code{tune = "cv"},
+can be \code{"lambda.min"} or \code{"lambda.1se"}.
+See \code{\link[glmnet]{cv.glmnet}} for details.}
+
+\item{ebic.gamma}{Parameter for Extended BIC penalizing
+size of the model space when \code{tune = "ebic"},
+default is \code{1}. For details, see Chen and Chen (2008).}
+
 \item{scale}{Scaling factor for adaptive weights:
 \code{weights = coefficients^(-scale)}.}
-
-\item{rule}{Model selection criterion, \code{"lambda.min"} or
-\code{"lambda.1se"}. See \code{\link[glmnet]{cv.glmnet}} for details.}
 
 \item{seed}{Random seed for cross-validation fold division.}
 
@@ -43,8 +53,8 @@ with the number of CPU cores before calling this function.}
 \item{verbose}{Should we print out the estimation progress?}
 }
 \value{
-List of coefficients \code{beta} and
-\code{glmnet} model object \code{model}.
+List of model coefficients, \code{glmnet} model object,
+and the optimal parameter set.
 }
 \description{
 Adaptive Elastic-Net
@@ -70,7 +80,7 @@ Nan Xiao <\url{https://nanx.me}>
 }
 \references{
 Zou, Hui, and Hao Helen Zhang. (2009).
-On the Adaptive Elastic-Net with a Diverging Number of Parameters.
-\emph{The Annals of Statistics} 37(4), 1733--51.
+On the adaptive elastic-net with a diverging number of parameters.
+\emph{The Annals of Statistics} 37(4), 1733--1751.
 }
 
