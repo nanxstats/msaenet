@@ -1,16 +1,17 @@
-# msaenet 2.2 (2017-01-30)
+# msaenet 2.2 (2017-02-02)
 
 ## New Features
 
 - Added BIC, EBIC, and AIC in addition to k-fold cross-validation for model selection.
-- Added new arguments `tune` and `tune.nsteps` to controls this for selecting the optimal model for each step, and the optimal model across all steps (i.e. the optimal number of estimation steps).
+- Added new arguments `tune` and `tune.nsteps` to controls this for selecting the optimal model for each step, and the optimal model among all steps (i.e. the optimal step).
 - Added arguments `ebic.gamma` and `ebic.gamma.nsteps` to control the EBIC tuning parameter, if `ebic` is specified by `tune` or `tune.nsteps`.
+- Redesigned plot function: now supports two types of plots (coefficient path, screeplot of the optimal step selection criterion), optimal step highlighting, variable labeling, and color palette customization. See `?plot.msaenet` for details.
 
 ## Improvements
 
-- Renamed argument `gamma` (scaling factor for adaptive weights) to `scale` to avoid possible confusion.
+- Renamed previous argument `gamma` (scaling factor for adaptive weights) to `scale` to avoid possible confusion.
 - Reset the default values of candidate concavity parameter `gammas` to be 3.7 for SCAD-net and 3 for MCP-net.
-- Unified the model `family` in all models to be `"gaussian"`, `"binomial"`, `"poisson"`, and `"cox"`.
+- Unified the supported model `family` in all model types to be `"gaussian"`, `"binomial"`, `"poisson"`, and `"cox"`.
 
 # msaenet 2.1 (2017-01-15)
 

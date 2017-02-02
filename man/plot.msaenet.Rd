@@ -4,12 +4,34 @@
 \alias{plot.msaenet}
 \title{Plot msaenet Model Objects}
 \usage{
-\method{plot}{msaenet}(x, ...)
+\method{plot}{msaenet}(x, type = c("coef", "criterion"), nsteps = NULL,
+  highlight = TRUE, col = NULL, label = FALSE, label.vars = NULL, ...)
 }
 \arguments{
 \item{x}{An object of class \code{msaenet} produced
 by \code{\link{aenet}}, \code{amnet}, \code{asnet},
 \code{\link{msaenet}}, \code{\link{msamnet}}, or \code{\link{msasnet}}.}
+
+\item{type}{Plot type, \code{"coef"} for a coefficient path plot
+across all estimation steps; \code{"criterion"} for a scree plot of
+the model evaluation criterion used (CV error, AIC, BIC, or EBIC).}
+
+\item{nsteps}{Maximum number of estimation steps to plot.
+Default is to plot all steps.}
+
+\item{highlight}{Should we highlight the "optimal" step
+according to the criterion? Default is \code{TRUE}.}
+
+\item{col}{Color palette to use for the coefficient paths.
+If it is \code{NULL}, a default color palette will be assigned.}
+
+\item{label}{Should we label all the non-zero variables of the
+optimal step in the coefficient plot? Default is \code{FALSE}.
+If \code{TRUE} and \code{label.vars = NULL}, the index of the
+variables will be used as labels.}
+
+\item{label.vars}{Labels to use for all the variables
+if \code{label = "TRUE"}.}
 
 \item{...}{Other parameters (not used).}
 }
@@ -21,10 +43,16 @@ dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
                            coef = rep(1, 5), snr = 2, p.train = 0.7,
                            seed = 1001)
 
-msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
+msasnet.fit = msasnet(dat$x.tr, dat$y.tr,
                       alphas = seq(0.2, 0.8, 0.2),
-                      nsteps = 3L, seed = 1003)
-plot(msaenet.fit)
+                      nsteps = 5L, tune.nsteps = "ebic",
+                      seed = 1003)
+
+plot(msasnet.fit)
+plot(msasnet.fit, label = TRUE)
+plot(msasnet.fit, label = TRUE, nsteps = 5)
+plot(msasnet.fit, type = "criterion")
+plot(msasnet.fit, type = "criterion", nsteps = 5)
 }
 \author{
 Nan Xiao <\url{https://nanx.me}>

@@ -99,7 +99,7 @@ asnet = function(x, y,
   best.gamma.snet     = snet.cv$'best.gamma'
   best.alpha.snet     = snet.cv$'best.alpha'
   best.lambda.snet    = snet.cv$'best.lambda'
-  best.criterion.snet = snet.cv$'best.criterion'
+  step.criterion.snet = snet.cv$'step.criterion'
 
   snet.full = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
                       gamma  = best.gamma.snet,
@@ -126,7 +126,7 @@ asnet = function(x, y,
   best.gamma.asnet     = asnet.cv$'best.gamma'
   best.alpha.asnet     = asnet.cv$'best.alpha'
   best.lambda.asnet    = asnet.cv$'best.lambda'
-  best.criterion.asnet = asnet.cv$'best.criterion'
+  step.criterion.asnet = asnet.cv$'step.criterion'
 
   asnet.full = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
                        gamma  = best.gamma.asnet,
@@ -149,8 +149,8 @@ asnet = function(x, y,
                      'best.lambda.asnet' = best.lambda.asnet,
                      'best.gamma.snet'   = best.gamma.snet,
                      'best.gamma.asnet'  = best.gamma.asnet,
-                     'best.criterion.snet'  = best.criterion.snet,
-                     'best.criterion.asnet' = best.criterion.asnet,
+                     'step.criterion'    = c(step.criterion.snet,
+                                             step.criterion.asnet),
                      'adpen' = adpen,
                      'seed'  = seed,
                      'call'  = call)

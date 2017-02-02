@@ -87,7 +87,7 @@ msaenet.tune.ncvreg = function(x, y, family, penalty,
     best.alpha  = best.model$'fit'$'alpha'
     best.lambda = best.model$'lambda.min'
 
-    best.criterion = errors[errors.min.idx]
+    step.criterion = errors[errors.min.idx]
 
   } else {
 
@@ -180,7 +180,7 @@ msaenet.tune.ncvreg = function(x, y, family, penalty,
     best.ic.min.idx = which.min(ics.list[[ics.min.idx]])
     best.lambda = best.model$'lambda'[[best.ic.min.idx]]
 
-    best.criterion = ics.list[[ics.min.idx]][[best.ic.min.idx]]
+    step.criterion = ics.list[[ics.min.idx]][[best.ic.min.idx]]
 
   }
 
@@ -188,7 +188,7 @@ msaenet.tune.ncvreg = function(x, y, family, penalty,
        'best.gamma'     = best.gamma,
        'best.alpha'     = best.alpha,
        'best.lambda'    = best.lambda,
-       'best.criterion' = best.criterion)
+       'step.criterion' = step.criterion)
 
 }
 
@@ -207,6 +207,7 @@ msaenet.tune.nsteps.ncvreg = function(model.list,
 
   if (tune.nsteps == 'max') {
 
+    ics = NULL
     best.step = nmods
 
   } else {
@@ -231,7 +232,7 @@ msaenet.tune.nsteps.ncvreg = function(model.list,
 
   }
 
-  best.step
+  list('best.step' = best.step, 'ics' = ics)
 
 }
 

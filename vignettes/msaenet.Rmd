@@ -30,24 +30,27 @@ library("msaenet")
 First, we generate some simulated data under a setting often used for testing high-dimensional linear models, with the function `msaenet.sim.gaussian()`:
 
 ```{r}
-dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-                           coef = rep(1, 5), snr = 2, p.train = 0.7,
+dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.7,
+                           coef = rep(1, 5), snr = 3, p.train = 0.7,
                            seed = 1001)
 ```
 
 The parameter `rho` controls the degree of correlation among the variables. The parameter `coef` sets the coefficients of the "true" variables, and in this case, the first 5 variables will have coefficient 1 while the other 495 variables will have coefficient 0. `snr` represents the designated signal-to-noise ratio (SNR) in the simulated data. Parameter `p.train` decides the proportion of the training set (relative to the total number of observations `n`).
+
+To generate simulation data for the other types of generalized linear models supported by `msaenet`, simply use `msaenet.sim.binomial()` (logistic regression), `msaenet.sim.cox()` (Cox regression), or `msaenet.sim.poisson()` (Poisson regression).
 
 The returned object `dat` contains both the training and test set. We will only use the training set to do the modeling (parameter tuning and model fitting), and then evaluate the model's performance on the test set independently.
 
 ```{r}
 msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
                       alphas = seq(0.1, 0.9, 0.1),
-                      nsteps = 4L, seed = 1003)
+                      nsteps = 10L, tune.nsteps = "ebic",
+                      seed   = 1005)
 ```
 
 The parameter `alphas` sets the alpha tuning grid for elastic-net in all adaptive estimation steps. `nsteps` indicates how many adaptive estimation steps should be used.
 
-The internal parameter tuning is done automatically by k-fold cross-validation, and the parameters which produce the minimum prediction errors will be selected. You could also set `parallel = TRUE` and run
+By default, the internal parameter tuning is done by k-fold cross-validation, and the parameters which produce the minimum prediction errors will be selected. You could also set `parallel = TRUE` and run
 
 ```{r, eval=FALSE}
 library(doParallel)
@@ -56,9 +59,12 @@ registerDoParallel(detectCores())
 
 before calling this function to make the parameter tuning run in parallel. This will probably save some time if the `alphas` grid is denser and the data size is larger.
 
-Let's inspect the fitted model, by looking into the selected variables (variables with non-zero coefficients), and the number of false positive selections/true positive selections:
+To select the optimal model in each estimation step with a different criterion, use the argument `tune`. Options include `"cv"` (k-fold cross-validation, default), `"aic"` (AIC), `"bic"` (BIC), and `"ebic"` (Extened BIC). Similarly, use `tune.nsteps` to specify the criterion for selecting the optimal estimation step (the optimal model from all steps), options include `"max"` (select the final-step, default), `"aic"`, `"bic"`, and `"ebic"`.
+
+Let's inspect the fitted model, by looking into the best step and the selected variables (variables with non-zero coefficients), and the number of false positive selections/true positive selections: 
 
 ```{r}
+msaenet.fit$best.step
 msaenet.nzv(msaenet.fit)
 msaenet.nzv.all(msaenet.fit)
 msaenet.fp(msaenet.fit, 1:5)
@@ -73,15 +79,21 @@ msaenet.rmse(dat$y.te, msaenet.pred)
 msaenet.mae(dat$y.te, msaenet.pred)
 ```
 
-Make a parallel coordinates plot showing the coefficient changes of all the variables across every estimation step:
+A coefficient plot that shows the coefficient changes of all the variables across every adaptive estimation step:
 
-```{r, fig.width = 8, fig.height = 8, out.width = 600, out.height = 600}
-plot(msaenet.fit)
+```{r, fig.width = 10, fig.height = 8, out.width = 750, out.height = 600, fig.retina = 2}
+plot(msaenet.fit, label = TRUE)
 ```
 
-The y-axis in the plot represents the relative effect sizes (standardized into [0, 1]) of the variables.
+Plot the change of the information criterion (EBIC here) used to select the optimal step:
 
-The vanilla adaptive elastic-net [@zou2009aenet] is also supported in the `msaenet` package. Please check the function `aenet()` for details. All the analyses above apply to the models fitted by `aenet()` as well.
+```{r, fig.width = 10, fig.height = 6, out.width = 750, out.height = 450, fig.retina = 2}
+plot(msaenet.fit, type = "criterion")
+```
+
+The y-axis in the plot represents the relative effect size estimations (standardized into [0, 1]) of the variables.
+
+The vanilla adaptive elastic-net [@zou2009aenet] is implemented by the function `aenet()`. For multi-step adaptive estimation based on MCP-net or SCAD-net, see `?amnet`, `?asnet`, `?msamnet`, and `?msasnet` for details. All the analyses above apply to the models fitted by these functions as well.
 
 # Summary
 

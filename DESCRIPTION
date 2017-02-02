@@ -23,8 +23,7 @@ Imports:
     foreach,
     mvtnorm,
     survival,
-    Matrix,
-    lattice
+    Matrix
 Suggests:
     knitr,
     rmarkdown,

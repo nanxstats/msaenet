@@ -48,7 +48,7 @@ msaenet.tune.glmnet = function(x, y, family,
     if (rule == 'lambda.min') best.lambda = best.model$'lambda.min'
     if (rule == 'lambda.1se') best.lambda = best.model$'lambda.1se'
 
-    best.criterion = errors[errors.min.idx]
+    step.criterion = errors[errors.min.idx]
 
   } else {
 
@@ -107,14 +107,14 @@ msaenet.tune.glmnet = function(x, y, family,
     best.ic.min.idx = which.min(ics.list[[ics.min.idx]])
     best.lambda = best.model$'lambda'[[best.ic.min.idx]]
 
-    best.criterion = ics.list[[ics.min.idx]][[best.ic.min.idx]]
+    step.criterion = ics.list[[ics.min.idx]][[best.ic.min.idx]]
 
   }
 
   list('best.model'     = best.model,
        'best.alpha'     = best.alpha,
        'best.lambda'    = best.lambda,
-       'best.criterion' = best.criterion)
+       'step.criterion' = step.criterion)
 
 }
 
@@ -133,6 +133,7 @@ msaenet.tune.nsteps.glmnet = function(model.list,
 
   if (tune.nsteps == 'max') {
 
+    ics = NULL
     best.step = nmods
 
   } else {
@@ -157,6 +158,6 @@ msaenet.tune.nsteps.glmnet = function(model.list,
 
   }
 
-  best.step
+  list('best.step' = best.step, 'ics' = ics)
 
 }

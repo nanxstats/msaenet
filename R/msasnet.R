@@ -96,7 +96,7 @@ msasnet = function(x, y,
   best.gammas    = rep(NA, nsteps + 1L)
   best.alphas    = rep(NA, nsteps + 1L)
   best.lambdas   = rep(NA, nsteps + 1L)
-  best.criterion = rep(NA, nsteps + 1L)
+  step.criterion = rep(NA, nsteps + 1L)
   beta.list      = vector('list', nsteps + 1L)
   model.list     = vector('list', nsteps + 1L)
   adapen.list    = vector('list', nsteps)
@@ -126,7 +126,7 @@ msasnet = function(x, y,
   best.gammas[[1L]]    = model.cv$'best.gamma'
   best.alphas[[1L]]    = model.cv$'best.alpha'
   best.lambdas[[1L]]   = model.cv$'best.lambda'
-  best.criterion[[1L]] = model.cv$'best.criterion'
+  step.criterion[[1L]] = model.cv$'step.criterion'
 
   model.list[[1L]] = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
                              gamma  = best.gammas[[1L]],
@@ -162,7 +162,7 @@ msasnet = function(x, y,
     best.gammas[[i + 1L]]    = model.cv$'best.gamma'
     best.alphas[[i + 1L]]    = model.cv$'best.alpha'
     best.lambdas[[i + 1L]]   = model.cv$'best.lambda'
-    best.criterion[[i + 1L]] = model.cv$'best.criterion'
+    step.criterion[[i + 1L]] = model.cv$'step.criterion'
 
     model.list[[i + 1L]] = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
                                    gamma  = best.gammas[[i + 1L]],
@@ -182,8 +182,11 @@ msasnet = function(x, y,
   }
 
   # select optimal step
-  best.step = msaenet.tune.nsteps.ncvreg(model.list,
-                                         tune.nsteps, ebic.gamma.nsteps)
+  post.ics = msaenet.tune.nsteps.ncvreg(model.list,
+                                        tune.nsteps, ebic.gamma.nsteps)
+
+  best.step = post.ics$'best.step'
+  post.criterion = post.ics$'ics'
 
   msasnet.model = list('beta' = Matrix(beta.list[[best.step]], sparse = TRUE),
                        # final beta stored as sparse matrix
@@ -193,7 +196,8 @@ msasnet = function(x, y,
                        'best.alphas'    = best.alphas,
                        'best.gammas'    = best.gammas,
                        'best.lambdas'   = best.lambdas,
-                       'best.criterion' = best.criterion,
+                       'step.criterion' = step.criterion,
+                       'post.criterion' = post.criterion,
                        'beta.list'      = beta.list,
                        'model.list'     = model.list,
                        'adapen.list'    = adapen.list,

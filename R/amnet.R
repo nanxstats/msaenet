@@ -99,7 +99,7 @@ amnet = function(x, y,
   best.gamma.mnet     = mnet.cv$'best.gamma'
   best.alpha.mnet     = mnet.cv$'best.alpha'
   best.lambda.mnet    = mnet.cv$'best.lambda'
-  best.criterion.mnet = mnet.cv$'best.criterion'
+  step.criterion.mnet = mnet.cv$'step.criterion'
 
   mnet.full = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
                       gamma  = best.gamma.mnet,
@@ -126,7 +126,7 @@ amnet = function(x, y,
   best.gamma.amnet     = amnet.cv$'best.gamma'
   best.alpha.amnet     = amnet.cv$'best.alpha'
   best.lambda.amnet    = amnet.cv$'best.lambda'
-  best.criterion.amnet = amnet.cv$'best.criterion'
+  step.criterion.amnet = amnet.cv$'step.criterion'
 
   amnet.full = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
                        gamma  = best.gamma.amnet,
@@ -149,8 +149,8 @@ amnet = function(x, y,
                      'best.lambda.amnet'    = best.lambda.amnet,
                      'best.gamma.mnet'      = best.gamma.mnet,
                      'best.gamma.amnet'     = best.gamma.amnet,
-                     'best.criterion.mnet'  = best.criterion.mnet,
-                     'best.criterion.amnet' = best.criterion.amnet,
+                     'step.criterion'       = c(step.criterion.mnet,
+                                                step.criterion.amnet),
                      'adpen' = adpen,
                      'seed'  = seed,
                      'call'  = call)

@@ -100,7 +100,7 @@ msaenet = function(x, y,
 
   best.alphas    = rep(NA, nsteps + 1L)
   best.lambdas   = rep(NA, nsteps + 1L)
-  best.criterion = rep(NA, nsteps + 1L)
+  step.criterion = rep(NA, nsteps + 1L)
   beta.list      = vector('list', nsteps + 1L)
   model.list     = vector('list', nsteps + 1L)
   adapen.list    = vector('list', nsteps)
@@ -127,7 +127,7 @@ msaenet = function(x, y,
 
   best.alphas[[1L]]    = model.cv$'best.alpha'
   best.lambdas[[1L]]   = model.cv$'best.lambda'
-  best.criterion[[1L]] = model.cv$'best.criterion'
+  step.criterion[[1L]] = model.cv$'step.criterion'
 
   model.list[[1L]] = glmnet(x = x, y = y, family = family,
                             alpha  = best.alphas[[1L]],
@@ -161,7 +161,7 @@ msaenet = function(x, y,
 
     best.alphas[[i + 1L]]    = model.cv$'best.alpha'
     best.lambdas[[i + 1L]]   = model.cv$'best.lambda'
-    best.criterion[[i + 1L]] = model.cv$'best.criterion'
+    step.criterion[[i + 1L]] = model.cv$'step.criterion'
 
     model.list[[i + 1L]] = glmnet(x = x, y = y, family = family,
                                   alpha = best.alphas[[i + 1L]],
@@ -179,8 +179,11 @@ msaenet = function(x, y,
   }
 
   # select optimal step
-  best.step = msaenet.tune.nsteps.glmnet(model.list,
-                                         tune.nsteps, ebic.gamma.nsteps)
+  post.ics = msaenet.tune.nsteps.glmnet(model.list,
+                                        tune.nsteps, ebic.gamma.nsteps)
+
+  best.step = post.ics$'best.step'
+  post.criterion = post.ics$'ics'
 
   msaenet.model = list('beta' = Matrix(beta.list[[best.step]], sparse = TRUE),
                        # final beta stored as sparse matrix
@@ -189,7 +192,8 @@ msaenet = function(x, y,
                        'best.step'      = best.step,
                        'best.alphas'    = best.alphas,
                        'best.lambdas'   = best.lambdas,
-                       'best.criterion' = best.criterion,
+                       'step.criterion' = step.criterion,
+                       'post.criterion' = post.criterion,
                        'beta.list'      = beta.list,
                        'model.list'     = model.list,
                        'adapen.list'    = adapen.list,

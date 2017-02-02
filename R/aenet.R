@@ -100,7 +100,7 @@ aenet = function(x, y,
 
   best.alpha.enet     = enet.cv$'best.alpha'
   best.lambda.enet    = enet.cv$'best.lambda'
-  best.criterion.enet = enet.cv$'best.criterion'
+  step.criterion.enet = enet.cv$'step.criterion'
 
   enet.full = glmnet(x = x, y = y, family = family,
                      alpha  = best.alpha.enet,
@@ -123,7 +123,7 @@ aenet = function(x, y,
 
   best.alpha.aenet     = aenet.cv$'best.alpha'
   best.lambda.aenet    = aenet.cv$'best.lambda'
-  best.criterion.aenet = aenet.cv$'best.criterion'
+  step.criterion.aenet = aenet.cv$'step.criterion'
 
   aenet.full = glmnet(x = x, y = y, family = family,
                       alpha  = best.alpha.aenet,
@@ -141,8 +141,8 @@ aenet = function(x, y,
                      'best.alpha.aenet'  = best.alpha.aenet,
                      'best.lambda.enet'  = best.lambda.enet,
                      'best.lambda.aenet' = best.lambda.aenet,
-                     'best.criterion.enet'  = best.criterion.enet,
-                     'best.criterion.aenet' = best.criterion.aenet,
+                     'step.criterion'    = c(step.criterion.enet,
+                                             step.criterion.aenet),
                      'adpen' = adpen,
                      'seed'  = seed,
                      'call'  = call)
