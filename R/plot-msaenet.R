@@ -146,7 +146,7 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
   x = x[1L:nsteps]
 
   plot(1L:length(x), x, type = 'b', xaxt = 'n',
-       xlab = 'Steps', ylab = 'Post Selection Criterion')
+       xlab = '', ylab = 'Post Selection Criterion')
 
   axis(1, at = 1L:nsteps, labels = paste('Step', 1L:nsteps),
        lwd = 0, lwd.ticks = 1)
