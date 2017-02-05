@@ -104,6 +104,7 @@ msasnet = function(x, y,
   if (verbose) cat('Starting step 1 ...\n')
 
   if (init == 'snet') {
+
     model.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'SCAD',
                                    gammas = gammas, alphas = alphas,
                                    tune = tune,
@@ -111,34 +112,52 @@ msasnet = function(x, y,
                                    ebic.gamma = ebic.gamma,
                                    eps = eps, max.iter = max.iter,
                                    seed = seed, parallel = parallel)
+
+    best.gammas[[1L]]    = model.cv$'best.gamma'
+    best.alphas[[1L]]    = model.cv$'best.alpha'
+    best.lambdas[[1L]]   = model.cv$'best.lambda'
+    step.criterion[[1L]] = model.cv$'step.criterion'
+
+    model.list[[1L]] = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
+                               gamma  = best.gammas[[1L]],
+                               alpha  = best.alphas[[1L]],
+                               lambda = best.lambdas[[1L]],
+                               eps = eps, max.iter = max.iter)
+
+    if (.df(model.list[[1L]]) < 0.5)
+      stop('Null model produced by the full fit (all coefficients are zero).
+           Please try a different parameter setting.')
+
+    bhat = .coef.ncvreg(model.list[[1L]], nvar)
+
   }
 
   if (init == 'ridge') {
-    model.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'SCAD',
-                                   gammas = gammas, alphas = 1e-16,
+
+    model.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
+                                   alphas = 0,
                                    tune = tune,
-                                   nfolds = nfolds,
+                                   nfolds = nfolds, rule = 'lambda.min',
                                    ebic.gamma = ebic.gamma,
-                                   eps = eps, max.iter = max.iter,
                                    seed = seed, parallel = parallel)
+
+    best.gammas[[1L]]    = NA
+    best.alphas[[1L]]    = model.cv$'best.alpha'
+    best.lambdas[[1L]]   = model.cv$'best.lambda'
+    step.criterion[[1L]] = model.cv$'step.criterion'
+
+    model.list[[1L]] = glmnet(x = x, y = y, family = family,
+                              alpha  = best.alphas[[1L]],
+                              lambda = best.lambdas[[1L]])
+
+    if (.df(model.list[[1L]]) < 0.5)
+      stop('Null model produced by the full fit (all coefficients are zero).
+           Please try a different parameter setting.')
+
+    bhat = as.matrix(model.list[[1L]][['beta']])
+
   }
 
-  best.gammas[[1L]]    = model.cv$'best.gamma'
-  best.alphas[[1L]]    = model.cv$'best.alpha'
-  best.lambdas[[1L]]   = model.cv$'best.lambda'
-  step.criterion[[1L]] = model.cv$'step.criterion'
-
-  model.list[[1L]] = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
-                             gamma  = best.gammas[[1L]],
-                             alpha  = best.alphas[[1L]],
-                             lambda = best.lambdas[[1L]],
-                             eps = eps, max.iter = max.iter)
-
-  if (.df.ncvreg(model.list[[1L]]) < 0.5)
-    stop('Null model produced by the full fit (all coefficients are zero).
-         Please try a different parameter setting.')
-
-  bhat = .coef.ncvreg(model.list[[1L]], nvar)
   if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
   beta.list[[1L]] = bhat
 
@@ -171,7 +190,7 @@ msasnet = function(x, y,
                                    eps = eps, max.iter = max.iter,
                                    penalty.factor = adapen.list[[i]])
 
-    if (.df.ncvreg(model.list[[i + 1L]]) < 0.5)
+    if (.df(model.list[[i + 1L]]) < 0.5)
       stop('Null model produced by the full fit (all coefficients are zero).
            Please try a different parameter setting.')
 

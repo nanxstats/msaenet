@@ -133,7 +133,7 @@ msaenet = function(x, y,
                             alpha  = best.alphas[[1L]],
                             lambda = best.lambdas[[1L]])
 
-  if (model.list[[1L]][['df']] < 0.5)
+  if (.df(model.list[[1L]]) < 0.5)
     stop('Null model produced by the full fit (all coefficients are zero).
          Please try a different parameter setting.')
 
@@ -168,7 +168,7 @@ msaenet = function(x, y,
                                   lambda = best.lambdas[[i + 1L]],
                                   penalty.factor = adapen.list[[i]])
 
-    if (model.list[[i + 1L]][['df']] < 0.5)
+    if (.df(model.list[[i + 1L]]) < 0.5)
       stop('Null model produced by the full fit (all coefficients are zero).
            Please try a different parameter setting.')
 

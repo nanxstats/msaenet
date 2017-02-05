@@ -31,7 +31,7 @@ print.msaenet = function(x, ...) {
                            collapse = '\n')), '\n')
 
   if (.is.ncvreg(x$'model')) {
-    model.info = data.frame(.df.ncvreg(x$'model'),
+    model.info = data.frame(.df(x$'model'),
                             x$'model'$'lambda',
                             x$'model'$'gamma',
                             x$'model'$'alpha')
@@ -40,7 +40,7 @@ print.msaenet = function(x, ...) {
   }
 
   if (.is.glmnet(x$'model')) {
-    model.info = data.frame(x$'model'$'df',
+    model.info = data.frame(.df(x$'model'),
                             x$'model'$'dev.ratio',
                             x$'model'$'lambda')
     names(model.info) = c('Df', '%Dev', 'Lambda')

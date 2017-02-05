@@ -77,6 +77,7 @@ asnet = function(x, y,
   if (verbose) cat('Starting step 1 ...\n')
 
   if (init == 'snet') {
+
     snet.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'SCAD',
                                   gammas = gammas, alphas = alphas,
                                   tune = tune,
@@ -84,30 +85,44 @@ asnet = function(x, y,
                                   ebic.gamma = ebic.gamma,
                                   eps = eps, max.iter = max.iter,
                                   seed = seed, parallel = parallel)
+
+    best.gamma.snet     = snet.cv$'best.gamma'
+    best.alpha.snet     = snet.cv$'best.alpha'
+    best.lambda.snet    = snet.cv$'best.lambda'
+    step.criterion.snet = snet.cv$'step.criterion'
+
+    snet.full = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
+                        gamma  = best.gamma.snet,
+                        alpha  = best.alpha.snet,
+                        lambda = best.lambda.snet,
+                        eps = eps, max.iter = max.iter)
+
+    bhat = .coef.ncvreg(snet.full, nvar)
+
   }
 
   if (init == 'ridge') {
-    snet.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'SCAD',
-                                  gammas = gammas, alphas = 1e-16,
+
+    snet.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
+                                  alphas = 0,
                                   tune = tune,
-                                  nfolds = nfolds,
+                                  nfolds = nfolds, rule = 'lambda.min',
                                   ebic.gamma = ebic.gamma,
-                                  eps = eps, max.iter = max.iter,
                                   seed = seed, parallel = parallel)
+
+    best.gamma.snet     = NA
+    best.alpha.snet     = snet.cv$'best.alpha'
+    best.lambda.snet    = snet.cv$'best.lambda'
+    step.criterion.snet = snet.cv$'step.criterion'
+
+    snet.full = glmnet(x = x, y = y, family = family,
+                       alpha  = best.alpha.snet,
+                       lambda = best.lambda.snet)
+
+    bhat = as.matrix(snet.full$'beta')
+
   }
 
-  best.gamma.snet     = snet.cv$'best.gamma'
-  best.alpha.snet     = snet.cv$'best.alpha'
-  best.lambda.snet    = snet.cv$'best.lambda'
-  step.criterion.snet = snet.cv$'step.criterion'
-
-  snet.full = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
-                      gamma  = best.gamma.snet,
-                      alpha  = best.alpha.snet,
-                      lambda = best.lambda.snet,
-                      eps = eps, max.iter = max.iter)
-
-  bhat = .coef.ncvreg(snet.full, nvar)
   if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
 
   adpen = (pmax(abs(bhat), .Machine$double.eps))^(-scale)

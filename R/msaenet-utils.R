@@ -22,27 +22,27 @@
 .ebic = function(deviance, df, nobs, nvar, gamma)
   deviance + (log(nobs) * df) + (2L * gamma * lchoose(nvar, df))
 
-# deviance vector for glmnet model objects
-.deviance.glmnet = function(model) (1L - model$'dev.ratio') * model$'nulldev'
+# deviance vector
+.deviance = function(model) {
+  if (.is.glmnet(model)) return((1L - model$'dev.ratio') * model$'nulldev')
+  if (.is.ncvreg(model)) return(model$'loss')
+}
 
-# degree of freedom vector for glmnet model objects
-.df.glmnet = function(model) model$'df'
+# degree of freedom vector
+.df = function(model) {
+  if (.is.glmnet(model)) return(model$'df')
+  if (.is.ncvreg(model)) return(unname(colSums(
+    as.matrix(abs(model$'beta'[-1L, ])) > .Machine$double.eps)))
+}
 
-# number of observations in X from glmnet model objects
-.nobs.glmnet = function(model) model$'nobs'
+# number of observations in predictor matrix
+.nobs = function(model) {
+  if (.is.glmnet(model)) return(model$'nobs')
+  if (.is.ncvreg(model)) return(model$'n')
+}
 
-# dimensionality of X from glmnet model objects
-.nvar.glmnet = function(model) model$'dim'[[1L]]
-
-# deviance vector for ncvreg model objects
-.deviance.ncvreg = function(model) model$'loss'
-
-# degree of freedom vector for ncvreg model objects
-.df.ncvreg = function(model)
-  unname(colSums(as.matrix(abs(model$'beta'[-1L, ])) > .Machine$double.eps))
-
-# number of observations in X from ncvreg model objects
-.nobs.ncvreg = function(model) model$'n'
-
-# dimensionality of X from ncvreg model objects
-.nvar.ncvreg = function(model) length(model$'penalty.factor')
+# dimensionality of predictor matrix
+.nvar = function(model) {
+  if (.is.glmnet(model)) return(model$'dim'[[1L]])
+  if (.is.ncvreg(model)) return(length(model$'penalty.factor'))
+}

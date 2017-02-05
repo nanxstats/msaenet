@@ -77,6 +77,7 @@ amnet = function(x, y,
   if (verbose) cat('Starting step 1 ...\n')
 
   if (init == 'mnet') {
+
     mnet.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'MCP',
                                   gammas = gammas, alphas = alphas,
                                   tune = tune,
@@ -84,30 +85,44 @@ amnet = function(x, y,
                                   ebic.gamma = ebic.gamma,
                                   eps = eps, max.iter = max.iter,
                                   seed = seed, parallel = parallel)
+
+    best.gamma.mnet     = mnet.cv$'best.gamma'
+    best.alpha.mnet     = mnet.cv$'best.alpha'
+    best.lambda.mnet    = mnet.cv$'best.lambda'
+    step.criterion.mnet = mnet.cv$'step.criterion'
+
+    mnet.full = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
+                        gamma  = best.gamma.mnet,
+                        alpha  = best.alpha.mnet,
+                        lambda = best.lambda.mnet,
+                        eps = eps, max.iter = max.iter)
+
+    bhat = .coef.ncvreg(mnet.full, nvar)
+
   }
 
   if (init == 'ridge') {
-    mnet.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'MCP',
-                                  gammas = gammas, alphas = 1e-16,
+
+    mnet.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
+                                  alphas = 0,
                                   tune = tune,
-                                  nfolds = nfolds,
+                                  nfolds = nfolds, rule = 'lambda.min',
                                   ebic.gamma = ebic.gamma,
-                                  eps = eps, max.iter = max.iter,
                                   seed = seed, parallel = parallel)
+
+    best.gamma.mnet     = NA
+    best.alpha.mnet     = mnet.cv$'best.alpha'
+    best.lambda.mnet    = mnet.cv$'best.lambda'
+    step.criterion.mnet = mnet.cv$'step.criterion'
+
+    mnet.full = glmnet(x = x, y = y, family = family,
+                       alpha  = best.alpha.mnet,
+                       lambda = best.lambda.mnet)
+
+    bhat = as.matrix(mnet.full$'beta')
+
   }
 
-  best.gamma.mnet     = mnet.cv$'best.gamma'
-  best.alpha.mnet     = mnet.cv$'best.alpha'
-  best.lambda.mnet    = mnet.cv$'best.lambda'
-  step.criterion.mnet = mnet.cv$'step.criterion'
-
-  mnet.full = .ncvnet(x = x, y = y, family = family, penalty = 'MCP',
-                      gamma  = best.gamma.mnet,
-                      alpha  = best.alpha.mnet,
-                      lambda = best.lambda.mnet,
-                      eps = eps, max.iter = max.iter)
-
-  bhat = .coef.ncvreg(mnet.full, nvar)
   if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
 
   adpen = (pmax(abs(bhat), .Machine$double.eps))^(-scale)
