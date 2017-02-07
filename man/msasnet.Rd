@@ -25,7 +25,7 @@ msasnet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
 estimation step. Can be \code{"snet"} or \code{"ridge"}.}
 
 \item{gammas}{Vector of candidate \code{gamma}s (the concavity parameter)
-to use in SCAD-Net. Default is 3.7.}
+to use in SCAD-Net. Default is \code{3.7}.}
 
 \item{alphas}{Vector of candidate \code{alpha}s to use in SCAD-Net.}
 
@@ -78,13 +78,15 @@ and the optimal parameter set.
 Multi-Step Adaptive SCAD-Net
 }
 \examples{
-dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-                           coef = rep(1, 5), snr = 2, p.train = 0.7,
-                           seed = 1001)
+dat = msaenet.sim.gaussian(
+  n = 150, p = 500, rho = 0.6,
+  coef = rep(1, 5), snr = 2, p.train = 0.7,
+  seed = 1001)
 
-msasnet.fit = msasnet(dat$x.tr, dat$y.tr,
-                      alphas = seq(0.3, 0.9, 0.3),
-                      nsteps = 3L, seed = 1003)
+msasnet.fit = msasnet(
+  dat$x.tr, dat$y.tr,
+  alphas = seq(0.3, 0.9, 0.3),
+  nsteps = 3L, seed = 1003)
 
 print(msasnet.fit)
 msaenet.nzv(msasnet.fit)

@@ -29,9 +29,11 @@ List of \code{x.tr}, \code{x.te}, \code{y.tr}, and \code{y.te}.
 Generate simulation data for benchmarking sparse logistic regression models.
 }
 \examples{
-dat = msaenet.sim.binomial(n = 300, p = 500, rho = 0.6,
-                           coef = rep(1, 10), snr = 3, p.train = 0.7,
-                           seed = 1001)
+dat = msaenet.sim.binomial(
+  n = 300, p = 500, rho = 0.6,
+  coef = rep(1, 10), snr = 3, p.train = 0.7,
+  seed = 1001)
+
 dim(dat$x.tr)
 dim(dat$x.te)
 table(dat$y.tr)

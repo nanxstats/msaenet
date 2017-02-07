@@ -15,13 +15,15 @@
 #' @export
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-#'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'                            seed = 1001)
+#' dat = msaenet.sim.gaussian(
+#'   n = 150, p = 500, rho = 0.6,
+#'   coef = rep(1, 5), snr = 2, p.train = 0.7,
+#'   seed = 1001)
 #'
-#' msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
-#'                       alphas = seq(0.2, 0.8, 0.2),
-#'                       nsteps = 3L, seed = 1003)
+#' msaenet.fit = msaenet(
+#'   dat$x.tr, dat$y.tr,
+#'   alphas = seq(0.2, 0.8, 0.2),
+#'   nsteps = 3L, seed = 1003)
 #'
 #' print(msaenet.fit)
 
@@ -31,18 +33,20 @@ print.msaenet = function(x, ...) {
                            collapse = '\n')), '\n')
 
   if (.is.ncvreg(x$'model')) {
-    model.info = data.frame(.df(x$'model'),
-                            x$'model'$'lambda',
-                            x$'model'$'gamma',
-                            x$'model'$'alpha')
+    model.info = data.frame(
+      .df(x$'model'),
+      x$'model'$'lambda',
+      x$'model'$'gamma',
+      x$'model'$'alpha')
     names(model.info) = c('Df', 'Lambda', 'Gamma', 'Alpha')
     print(model.info)
   }
 
   if (.is.glmnet(x$'model')) {
-    model.info = data.frame(.df(x$'model'),
-                            x$'model'$'dev.ratio',
-                            x$'model'$'lambda')
+    model.info = data.frame(
+      .df(x$'model'),
+      x$'model'$'dev.ratio',
+      x$'model'$'lambda')
     names(model.info) = c('Df', '%Dev', 'Lambda')
     print(model.info)
   }

@@ -24,7 +24,7 @@ amnet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
 estimation step. Can be \code{"mnet"} or \code{"ridge"}.}
 
 \item{gammas}{Vector of candidate \code{gamma}s (the concavity parameter)
-to use in MCP-Net. Default is 3.}
+to use in MCP-Net. Default is \code{3}.}
 
 \item{alphas}{Vector of candidate \code{alpha}s to use in MCP-Net.}
 
@@ -62,12 +62,14 @@ and the optimal parameter set.
 Adaptive MCP-Net
 }
 \examples{
-dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-                           coef = rep(1, 5), snr = 2, p.train = 0.7,
-                           seed = 1001)
+dat = msaenet.sim.gaussian(
+  n = 150, p = 500, rho = 0.6,
+  coef = rep(1, 5), snr = 2, p.train = 0.7,
+  seed = 1001)
 
-amnet.fit = amnet(dat$x.tr, dat$y.tr,
-                  alphas = seq(0.2, 0.8, 0.2), seed = 1002)
+amnet.fit = amnet(
+  dat$x.tr, dat$y.tr,
+  alphas = seq(0.2, 0.8, 0.2), seed = 1002)
 
 print(amnet.fit)
 msaenet.nzv(amnet.fit)

@@ -26,9 +26,11 @@
 #' @export msaenet.sim.gaussian
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(n = 300, p = 500, rho = 0.6,
-#'                            coef = rep(1, 10), snr = 3, p.train = 0.7,
-#'                            seed = 1001)
+#' dat = msaenet.sim.gaussian(
+#'   n = 300, p = 500, rho = 0.6,
+#'   coef = rep(1, 10), snr = 3, p.train = 0.7,
+#'   seed = 1001)
+#'
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
 
@@ -93,9 +95,11 @@ msaenet.sim.gaussian = function(n = 300, p = 500,
 #' @export msaenet.sim.binomial
 #'
 #' @examples
-#' dat = msaenet.sim.binomial(n = 300, p = 500, rho = 0.6,
-#'                            coef = rep(1, 10), snr = 3, p.train = 0.7,
-#'                            seed = 1001)
+#' dat = msaenet.sim.binomial(
+#'   n = 300, p = 500, rho = 0.6,
+#'   coef = rep(1, 10), snr = 3, p.train = 0.7,
+#'   seed = 1001)
+#'
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
 #' table(dat$y.tr)
@@ -164,9 +168,11 @@ msaenet.sim.binomial = function(n = 300, p = 500,
 #' @export msaenet.sim.poisson
 #'
 #' @examples
-#' dat = msaenet.sim.poisson(n = 300, p = 500, rho = 0.6,
-#'                           coef = rep(1, 10), snr = 3, p.train = 0.7,
-#'                           seed = 1001)
+#' dat = msaenet.sim.poisson(
+#'   n = 300, p = 500, rho = 0.6,
+#'   coef = rep(1, 10), snr = 3, p.train = 0.7,
+#'   seed = 1001)
+#'
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
 
@@ -237,9 +243,11 @@ msaenet.sim.poisson = function(n = 300, p = 500,
 #' @export msaenet.sim.cox
 #'
 #' @examples
-#' dat = msaenet.sim.cox(n = 300, p = 500, rho = 0.6,
-#'                       coef = rep(1, 10), snr = 3, p.train = 0.7,
-#'                       seed = 1001)
+#' dat = msaenet.sim.cox(
+#'   n = 300, p = 500, rho = 0.6,
+#'   coef = rep(1, 10), snr = 3, p.train = 0.7,
+#'   seed = 1001)
+#'
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
 #' dim(dat$y.tr)

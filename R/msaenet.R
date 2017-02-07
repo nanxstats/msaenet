@@ -60,13 +60,15 @@
 #' @export msaenet
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-#'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'                            seed = 1001)
+#' dat = msaenet.sim.gaussian(
+#'   n = 150, p = 500, rho = 0.6,
+#'   coef = rep(1, 5), snr = 2, p.train = 0.7,
+#'   seed = 1001)
 #'
-#' msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
-#'                       alphas = seq(0.2, 0.8, 0.2),
-#'                       nsteps = 3L, seed = 1003)
+#' msaenet.fit = msaenet(
+#'   dat$x.tr, dat$y.tr,
+#'   alphas = seq(0.2, 0.8, 0.2),
+#'   nsteps = 3L, seed = 1003)
 #'
 #' print(msaenet.fit)
 #' msaenet.nzv(msaenet.fit)
@@ -108,30 +110,33 @@ msaenet = function(x, y,
   if (verbose) cat('Starting step 1 ...\n')
 
   if (init == 'enet') {
-    model.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
-                                   alphas = alphas,
-                                   tune = tune,
-                                   nfolds = nfolds, rule = rule,
-                                   ebic.gamma = ebic.gamma,
-                                   seed = seed, parallel = parallel)
+    model.cv = msaenet.tune.glmnet(
+      x = x, y = y, family = family,
+      alphas = alphas,
+      tune = tune,
+      nfolds = nfolds, rule = rule,
+      ebic.gamma = ebic.gamma,
+      seed = seed, parallel = parallel)
   }
 
   if (init == 'ridge') {
-    model.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
-                                   alphas = 0,
-                                   tune = tune,
-                                   nfolds = nfolds, rule = rule,
-                                   ebic.gamma = ebic.gamma,
-                                   seed = seed, parallel = parallel)
+    model.cv = msaenet.tune.glmnet(
+      x = x, y = y, family = family,
+      alphas = 0,
+      tune = tune,
+      nfolds = nfolds, rule = rule,
+      ebic.gamma = ebic.gamma,
+      seed = seed, parallel = parallel)
   }
 
   best.alphas[[1L]]    = model.cv$'best.alpha'
   best.lambdas[[1L]]   = model.cv$'best.lambda'
   step.criterion[[1L]] = model.cv$'step.criterion'
 
-  model.list[[1L]] = glmnet(x = x, y = y, family = family,
-                            alpha  = best.alphas[[1L]],
-                            lambda = best.lambdas[[1L]])
+  model.list[[1L]] = glmnet(
+    x = x, y = y, family = family,
+    alpha  = best.alphas[[1L]],
+    lambda = best.lambdas[[1L]])
 
   if (.df(model.list[[1L]]) < 0.5)
     stop('Null model produced by the full fit (all coefficients are zero).
@@ -151,22 +156,24 @@ msaenet = function(x, y,
 
     if (verbose) cat('Starting step', i + 1, '...\n')
 
-    model.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
-                                   alphas = alphas,
-                                   tune = tune,
-                                   nfolds = nfolds, rule = rule,
-                                   ebic.gamma = ebic.gamma,
-                                   seed = seed + i, parallel = parallel,
-                                   penalty.factor = adapen.list[[i]])
+    model.cv = msaenet.tune.glmnet(
+      x = x, y = y, family = family,
+      alphas = alphas,
+      tune = tune,
+      nfolds = nfolds, rule = rule,
+      ebic.gamma = ebic.gamma,
+      seed = seed + i, parallel = parallel,
+      penalty.factor = adapen.list[[i]])
 
     best.alphas[[i + 1L]]    = model.cv$'best.alpha'
     best.lambdas[[i + 1L]]   = model.cv$'best.lambda'
     step.criterion[[i + 1L]] = model.cv$'step.criterion'
 
-    model.list[[i + 1L]] = glmnet(x = x, y = y, family = family,
-                                  alpha = best.alphas[[i + 1L]],
-                                  lambda = best.lambdas[[i + 1L]],
-                                  penalty.factor = adapen.list[[i]])
+    model.list[[i + 1L]] = glmnet(
+      x = x, y = y, family = family,
+      alpha = best.alphas[[i + 1L]],
+      lambda = best.lambdas[[i + 1L]],
+      penalty.factor = adapen.list[[i]])
 
     if (.df(model.list[[i + 1L]]) < 0.5)
       stop('Null model produced by the full fit (all coefficients are zero).
@@ -179,26 +186,25 @@ msaenet = function(x, y,
   }
 
   # select optimal step
-  post.ics = msaenet.tune.nsteps.glmnet(model.list,
-                                        tune.nsteps, ebic.gamma.nsteps)
+  post.ics = msaenet.tune.nsteps.glmnet(
+    model.list, tune.nsteps, ebic.gamma.nsteps)
 
   best.step = post.ics$'best.step'
   post.criterion = post.ics$'ics'
 
-  msaenet.model = list('beta' = Matrix(beta.list[[best.step]], sparse = TRUE),
-                       # final beta stored as sparse matrix
-                       'model' = model.list[[best.step]],
-                       # final model object
-                       'best.step'      = best.step,
-                       'best.alphas'    = best.alphas,
-                       'best.lambdas'   = best.lambdas,
-                       'step.criterion' = step.criterion,
-                       'post.criterion' = post.criterion,
-                       'beta.list'      = beta.list,
-                       'model.list'     = model.list,
-                       'adapen.list'    = adapen.list,
-                       'seed'           = seed,
-                       'call'           = call)
+  msaenet.model = list(
+    'beta'           = Matrix(beta.list[[best.step]], sparse = TRUE),
+    'model'          = model.list[[best.step]],
+    'best.step'      = best.step,
+    'best.alphas'    = best.alphas,
+    'best.lambdas'   = best.lambdas,
+    'step.criterion' = step.criterion,
+    'post.criterion' = post.criterion,
+    'beta.list'      = beta.list,
+    'model.list'     = model.list,
+    'adapen.list'    = adapen.list,
+    'seed'           = seed,
+    'call'           = call)
 
   class(msaenet.model) = c('msaenet', 'msaenet.msaenet')
   msaenet.model

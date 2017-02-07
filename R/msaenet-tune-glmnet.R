@@ -69,38 +69,41 @@ msaenet.tune.glmnet = function(x, y, family,
 
     if (tune == 'aic') {
 
-      ics.list = mapply(.aic,
-                        deviance = lapply(model.list, .deviance),
-                        df       = lapply(model.list, .df),
-                        SIMPLIFY = FALSE)
+      ics.list = mapply(
+        .aic,
+        deviance = lapply(model.list, .deviance),
+        df       = lapply(model.list, .df),
+        SIMPLIFY = FALSE)
 
     }
 
     if (tune == 'bic') {
 
-      ics.list = mapply(.bic,
-                        deviance = lapply(model.list, .deviance),
-                        df       = lapply(model.list, .df),
-                        nobs     = lapply(model.list, .nobs),
-                        SIMPLIFY = FALSE)
+      ics.list = mapply(
+        .bic,
+        deviance = lapply(model.list, .deviance),
+        df       = lapply(model.list, .df),
+        nobs     = lapply(model.list, .nobs),
+        SIMPLIFY = FALSE)
 
     }
 
     if (tune == 'ebic') {
 
-      ics.list = mapply(.ebic,
-                        deviance = lapply(model.list, .deviance),
-                        df       = lapply(model.list, .df),
-                        nobs     = lapply(model.list, .nobs),
-                        nvar     = lapply(model.list, .nvar),
-                        gamma    = ebic.gamma,
-                        SIMPLIFY = FALSE)
+      ics.list = mapply(
+        .ebic,
+        deviance = lapply(model.list, .deviance),
+        df       = lapply(model.list, .df),
+        nobs     = lapply(model.list, .nobs),
+        nvar     = lapply(model.list, .nvar),
+        gamma    = ebic.gamma,
+        SIMPLIFY = FALSE)
 
     }
 
     ics = sapply(ics.list, function(x) min(x))
     ics.min.idx = which.min(ics)
-    best.model = model.list[[ics.min.idx]]
+    best.model  = model.list[[ics.min.idx]]
 
     best.alpha = alphas[ics.min.idx]
 
@@ -139,20 +142,23 @@ msaenet.tune.nsteps.glmnet = function(model.list,
   } else {
 
     if (tune.nsteps == 'aic')
-      ics = .aic(deviance  = sapply(model.list, .deviance),
-                 df        = sapply(model.list, .df))
+      ics = .aic(
+        deviance  = sapply(model.list, .deviance),
+        df        = sapply(model.list, .df))
 
     if (tune.nsteps == 'bic')
-      ics = .bic(deviance  = sapply(model.list, .deviance),
-                 df        = sapply(model.list, .df),
-                 nobs      = sapply(model.list, .nobs))
+      ics = .bic(
+        deviance  = sapply(model.list, .deviance),
+        df        = sapply(model.list, .df),
+        nobs      = sapply(model.list, .nobs))
 
     if (tune.nsteps == 'ebic')
-      ics = .ebic(deviance = sapply(model.list, .deviance),
-                  df       = sapply(model.list, .df),
-                  nobs     = sapply(model.list, .nobs),
-                  nvar     = sapply(model.list, .nvar),
-                  gamma    = ebic.gamma.nsteps)
+      ics = .ebic(
+        deviance = sapply(model.list, .deviance),
+        df       = sapply(model.list, .df),
+        nobs     = sapply(model.list, .nobs),
+        nvar     = sapply(model.list, .nvar),
+        gamma    = ebic.gamma.nsteps)
 
     best.step = which.min(ics)
 

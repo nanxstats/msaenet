@@ -11,7 +11,7 @@
 #' @param init Type of the penalty used in the initial
 #' estimation step. Can be \code{"snet"} or \code{"ridge"}.
 #' @param gammas Vector of candidate \code{gamma}s (the concavity parameter)
-#' to use in SCAD-Net. Default is 3.7.
+#' to use in SCAD-Net. Default is \code{3.7}.
 #' @param alphas Vector of candidate \code{alpha}s to use in SCAD-Net.
 #' @param tune Parameter tuning method for each estimation step.
 #' Possible options are \code{"cv"}, \code{"ebic"}, \code{"bic"},
@@ -54,13 +54,15 @@
 #' @export msasnet
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-#'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'                            seed = 1001)
+#' dat = msaenet.sim.gaussian(
+#'   n = 150, p = 500, rho = 0.6,
+#'   coef = rep(1, 5), snr = 2, p.train = 0.7,
+#'   seed = 1001)
 #'
-#' msasnet.fit = msasnet(dat$x.tr, dat$y.tr,
-#'                       alphas = seq(0.3, 0.9, 0.3),
-#'                       nsteps = 3L, seed = 1003)
+#' msasnet.fit = msasnet(
+#'   dat$x.tr, dat$y.tr,
+#'   alphas = seq(0.3, 0.9, 0.3),
+#'   nsteps = 3L, seed = 1003)
 #'
 #' print(msasnet.fit)
 #' msaenet.nzv(msasnet.fit)
@@ -105,24 +107,26 @@ msasnet = function(x, y,
 
   if (init == 'snet') {
 
-    model.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'SCAD',
-                                   gammas = gammas, alphas = alphas,
-                                   tune = tune,
-                                   nfolds = nfolds,
-                                   ebic.gamma = ebic.gamma,
-                                   eps = eps, max.iter = max.iter,
-                                   seed = seed, parallel = parallel)
+    model.cv = msaenet.tune.ncvreg(
+      x = x, y = y, family = family, penalty = 'SCAD',
+      gammas = gammas, alphas = alphas,
+      tune = tune,
+      nfolds = nfolds,
+      ebic.gamma = ebic.gamma,
+      eps = eps, max.iter = max.iter,
+      seed = seed, parallel = parallel)
 
     best.gammas[[1L]]    = model.cv$'best.gamma'
     best.alphas[[1L]]    = model.cv$'best.alpha'
     best.lambdas[[1L]]   = model.cv$'best.lambda'
     step.criterion[[1L]] = model.cv$'step.criterion'
 
-    model.list[[1L]] = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
-                               gamma  = best.gammas[[1L]],
-                               alpha  = best.alphas[[1L]],
-                               lambda = best.lambdas[[1L]],
-                               eps = eps, max.iter = max.iter)
+    model.list[[1L]] = .ncvnet(
+      x = x, y = y, family = family, penalty = 'SCAD',
+      gamma  = best.gammas[[1L]],
+      alpha  = best.alphas[[1L]],
+      lambda = best.lambdas[[1L]],
+      eps = eps, max.iter = max.iter)
 
     if (.df(model.list[[1L]]) < 0.5)
       stop('Null model produced by the full fit (all coefficients are zero).
@@ -134,21 +138,23 @@ msasnet = function(x, y,
 
   if (init == 'ridge') {
 
-    model.cv = msaenet.tune.glmnet(x = x, y = y, family = family,
-                                   alphas = 0,
-                                   tune = tune,
-                                   nfolds = nfolds, rule = 'lambda.min',
-                                   ebic.gamma = ebic.gamma,
-                                   seed = seed, parallel = parallel)
+    model.cv = msaenet.tune.glmnet(
+      x = x, y = y, family = family,
+      alphas = 0,
+      tune = tune,
+      nfolds = nfolds, rule = 'lambda.min',
+      ebic.gamma = ebic.gamma,
+      seed = seed, parallel = parallel)
 
     best.gammas[[1L]]    = NA
     best.alphas[[1L]]    = model.cv$'best.alpha'
     best.lambdas[[1L]]   = model.cv$'best.lambda'
     step.criterion[[1L]] = model.cv$'step.criterion'
 
-    model.list[[1L]] = glmnet(x = x, y = y, family = family,
-                              alpha  = best.alphas[[1L]],
-                              lambda = best.lambdas[[1L]])
+    model.list[[1L]] = glmnet(
+      x = x, y = y, family = family,
+      alpha  = best.alphas[[1L]],
+      lambda = best.lambdas[[1L]])
 
     if (.df(model.list[[1L]]) < 0.5)
       stop('Null model produced by the full fit (all coefficients are zero).
@@ -169,26 +175,28 @@ msasnet = function(x, y,
 
     if (verbose) cat('Starting step', i + 1, '...\n')
 
-    model.cv = msaenet.tune.ncvreg(x = x, y = y, family = family, penalty = 'SCAD',
-                                   gammas = gammas, alphas = alphas,
-                                   tune = tune,
-                                   nfolds = nfolds,
-                                   ebic.gamma = ebic.gamma,
-                                   eps = eps, max.iter = max.iter,
-                                   seed = seed + i, parallel = parallel,
-                                   penalty.factor = adapen.list[[i]])
+    model.cv = msaenet.tune.ncvreg(
+      x = x, y = y, family = family, penalty = 'SCAD',
+      gammas = gammas, alphas = alphas,
+      tune = tune,
+      nfolds = nfolds,
+      ebic.gamma = ebic.gamma,
+      eps = eps, max.iter = max.iter,
+      seed = seed + i, parallel = parallel,
+      penalty.factor = adapen.list[[i]])
 
     best.gammas[[i + 1L]]    = model.cv$'best.gamma'
     best.alphas[[i + 1L]]    = model.cv$'best.alpha'
     best.lambdas[[i + 1L]]   = model.cv$'best.lambda'
     step.criterion[[i + 1L]] = model.cv$'step.criterion'
 
-    model.list[[i + 1L]] = .ncvnet(x = x, y = y, family = family, penalty = 'SCAD',
-                                   gamma  = best.gammas[[i + 1L]],
-                                   alpha  = best.alphas[[i + 1L]],
-                                   lambda = best.lambdas[[i + 1L]],
-                                   eps = eps, max.iter = max.iter,
-                                   penalty.factor = adapen.list[[i]])
+    model.list[[i + 1L]] = .ncvnet(
+      x = x, y = y, family = family, penalty = 'SCAD',
+      gamma  = best.gammas[[i + 1L]],
+      alpha  = best.alphas[[i + 1L]],
+      lambda = best.lambdas[[i + 1L]],
+      eps = eps, max.iter = max.iter,
+      penalty.factor = adapen.list[[i]])
 
     if (.df(model.list[[i + 1L]]) < 0.5)
       stop('Null model produced by the full fit (all coefficients are zero).
@@ -201,27 +209,26 @@ msasnet = function(x, y,
   }
 
   # select optimal step
-  post.ics = msaenet.tune.nsteps.ncvreg(model.list,
-                                        tune.nsteps, ebic.gamma.nsteps)
+  post.ics = msaenet.tune.nsteps.ncvreg(
+    model.list, tune.nsteps, ebic.gamma.nsteps)
 
   best.step = post.ics$'best.step'
   post.criterion = post.ics$'ics'
 
-  msasnet.model = list('beta' = Matrix(beta.list[[best.step]], sparse = TRUE),
-                       # final beta stored as sparse matrix
-                       'model' = model.list[[best.step]],
-                       # final model object
-                       'best.step'      = best.step,
-                       'best.alphas'    = best.alphas,
-                       'best.gammas'    = best.gammas,
-                       'best.lambdas'   = best.lambdas,
-                       'step.criterion' = step.criterion,
-                       'post.criterion' = post.criterion,
-                       'beta.list'      = beta.list,
-                       'model.list'     = model.list,
-                       'adapen.list'    = adapen.list,
-                       'seed'           = seed,
-                       'call'           = call)
+  msasnet.model = list(
+    'beta'           = Matrix(beta.list[[best.step]], sparse = TRUE),
+    'model'          = model.list[[best.step]],
+    'best.step'      = best.step,
+    'best.alphas'    = best.alphas,
+    'best.gammas'    = best.gammas,
+    'best.lambdas'   = best.lambdas,
+    'step.criterion' = step.criterion,
+    'post.criterion' = post.criterion,
+    'beta.list'      = beta.list,
+    'model.list'     = model.list,
+    'adapen.list'    = adapen.list,
+    'seed'           = seed,
+    'call'           = call)
 
   class(msasnet.model) = c('msaenet', 'msaenet.msasnet')
   msasnet.model

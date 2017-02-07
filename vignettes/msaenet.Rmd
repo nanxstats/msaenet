@@ -30,9 +30,10 @@ library("msaenet")
 First, we generate some simulated data under a setting often used for testing high-dimensional linear models, with the function `msaenet.sim.gaussian()`:
 
 ```{r}
-dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.7,
-                           coef = rep(1, 5), snr = 3, p.train = 0.7,
-                           seed = 1001)
+dat = msaenet.sim.gaussian(
+  n = 150, p = 500, rho = 0.7,
+  coef = rep(1, 5), snr = 3, p.train = 0.7,
+  seed = 1001)
 ```
 
 The parameter `rho` controls the degree of correlation among the variables. The parameter `coef` sets the coefficients of the "true" variables, and in this case, the first 5 variables will have coefficient 1 while the other 495 variables will have coefficient 0. `snr` represents the designated signal-to-noise ratio (SNR) in the simulated data. Parameter `p.train` decides the proportion of the training set (relative to the total number of observations `n`).
@@ -42,10 +43,11 @@ To generate simulation data for the other types of generalized linear models sup
 The returned object `dat` contains both the training and test set. We will only use the training set to do the modeling (parameter tuning and model fitting), and then evaluate the model's performance on the test set independently.
 
 ```{r}
-msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
-                      alphas = seq(0.1, 0.9, 0.1),
-                      nsteps = 10L, tune.nsteps = "ebic",
-                      seed   = 1005)
+msaenet.fit = msaenet(
+  dat$x.tr, dat$y.tr,
+  alphas = seq(0.1, 0.9, 0.1),
+  nsteps = 10L, tune.nsteps = "ebic",
+  seed   = 1005)
 ```
 
 The parameter `alphas` sets the alpha tuning grid for elastic-net in all adaptive estimation steps. `nsteps` indicates how many adaptive estimation steps should be used.

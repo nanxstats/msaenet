@@ -13,13 +13,15 @@
 #' @export msaenet.nzv
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-#'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'                            seed = 1001)
+#' dat = msaenet.sim.gaussian(
+#'   n = 150, p = 500, rho = 0.6,
+#'   coef = rep(1, 5), snr = 2, p.train = 0.7,
+#'   seed = 1001)
 #'
-#' msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
-#'                       alphas = seq(0.2, 0.8, 0.2),
-#'                       nsteps = 3L, seed = 1003)
+#' msaenet.fit = msaenet(
+#'   dat$x.tr, dat$y.tr,
+#'   alphas = seq(0.2, 0.8, 0.2),
+#'   nsteps = 3L, seed = 1003)
 #'
 #' msaenet.nzv(msaenet.fit)
 #'
@@ -51,13 +53,15 @@ msaenet.nzv = function(object) {
 #' @export msaenet.nzv.all
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-#'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'                            seed = 1001)
+#' dat = msaenet.sim.gaussian(
+#'   n = 150, p = 500, rho = 0.6,
+#'   coef = rep(1, 5), snr = 2, p.train = 0.7,
+#'   seed = 1001)
 #'
-#' msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
-#'                       alphas = seq(0.2, 0.8, 0.2),
-#'                       nsteps = 3L, seed = 1003)
+#' msaenet.fit = msaenet(
+#'   dat$x.tr, dat$y.tr,
+#'   alphas = seq(0.2, 0.8, 0.2),
+#'   nsteps = 3L, seed = 1003)
 #'
 #' msaenet.nzv.all(msaenet.fit)
 
@@ -101,13 +105,15 @@ msaenet.nzv.all = function(object) {
 #' @export
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-#'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'                            seed = 1001)
+#' dat = msaenet.sim.gaussian(
+#'   n = 150, p = 500, rho = 0.6,
+#'   coef = rep(1, 5), snr = 2, p.train = 0.7,
+#'   seed = 1001)
 #'
-#' msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
-#'                       alphas = seq(0.2, 0.8, 0.2),
-#'                       nsteps = 3L, seed = 1003)
+#' msaenet.fit = msaenet(
+#'   dat$x.tr, dat$y.tr,
+#'   alphas = seq(0.2, 0.8, 0.2),
+#'   nsteps = 3L, seed = 1003)
 #'
 #' coef(msaenet.fit)
 
@@ -138,13 +144,15 @@ coef.msaenet = function(object, ...) {
 #' @export msaenet.fp
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-#'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'                            seed = 1001)
+#' dat = msaenet.sim.gaussian(
+#'   n = 150, p = 500, rho = 0.6,
+#'   coef = rep(1, 5), snr = 2, p.train = 0.7,
+#'   seed = 1001)
 #'
-#' msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
-#'                       alphas = seq(0.2, 0.8, 0.2),
-#'                       nsteps = 3L, seed = 1003)
+#' msaenet.fit = msaenet(
+#'   dat$x.tr, dat$y.tr,
+#'   alphas = seq(0.2, 0.8, 0.2),
+#'   nsteps = 3L, seed = 1003)
 #'
 #' msaenet.fp(msaenet.fit, 1:5)
 
@@ -174,13 +182,15 @@ msaenet.fp = function(object, true.idx) {
 #' @export msaenet.fn
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-#'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'                            seed = 1001)
+#' dat = msaenet.sim.gaussian(
+#'   n = 150, p = 500, rho = 0.6,
+#'   coef = rep(1, 5), snr = 2, p.train = 0.7,
+#'   seed = 1001)
 #'
-#' msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
-#'                       alphas = seq(0.2, 0.8, 0.2),
-#'                       nsteps = 3L, seed = 1003)
+#' msaenet.fit = msaenet(
+#'   dat$x.tr, dat$y.tr,
+#'   alphas = seq(0.2, 0.8, 0.2),
+#'   nsteps = 3L, seed = 1003)
 #'
 #' msaenet.fn(msaenet.fit, 1:5)
 
@@ -210,13 +220,15 @@ msaenet.fn = function(object, true.idx) {
 #' @export msaenet.tp
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(n = 150, p = 500, rho = 0.6,
-#'                            coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'                            seed = 1001)
+#' dat = msaenet.sim.gaussian(
+#'   n = 150, p = 500, rho = 0.6,
+#'   coef = rep(1, 5), snr = 2, p.train = 0.7,
+#'   seed = 1001)
 #'
-#' msaenet.fit = msaenet(dat$x.tr, dat$y.tr,
-#'                       alphas = seq(0.2, 0.8, 0.2),
-#'                       nsteps = 3L, seed = 1003)
+#' msaenet.fit = msaenet(
+#'   dat$x.tr, dat$y.tr,
+#'   alphas = seq(0.2, 0.8, 0.2),
+#'   nsteps = 3L, seed = 1003)
 #'
 #' msaenet.tp(msaenet.fit, 1:5)
 
