@@ -6,7 +6,8 @@
 \usage{
 \method{plot}{msaenet}(x, type = c("coef", "criterion"), nsteps = NULL,
   highlight = TRUE, col = NULL, label = FALSE, label.vars = NULL,
-  label.pos = 2, label.offset = 0.3, label.cex = 0.7, ...)
+  label.pos = 2, label.offset = 0.3, label.cex = 0.7, xlab = NULL,
+  ylab = NULL, ...)
 }
 \arguments{
 \item{x}{An object of class \code{msaenet} produced
@@ -42,6 +43,10 @@ if \code{label = "TRUE"}.}
 
 \item{label.cex}{Character expansion factor of the labels.
 See argument \code{cex} in \code{\link[graphics]{text}} for details.}
+
+\item{xlab}{Title for x axis. If is \code{NULL}, will use the default title.}
+
+\item{ylab}{Title for y axis. If is \code{NULL}, will use the default title.}
 
 \item{...}{Other parameters (not used).}
 }

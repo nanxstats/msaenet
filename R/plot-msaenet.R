@@ -26,6 +26,8 @@
 #' \code{offset} in \code{\link[graphics]{text}} for details.
 #' @param label.cex Character expansion factor of the labels.
 #' See argument \code{cex} in \code{\link[graphics]{text}} for details.
+#' @param xlab Title for x axis. If is \code{NULL}, will use the default title.
+#' @param ylab Title for y axis. If is \code{NULL}, will use the default title.
 #' @param ... Other parameters (not used).
 #'
 #' @method plot msaenet
@@ -58,7 +60,7 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
                         highlight = TRUE, col = NULL,
                         label = FALSE, label.vars = NULL,
                         label.pos = 2, label.offset = 0.3, label.cex = 0.7,
-                        ...) {
+                        xlab = NULL, ylab = NULL, ...) {
 
   type = match.arg(type)
 
@@ -83,14 +85,17 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
     .parcor(beta.mat, nsteps, best.step, nzv.idx,
             highlight, col,
             label, label.vars,
-            label.pos, label.offset, label.cex)
+            label.pos, label.offset, label.cex,
+            xlab, ylab)
   }
 
   if (type == 'criterion') {
     if (is.null(x$'post.criterion'))
       stop('No post selection ICs available, since `tune.nsteps = "max"
            or it is a one-step-only adaptive model object`') else
-             .scree(x$'post.criterion', nsteps, best.step, highlight)
+             .scree(x$'post.criterion',
+                    nsteps, best.step, highlight,
+                    xlab, ylab)
   }
 
   invisible()
@@ -101,14 +106,18 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
 .parcor = function(x, nsteps, best.step, nzv.idx,
                    highlight, col,
                    label, label.vars,
-                   label.pos, label.offset, label.cex) {
+                   label.pos, label.offset, label.cex,
+                   xlab, ylab) {
 
   x = x[, 1L:nsteps]
   xmin = min(x)
   xmax = max(x)
 
+  if (is.null(xlab)) xlab = 'Number of Estimation Steps'
+  if (is.null(ylab)) ylab = 'Coefficients'
+
   # box
-  matplot(1L:nsteps, t(x), xlab = 'Number of Estimation Steps', ylab = 'Coefficients',
+  matplot(1L:nsteps, t(x), xlab = xlab, ylab = ylab,
           xaxt = 'n', yaxt = 'n', type = 'n', axes = TRUE)
 
   # axes with only ticks
@@ -155,18 +164,21 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
 
 }
 
-.scree = function(x, nsteps, best.step, highlight) {
+.scree = function(x, nsteps, best.step, highlight, xlab, ylab) {
 
   x = x[1L:nsteps]
 
-  plot(1L:length(x), x, type = 'b', xaxt = 'n',
-       xlab = 'Number of Estimation Steps', ylab = 'Model Selection Criterion')
+  if (is.null(xlab)) xlab = 'Number of Estimation Steps'
+  if (is.null(ylab)) ylab = 'Model Selection Criterion'
+
+  plot(1L:length(x), x, type = 'b', xaxt = 'n', xlab = xlab, ylab = ylab)
 
   axis(1, at = 1L:nsteps, labels = as.character(1L:nsteps),
        lwd = 0, lwd.ticks = 1)
 
-  if (highlight) lines(x = c(best.step, best.step),
-                       y = c(min(x) - 0.5, max(x) + 0.5),
-                       col = 'darkred', lty = 2, lwd = 1.5)
+  if (highlight) lines(
+    x = c(best.step, best.step),
+    y = c(min(x) - 0.5, max(x) + 0.5),
+    col = 'darkred', lty = 2, lwd = 1.5)
 
 }
