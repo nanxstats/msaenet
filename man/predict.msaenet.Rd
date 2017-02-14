@@ -40,4 +40,3 @@ msaenet.rmse(dat$y.te, msaenet.pred)
 \author{
 Nan Xiao <\url{https://nanx.me}>
 }
-

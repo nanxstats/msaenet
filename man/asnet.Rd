@@ -82,4 +82,3 @@ plot(asnet.fit)
 \author{
 Nan Xiao <\url{https://nanx.me}>
 }
-

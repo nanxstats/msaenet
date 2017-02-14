@@ -1,3 +1,9 @@
+# msaenet 2.3.9000 (2017-02-14)
+
+## Improvements
+
+- Improved graphical details of the coefficient path plot. It is now possible to set the position, offset, and size of the labels via new arguments `label.pos`, `label.offset`, and `label.cex`.
+
 # msaenet 2.3 (2017-02-09)
 
 ## Improvements

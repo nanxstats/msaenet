@@ -95,12 +95,11 @@ msaenet.pred = predict(msaenet.fit, dat$x.te)
 msaenet.rmse(dat$y.te, msaenet.pred)
 plot(msaenet.fit)
 }
-\author{
-Nan Xiao <\url{https://nanx.me}>
-}
 \references{
 Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net:
 reducing false positives in high-dimensional variable selection.
 \emph{Journal of Statistical Computation and Simulation} 85(18), 3755--3765.
 }
-
+\author{
+Nan Xiao <\url{https://nanx.me}>
+}

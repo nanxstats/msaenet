@@ -5,7 +5,8 @@
 \title{Plot msaenet Model Objects}
 \usage{
 \method{plot}{msaenet}(x, type = c("coef", "criterion"), nsteps = NULL,
-  highlight = TRUE, col = NULL, label = FALSE, label.vars = NULL, ...)
+  highlight = TRUE, col = NULL, label = FALSE, label.vars = NULL,
+  label.pos = 2, label.offset = 0.3, label.cex = 0.7, ...)
 }
 \arguments{
 \item{x}{An object of class \code{msaenet} produced
@@ -33,6 +34,15 @@ variables will be used as labels.}
 \item{label.vars}{Labels to use for all the variables
 if \code{label = "TRUE"}.}
 
+\item{label.pos}{Position of the labels. See argument
+\code{pos} in \code{\link[graphics]{text}} for details.}
+
+\item{label.offset}{Offset of the labels. See argument
+\code{offset} in \code{\link[graphics]{text}} for details.}
+
+\item{label.cex}{Character expansion factor of the labels.
+See argument \code{cex} in \code{\link[graphics]{text}} for details.}
+
 \item{...}{Other parameters (not used).}
 }
 \description{
@@ -59,4 +69,3 @@ plot(msasnet.fit, type = "criterion", nsteps = 5)
 \author{
 Nan Xiao <\url{https://nanx.me}>
 }
-

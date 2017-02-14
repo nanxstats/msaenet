@@ -20,6 +20,12 @@
 #' variables will be used as labels.
 #' @param label.vars Labels to use for all the variables
 #' if \code{label = "TRUE"}.
+#' @param label.pos Position of the labels. See argument
+#' \code{pos} in \code{\link[graphics]{text}} for details.
+#' @param label.offset Offset of the labels. See argument
+#' \code{offset} in \code{\link[graphics]{text}} for details.
+#' @param label.cex Character expansion factor of the labels.
+#' See argument \code{cex} in \code{\link[graphics]{text}} for details.
 #' @param ... Other parameters (not used).
 #'
 #' @method plot msaenet
@@ -50,7 +56,9 @@
 
 plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
                         highlight = TRUE, col = NULL,
-                        label = FALSE, label.vars = NULL, ...) {
+                        label = FALSE, label.vars = NULL,
+                        label.pos = 2, label.offset = 0.3, label.cex = 0.7,
+                        ...) {
 
   type = match.arg(type)
 
@@ -73,7 +81,9 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
   if (type == 'coef') {
     nzv.idx = msaenet.nzv(x)
     .parcor(beta.mat, nsteps, best.step, nzv.idx,
-            highlight, col, label, label.vars)
+            highlight, col,
+            label, label.vars,
+            label.pos, label.offset, label.cex)
   }
 
   if (type == 'criterion') {
@@ -89,19 +99,21 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
 
 # parallel coordinates plot
 .parcor = function(x, nsteps, best.step, nzv.idx,
-                   highlight, col, label, label.vars) {
+                   highlight, col,
+                   label, label.vars,
+                   label.pos, label.offset, label.cex) {
 
   x = x[, 1L:nsteps]
   xmin = min(x)
   xmax = max(x)
 
   # box
-  matplot(1L:nsteps, t(x), xlab = '', ylab = 'Coefficients',
+  matplot(1L:nsteps, t(x), xlab = 'Number of Estimation Steps', ylab = 'Coefficients',
           xaxt = 'n', yaxt = 'n', type = 'n', axes = TRUE)
 
   # axes with only ticks
   axis(2, at = c(xmin, 0, xmax), labels = c('Min', '0', 'Max'), lwd = 0, lwd.ticks = 1)
-  axis(1, at = 1L:nsteps, labels = paste('Step', 1L:nsteps), lwd = 0, lwd.ticks = 1)
+  axis(1, at = 1L:nsteps, labels = as.character(1L:nsteps), lwd = 0, lwd.ticks = 1)
 
   # step lines
   for (i in 1L:nsteps) lines(x = c(i, i), y = c(xmin, xmax), col = 'grey90')
@@ -127,7 +139,7 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
   if (label & is.null(label.vars))
     text(x = best.step, y = x[nzv.idx, best.step],
          labels = as.character(nzv.idx),
-         offset = 0.3, pos = 2, cex = 0.7)
+         pos = label.pos, offset = label.offset, cex = label.cex)
 
   if (label & !is.null(label.vars)) {
 
@@ -135,7 +147,7 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
       stop('Length of `label.vars` should be the same as the number of variables') else
         text(x = best.step, y = x[nzv.idx, best.step],
              labels = label.vars[nzv.idx],
-             offset = 0.3, pos = 2, cex = 0.7)
+             pos = label.pos, offset = label.offset, cex = label.cex)
 
   }
 
@@ -148,9 +160,9 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
   x = x[1L:nsteps]
 
   plot(1L:length(x), x, type = 'b', xaxt = 'n',
-       xlab = '', ylab = 'Post Selection Criterion')
+       xlab = 'Number of Estimation Steps', ylab = 'Model Selection Criterion')
 
-  axis(1, at = 1L:nsteps, labels = paste('Step', 1L:nsteps),
+  axis(1, at = 1L:nsteps, labels = as.character(1L:nsteps),
        lwd = 0, lwd.ticks = 1)
 
   if (highlight) lines(x = c(best.step, best.step),

@@ -20,4 +20,3 @@ Compute mean squared error (MSE).
 \author{
 Nan Xiao <\url{https://nanx.me}>
 }
-
