@@ -2,7 +2,8 @@
 
 ## Improvements
 
-- Improved graphical details of the coefficient path plot. More tunable options available for extra flexibility: it is now possible to set the position, offset, size of the labels, and axis titles via new arguments `label.pos`, `label.offset`, `label.cex`, `xlab`, and `ylab` in `plot.msaenet()`.
+- Improved graphical details for coefficient path plots, ESL (*The Elements of Statistical Learning*) style graphics.
+- More tunable options available in `plot.msaenet()` for extra flexibility: it is now possible to set the position, offset, size of the labels, and axis titles via new arguments `label.pos`, `label.offset`, `label.cex`, `xlab`, and `ylab`.
 
 # msaenet 2.3 (2017-02-09)
 
