@@ -125,13 +125,14 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
   axis(1, at = 1L:nsteps, labels = as.character(1L:nsteps), lwd = 0, lwd.ticks = 1)
 
   # step lines
-  for (i in 1L:nsteps) lines(x = c(i, i), y = c(xmin, xmax), col = 'grey90')
+  for (i in 1L:nsteps)
+    lines(x = c(i, i), y = c(xmin - 42, xmax + 42), lty = 3, col = 'grey70')
 
   # highlight optimal step
   if (highlight) {
-    lines(x = c(best.step, best.step), y = c(xmin, xmax),
+    lines(x = c(best.step, best.step), y = c(xmin - 42, xmax + 42),
           col = 'white', lty = 1, lwd = 1.5)
-    lines(x = c(best.step, best.step), y = c(xmin, xmax),
+    lines(x = c(best.step, best.step), y = c(xmin - 42, xmax + 42),
           col = 'darkred', lty = 2, lwd = 1.5)
   }
 
@@ -142,7 +143,7 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
   matlines(1L:nsteps, t(x), lty = 1, lwd = 1.2, col = col)
 
   # zero line
-  lines(x = c(1L, nsteps), y = c(0, 0))
+  lines(x = c(0L, nsteps + 1L), y = c(0, 0), lwd = 1.2)
 
   # label variables
   if (label & is.null(label.vars))
