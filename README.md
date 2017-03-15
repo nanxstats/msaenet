@@ -34,18 +34,15 @@ BibTeX entry:
 
 ### Adaptive Elastic-Net / Multi-Step Adaptive Elastic-Net
 
-<img src="https://msaenet.com/img/aenet.png" width="47%" alt="aenet">
-<img src="https://msaenet.com/img/msaenet.png" width="47%" alt="msaenet">
+<img src="https://msaenet.com/img/enet.png" width="100%" alt="enet">
 
 ### Adaptive MCP-Net / Multi-Step Adaptive MCP-Net
 
-<img src="https://msaenet.com/img/amnet.png" width="47%" alt="amnet">
-<img src="https://msaenet.com/img/msamnet.png" width="47%" alt="msamnet">
+<img src="https://msaenet.com/img/mnet.png" width="100%" alt="mnet">
 
 ### Adaptive SCAD-Net / Multi-Step Adaptive SCAD-Net
 
-<img src="https://msaenet.com/img/asnet.png" width="47%" alt="asnet">
-<img src="https://msaenet.com/img/msasnet.png" width="47%" alt="msasnet">
+<img src="https://msaenet.com/img/snet.png" width="100%" alt="snet">
 
 ## Installation
 
