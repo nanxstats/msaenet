@@ -2,7 +2,8 @@
 % Please edit documentation in R/msaenet-sim.R
 \name{msaenet.sim.poisson}
 \alias{msaenet.sim.poisson}
-\title{Generate Simulation Data for Benchmarking Sparse Regressions (Poisson Response)}
+\title{Generate Simulation Data for Benchmarking Sparse Regressions
+(Poisson Response)}
 \usage{
 msaenet.sim.poisson(n = 300, p = 500, rho = 0.5, coef = rep(0.2, 50),
   snr = 1, p.train = 0.7, seed = 1001)

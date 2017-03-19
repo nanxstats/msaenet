@@ -59,16 +59,17 @@
 #' msaenet.rmse(dat$y.te, asnet.pred)
 #' plot(asnet.fit)
 
-asnet = function(x, y,
-                 family = c('gaussian', 'binomial', 'poisson', 'cox'),
-                 init = c('snet', 'ridge'),
-                 gammas = 3.7, alphas = seq(0.05, 0.95, 0.05),
-                 tune = c('cv', 'ebic', 'bic', 'aic'),
-                 nfolds = 5L,
-                 ebic.gamma = 1,
-                 scale = 1,
-                 eps = 1e-4, max.iter = 10000L,
-                 seed = 1001, parallel = FALSE, verbose = FALSE) {
+asnet = function(
+  x, y,
+  family = c('gaussian', 'binomial', 'poisson', 'cox'),
+  init   = c('snet', 'ridge'),
+  gammas = 3.7, alphas = seq(0.05, 0.95, 0.05),
+  tune   = c('cv', 'ebic', 'bic', 'aic'),
+  nfolds = 5L,
+  ebic.gamma = 1,
+  scale  = 1,
+  eps    = 1e-4, max.iter = 10000L,
+  seed   = 1001, parallel = FALSE, verbose = FALSE) {
 
   family = match.arg(family)
   init   = match.arg(init)

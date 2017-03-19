@@ -78,18 +78,19 @@
 #' msaenet.rmse(dat$y.te, msaenet.pred)
 #' plot(msaenet.fit)
 
-msaenet = function(x, y,
-                   family = c('gaussian', 'binomial', 'poisson', 'cox'),
-                   init = c('enet', 'ridge'),
-                   alphas = seq(0.05, 0.95, 0.05),
-                   tune = c('cv', 'ebic', 'bic', 'aic'),
-                   nfolds = 5L, rule = c('lambda.min', 'lambda.1se'),
-                   ebic.gamma = 1,
-                   nsteps = 2L,
-                   tune.nsteps = c('max', 'ebic', 'bic', 'aic'),
-                   ebic.gamma.nsteps = 1,
-                   scale = 1,
-                   seed = 1001, parallel = FALSE, verbose = FALSE) {
+msaenet = function(
+  x, y,
+  family = c('gaussian', 'binomial', 'poisson', 'cox'),
+  init   = c('enet', 'ridge'),
+  alphas = seq(0.05, 0.95, 0.05),
+  tune   = c('cv', 'ebic', 'bic', 'aic'),
+  nfolds = 5L, rule = c('lambda.min', 'lambda.1se'),
+  ebic.gamma = 1,
+  nsteps = 2L,
+  tune.nsteps = c('max', 'ebic', 'bic', 'aic'),
+  ebic.gamma.nsteps = 1,
+  scale  = 1,
+  seed   = 1001, parallel = FALSE, verbose = FALSE) {
 
   if (nsteps < 2L) stop('nsteps must be an integer >= 2')
 

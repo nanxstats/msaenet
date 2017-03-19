@@ -15,12 +15,13 @@
 #'
 #' @keywords internal
 
-msaenet.tune.glmnet = function(x, y, family,
-                               alphas,
-                               tune,
-                               nfolds, rule,
-                               ebic.gamma,
-                               seed, parallel, ...) {
+msaenet.tune.glmnet = function(
+  x, y, family,
+  alphas,
+  tune,
+  nfolds, rule,
+  ebic.gamma,
+  seed, parallel, ...) {
 
   if (tune == 'cv') {
 
@@ -28,14 +29,16 @@ msaenet.tune.glmnet = function(x, y, family,
       model.list = vector('list', length(alphas))
       for (i in 1L:length(alphas)) {
         set.seed(seed)
-        model.list[[i]] = cv.glmnet(x = x, y = y, family = family,
-                                    nfolds = nfolds, alpha = alphas[i], ...)
+        model.list[[i]] = cv.glmnet(
+          x = x, y = y, family = family,
+          nfolds = nfolds, alpha = alphas[i], ...)
       }
     } else {
       model.list <- foreach(alphas = alphas) %dopar% {
         set.seed(seed)
-        cv.glmnet(x = x, y = y, family = family,
-                  nfolds = nfolds, alpha = alphas, ...)
+        cv.glmnet(
+          x = x, y = y, family = family,
+          nfolds = nfolds, alpha = alphas, ...)
       }
     }
 
@@ -56,14 +59,16 @@ msaenet.tune.glmnet = function(x, y, family,
       model.list = vector('list', length(alphas))
       for (i in 1L:length(alphas)) {
         set.seed(seed)
-        model.list[[i]] = glmnet(x = x, y = y, family = family,
-                                 alpha = alphas[i], ...)
+        model.list[[i]] = glmnet(
+          x = x, y = y, family = family,
+          alpha = alphas[i], ...)
       }
     } else {
       model.list <- foreach(alphas = alphas) %dopar% {
         set.seed(seed)
-        glmnet(x = x, y = y, family = family,
-               alpha = alphas, ...)
+        glmnet(
+          x = x, y = y, family = family,
+          alpha = alphas, ...)
       }
     }
 
@@ -129,8 +134,9 @@ msaenet.tune.glmnet = function(x, y, family,
 #'
 #' @keywords internal
 
-msaenet.tune.nsteps.glmnet = function(model.list,
-                                      tune.nsteps, ebic.gamma.nsteps) {
+msaenet.tune.nsteps.glmnet = function(
+  model.list,
+  tune.nsteps, ebic.gamma.nsteps) {
 
   nmods = length(model.list)
 

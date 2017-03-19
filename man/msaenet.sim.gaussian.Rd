@@ -2,7 +2,8 @@
 % Please edit documentation in R/msaenet-sim.R
 \name{msaenet.sim.gaussian}
 \alias{msaenet.sim.gaussian}
-\title{Generate Simulation Data for Benchmarking Sparse Regressions (Gaussian Response)}
+\title{Generate Simulation Data for Benchmarking Sparse Regressions
+(Gaussian Response)}
 \usage{
 msaenet.sim.gaussian(n = 300, p = 500, rho = 0.5, coef = rep(0.2, 50),
   snr = 1, p.train = 0.7, seed = 1001)

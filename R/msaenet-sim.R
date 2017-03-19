@@ -1,4 +1,5 @@
-#' Generate Simulation Data for Benchmarking Sparse Regressions (Gaussian Response)
+#' Generate Simulation Data for Benchmarking Sparse Regressions
+#' (Gaussian Response)
 #'
 #' Generate simulation data (Gaussian case) following the
 #' settings in Xiao and Xu (2015).
@@ -34,9 +35,10 @@
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
 
-msaenet.sim.gaussian = function(n = 300, p = 500,
-                                rho = 0.5, coef = rep(0.2, 50), snr = 1,
-                                p.train = 0.7, seed = 1001) {
+msaenet.sim.gaussian = function(
+  n = 300, p = 500,
+  rho = 0.5, coef = rep(0.2, 50), snr = 1,
+  p.train = 0.7, seed = 1001) {
 
   call = match.call()
 
@@ -72,7 +74,8 @@ msaenet.sim.gaussian = function(n = 300, p = 500,
 
 }
 
-#' Generate Simulation Data for Benchmarking Sparse Regressions (Binomial Response)
+#' Generate Simulation Data for Benchmarking Sparse Regressions
+#' (Binomial Response)
 #'
 #' Generate simulation data for benchmarking sparse logistic regression models.
 #'
@@ -105,9 +108,10 @@ msaenet.sim.gaussian = function(n = 300, p = 500,
 #' table(dat$y.tr)
 #' table(dat$y.te)
 
-msaenet.sim.binomial = function(n = 300, p = 500,
-                                rho = 0.5, coef = rep(0.2, 50), snr = 1,
-                                p.train = 0.7, seed = 1001) {
+msaenet.sim.binomial = function(
+  n = 300, p = 500,
+  rho = 0.5, coef = rep(0.2, 50), snr = 1,
+  p.train = 0.7, seed = 1001) {
 
   call = match.call()
 
@@ -145,7 +149,8 @@ msaenet.sim.binomial = function(n = 300, p = 500,
 
 }
 
-#' Generate Simulation Data for Benchmarking Sparse Regressions (Poisson Response)
+#' Generate Simulation Data for Benchmarking Sparse Regressions
+#' (Poisson Response)
 #'
 #' Generate simulation data for benchmarking sparse Poisson regression models.
 #'
@@ -176,9 +181,10 @@ msaenet.sim.binomial = function(n = 300, p = 500,
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
 
-msaenet.sim.poisson = function(n = 300, p = 500,
-                               rho = 0.5, coef = rep(0.2, 50), snr = 1,
-                               p.train = 0.7, seed = 1001) {
+msaenet.sim.poisson = function(
+  n = 300, p = 500,
+  rho = 0.5, coef = rep(0.2, 50), snr = 1,
+  p.train = 0.7, seed = 1001) {
 
   call = match.call()
 
@@ -253,9 +259,10 @@ msaenet.sim.poisson = function(n = 300, p = 500,
 #' dim(dat$y.tr)
 #' dim(dat$y.te)
 
-msaenet.sim.cox = function(n = 300, p = 500,
-                           rho = 0.5, coef = rep(0.2, 50), snr = 1,
-                           p.train = 0.7, seed = 1001) {
+msaenet.sim.cox = function(
+  n = 300, p = 500,
+  rho = 0.5, coef = rep(0.2, 50), snr = 1,
+  p.train = 0.7, seed = 1001) {
 
   call = match.call()
 

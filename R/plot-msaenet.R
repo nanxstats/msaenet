@@ -56,11 +56,12 @@
 #' plot(msasnet.fit, type = "criterion")
 #' plot(msasnet.fit, type = "criterion", nsteps = 5)
 
-plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
-                        highlight = TRUE, col = NULL,
-                        label = FALSE, label.vars = NULL,
-                        label.pos = 2, label.offset = 0.3, label.cex = 0.7,
-                        xlab = NULL, ylab = NULL, ...) {
+plot.msaenet = function(
+  x, type = c('coef', 'criterion'), nsteps = NULL,
+  highlight = TRUE, col = NULL,
+  label = FALSE, label.vars = NULL,
+  label.pos = 2, label.offset = 0.3, label.cex = 0.7,
+  xlab = NULL, ylab = NULL, ...) {
 
   type = match.arg(type)
 
@@ -82,11 +83,12 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
 
   if (type == 'coef') {
     nzv.idx = msaenet.nzv(x)
-    .parcor(beta.mat, nsteps, best.step, nzv.idx,
-            highlight, col,
-            label, label.vars,
-            label.pos, label.offset, label.cex,
-            xlab, ylab)
+    .parcor(
+      beta.mat, nsteps, best.step, nzv.idx,
+      highlight, col,
+      label, label.vars,
+      label.pos, label.offset, label.cex,
+      xlab, ylab)
   }
 
   if (type == 'criterion') {
@@ -103,11 +105,12 @@ plot.msaenet = function(x, type = c('coef', 'criterion'), nsteps = NULL,
 }
 
 # parallel coordinates plot
-.parcor = function(x, nsteps, best.step, nzv.idx,
-                   highlight, col,
-                   label, label.vars,
-                   label.pos, label.offset, label.cex,
-                   xlab, ylab) {
+.parcor = function(
+  x, nsteps, best.step, nzv.idx,
+  highlight, col,
+  label, label.vars,
+  label.pos, label.offset, label.cex,
+  xlab, ylab) {
 
   x = x[, 1L:nsteps]
   xmin = min(x)
