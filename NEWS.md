@@ -1,3 +1,10 @@
+# msaenet 2.5 (2017-03-24)
+
+## Improvements
+
+- Better code indentation style.
+- Update gallery images in `README.md`.
+
 # msaenet 2.4 (2017-02-17)
 
 ## Improvements
