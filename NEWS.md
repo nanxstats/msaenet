@@ -1,3 +1,9 @@
+# msaenet 2.5.9000 (2017-04-19)
+
+## Improvements
+
+- Add support for `lower.limits` and `upper.limits` in `aenet()` and `msaenet()` [[#1](https://github.com/road2stat/msaenet/issues/1)].
+
 # msaenet 2.5 (2017-03-24)
 
 ## Improvements
