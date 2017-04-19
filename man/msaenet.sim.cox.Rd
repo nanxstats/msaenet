@@ -39,11 +39,12 @@ dim(dat$x.te)
 dim(dat$y.tr)
 dim(dat$y.te)
 }
+\author{
+Nan Xiao <\url{https://nanx.me}>
+}
 \references{
 Simon, N., Friedman, J., Hastie, T., & Tibshirani, R. (2011).
 Regularization Paths for Cox's Proportional Hazards Model via
 Coordinate Descent. \emph{Journal of Statistical Software}, 39(5), 1--13.
 }
-\author{
-Nan Xiao <\url{https://nanx.me}>
-}
+
