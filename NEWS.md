@@ -1,4 +1,4 @@
-# msaenet 2.5.9000 (2017-04-23)
+# msaenet 2.6 (2017-04-23)
 
 ## Improvements
 
