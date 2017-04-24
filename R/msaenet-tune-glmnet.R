@@ -21,6 +21,7 @@ msaenet.tune.glmnet = function(
   tune,
   nfolds, rule,
   ebic.gamma,
+  lower.limits, upper.limits,
   seed, parallel, ...) {
 
   if (tune == 'cv') {
@@ -31,14 +32,18 @@ msaenet.tune.glmnet = function(
         set.seed(seed)
         model.list[[i]] = cv.glmnet(
           x = x, y = y, family = family,
-          nfolds = nfolds, alpha = alphas[i], ...)
+          nfolds = nfolds, alpha = alphas[i],
+          lower.limits = lower.limits,
+          upper.limits = upper.limits, ...)
       }
     } else {
       model.list <- foreach(alphas = alphas) %dopar% {
         set.seed(seed)
         cv.glmnet(
           x = x, y = y, family = family,
-          nfolds = nfolds, alpha = alphas, ...)
+          nfolds = nfolds, alpha = alphas,
+          lower.limits = lower.limits,
+          upper.limits = upper.limits, ...)
       }
     }
 
@@ -61,14 +66,18 @@ msaenet.tune.glmnet = function(
         set.seed(seed)
         model.list[[i]] = glmnet(
           x = x, y = y, family = family,
-          alpha = alphas[i], ...)
+          alpha = alphas[i],
+          lower.limits = lower.limits,
+          upper.limits = upper.limits, ...)
       }
     } else {
       model.list <- foreach(alphas = alphas) %dopar% {
         set.seed(seed)
         glmnet(
           x = x, y = y, family = family,
-          alpha = alphas, ...)
+          alpha = alphas,
+          lower.limits = lower.limits,
+          upper.limits = upper.limits, ...)
       }
     }
 

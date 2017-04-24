@@ -60,8 +60,7 @@ default is \code{1}.}
 
 \item{max.iter}{Maximum number of iterations to use in MCP-net.}
 
-\item{seed}{Two random seeds for cross-validation fold division
-in two estimation steps.}
+\item{seed}{Random seed for cross-validation fold division.}
 
 \item{parallel}{Logical. Enable parallel parameter tuning or not,
 default is {FALSE}. To enable parallel tuning, load the

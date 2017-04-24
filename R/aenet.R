@@ -24,6 +24,10 @@
 #' default is \code{1}. For details, see Chen and Chen (2008).
 #' @param scale Scaling factor for adaptive weights:
 #' \code{weights = coefficients^(-scale)}.
+#' @param lower.limits Lower limits for coefficients.
+#' Default is \code{-Inf}. For details, see \code{\link[glmnet]{glmnet}}.
+#' @param upper.limits Upper limits for coefficients.
+#' Default is \code{Inf}. For details, see \code{\link[glmnet]{glmnet}}.
 #' @param seed Random seed for cross-validation fold division.
 #' @param parallel Logical. Enable parallel parameter tuning or not,
 #' default is {FALSE}. To enable parallel tuning, load the
@@ -73,6 +77,7 @@ aenet = function(
   nfolds = 5L, rule = c('lambda.min', 'lambda.1se'),
   ebic.gamma = 1,
   scale  = 1,
+  lower.limits = -Inf, upper.limits = Inf,
   seed   = 1001, parallel = FALSE, verbose = FALSE) {
 
   family = match.arg(family)
@@ -90,6 +95,8 @@ aenet = function(
       tune = tune,
       nfolds = nfolds, rule = rule,
       ebic.gamma = ebic.gamma,
+      lower.limits = lower.limits,
+      upper.limits = upper.limits,
       seed = seed, parallel = parallel)
   }
 
@@ -100,6 +107,8 @@ aenet = function(
       tune = tune,
       nfolds = nfolds, rule = rule,
       ebic.gamma = ebic.gamma,
+      lower.limits = lower.limits,
+      upper.limits = upper.limits,
       seed = seed, parallel = parallel)
   }
 
@@ -110,7 +119,9 @@ aenet = function(
   enet.full = glmnet(
     x = x, y = y, family = family,
     alpha  = best.alpha.enet,
-    lambda = best.lambda.enet)
+    lambda = best.lambda.enet,
+    lower.limits = lower.limits,
+    upper.limits = upper.limits)
 
   bhat = as.matrix(enet.full$'beta')
   if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
@@ -125,6 +136,8 @@ aenet = function(
     tune = tune,
     nfolds = nfolds, rule = rule,
     ebic.gamma = ebic.gamma,
+    lower.limits = lower.limits,
+    upper.limits = upper.limits,
     seed = seed + 1L, parallel = parallel,
     penalty.factor = adpen)
 
@@ -136,6 +149,8 @@ aenet = function(
     x = x, y = y, family = family,
     alpha  = best.alpha.aenet,
     lambda = best.lambda.aenet,
+    lower.limits = lower.limits,
+    upper.limits = upper.limits,
     penalty.factor = adpen)
 
   # final beta stored as sparse matrix

@@ -36,8 +36,11 @@
 #' default is \code{1}.
 #' @param scale Scaling factor for adaptive weights:
 #' \code{weights = coefficients^(-scale)}.
-#' @param seed Two random seeds for cross-validation fold division
-#' in two estimation steps.
+#' @param lower.limits Lower limits for coefficients.
+#' Default is \code{-Inf}. For details, see \code{\link[glmnet]{glmnet}}.
+#' @param upper.limits Upper limits for coefficients.
+#' Default is \code{Inf}. For details, see \code{\link[glmnet]{glmnet}}.
+#' @param seed Random seed for cross-validation fold division.
 #' @param parallel Logical. Enable parallel parameter tuning or not,
 #' default is {FALSE}. To enable parallel tuning, load the
 #' \code{doParallel} package and run \code{registerDoParallel()}
@@ -90,6 +93,7 @@ msaenet = function(
   tune.nsteps = c('max', 'ebic', 'bic', 'aic'),
   ebic.gamma.nsteps = 1,
   scale  = 1,
+  lower.limits = -Inf, upper.limits = Inf,
   seed   = 1001, parallel = FALSE, verbose = FALSE) {
 
   if (nsteps < 2L) stop('nsteps must be an integer >= 2')
@@ -117,6 +121,8 @@ msaenet = function(
       tune = tune,
       nfolds = nfolds, rule = rule,
       ebic.gamma = ebic.gamma,
+      lower.limits = lower.limits,
+      upper.limits = upper.limits,
       seed = seed, parallel = parallel)
   }
 
@@ -127,6 +133,8 @@ msaenet = function(
       tune = tune,
       nfolds = nfolds, rule = rule,
       ebic.gamma = ebic.gamma,
+      lower.limits = lower.limits,
+      upper.limits = upper.limits,
       seed = seed, parallel = parallel)
   }
 
@@ -137,7 +145,9 @@ msaenet = function(
   model.list[[1L]] = glmnet(
     x = x, y = y, family = family,
     alpha  = best.alphas[[1L]],
-    lambda = best.lambdas[[1L]])
+    lambda = best.lambdas[[1L]],
+    lower.limits = lower.limits,
+    upper.limits = upper.limits)
 
   if (.df(model.list[[1L]]) < 0.5)
     stop('Null model produced by the full fit (all coefficients are zero).
@@ -163,6 +173,8 @@ msaenet = function(
       tune = tune,
       nfolds = nfolds, rule = rule,
       ebic.gamma = ebic.gamma,
+      lower.limits = lower.limits,
+      upper.limits = upper.limits,
       seed = seed + i, parallel = parallel,
       penalty.factor = adapen.list[[i]])
 
@@ -174,6 +186,8 @@ msaenet = function(
       x = x, y = y, family = family,
       alpha = best.alphas[[i + 1L]],
       lambda = best.lambdas[[i + 1L]],
+      lower.limits = lower.limits,
+      upper.limits = upper.limits,
       penalty.factor = adapen.list[[i]])
 
     if (.df(model.list[[i + 1L]]) < 0.5)

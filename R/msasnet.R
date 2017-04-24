@@ -35,8 +35,7 @@
 #' \code{weights = coefficients^(-scale)}.
 #' @param eps Convergence threshhold to use in SCAD-net.
 #' @param max.iter Maximum number of iterations to use in SCAD-net.
-#' @param seed Two random seeds for cross-validation fold division
-#' in two estimation steps.
+#' @param seed Random seed for cross-validation fold division.
 #' @param parallel Logical. Enable parallel parameter tuning or not,
 #' default is {FALSE}. To enable parallel tuning, load the
 #' \code{doParallel} package and run \code{registerDoParallel()}

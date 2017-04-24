@@ -8,7 +8,8 @@ aenet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
   init = c("enet", "ridge"), alphas = seq(0.05, 0.95, 0.05),
   tune = c("cv", "ebic", "bic", "aic"), nfolds = 5L,
   rule = c("lambda.min", "lambda.1se"), ebic.gamma = 1, scale = 1,
-  seed = 1001, parallel = FALSE, verbose = FALSE)
+  lower.limits = -Inf, upper.limits = Inf, seed = 1001,
+  parallel = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{x}{Data matrix.}
@@ -42,6 +43,12 @@ default is \code{1}. For details, see Chen and Chen (2008).}
 
 \item{scale}{Scaling factor for adaptive weights:
 \code{weights = coefficients^(-scale)}.}
+
+\item{lower.limits}{Lower limits for coefficients.
+Default is \code{-Inf}. For details, see \code{\link[glmnet]{glmnet}}.}
+
+\item{upper.limits}{Upper limits for coefficients.
+Default is \code{Inf}. For details, see \code{\link[glmnet]{glmnet}}.}
 
 \item{seed}{Random seed for cross-validation fold division.}
 
