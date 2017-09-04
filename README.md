@@ -62,3 +62,11 @@ devtools::install_github("road2stat/msaenet")
 [Browse the vignette](https://msaenet.com/articles/msaenet.html) (can be opened with `vignette("msaenet")` in R) for a quick-start.
 
 [Visit the website](https://msaenet.com/) for more documentation.
+
+## Contribute
+
+To contribute to this project, please take a look at the [Contributing Guidelines](CONTRIBUTING.md) first. Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+## License
+
+msaenet is free and open source software, licensed under GPL-3.
