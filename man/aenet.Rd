@@ -84,12 +84,11 @@ aenet.pred = predict(aenet.fit, dat$x.te)
 msaenet.rmse(dat$y.te, aenet.pred)
 plot(aenet.fit)
 }
-\author{
-Nan Xiao <\url{https://nanx.me}>
-}
 \references{
 Zou, Hui, and Hao Helen Zhang. (2009).
 On the adaptive elastic-net with a diverging number of parameters.
 \emph{The Annals of Statistics} 37(4), 1733--1751.
 }
-
+\author{
+Nan Xiao <\url{https://nanx.me}>
+}

@@ -36,4 +36,3 @@ msaenet.fp(msaenet.fit, 1:5)
 \author{
 Nan Xiao <\url{https://nanx.me}>
 }
-

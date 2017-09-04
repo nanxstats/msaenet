@@ -98,4 +98,3 @@ plot(msasnet.fit)
 \author{
 Nan Xiao <\url{https://nanx.me}>
 }
-

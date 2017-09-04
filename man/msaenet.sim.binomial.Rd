@@ -43,4 +43,3 @@ table(dat$y.te)
 \author{
 Nan Xiao <\url{https://nanx.me}>
 }
-

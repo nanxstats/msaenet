@@ -20,4 +20,3 @@ Compute root mean squared error (RMSE).
 \author{
 Nan Xiao <\url{https://nanx.me}>
 }
-

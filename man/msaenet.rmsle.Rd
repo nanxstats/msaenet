@@ -20,4 +20,3 @@ Compute root mean squared logarithmic error (RMSLE).
 \author{
 Nan Xiao <\url{https://nanx.me}>
 }
-

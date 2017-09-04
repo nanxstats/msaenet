@@ -74,4 +74,3 @@ plot(msasnet.fit, type = "criterion", nsteps = 5)
 \author{
 Nan Xiao <\url{https://nanx.me}>
 }
-

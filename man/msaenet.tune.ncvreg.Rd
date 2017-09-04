@@ -13,13 +13,12 @@ Optimal model object, parameter set, and criterion value
 \description{
 Automatic (parallel) parameter tuning for ncvreg models
 }
-\author{
-Nan Xiao <\url{https://nanx.me}>
-}
 \references{
 Chen, Jiahua, and Zehua Chen. (2008).
 Extended Bayesian information criteria for model selection with
 large model spaces. \emph{Biometrika} 95(3), 759--771.
 }
+\author{
+Nan Xiao <\url{https://nanx.me}>
+}
 \keyword{internal}
-
