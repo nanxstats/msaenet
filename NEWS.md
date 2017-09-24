@@ -1,3 +1,9 @@
+# msaenet 2.7 (2017-09-24)
+
+## Bug Fixes
+
+- Fixed the missing arguments issue when `init = "ridge"`.
+
 # msaenet 2.6 (2017-04-23)
 
 ## Improvements

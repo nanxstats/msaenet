@@ -114,6 +114,7 @@ asnet = function(
       tune = tune,
       nfolds = nfolds, rule = 'lambda.min',
       ebic.gamma = ebic.gamma,
+      lower.limits = -Inf, upper.limits = Inf,
       seed = seed, parallel = parallel)
 
     best.gamma.snet     = NA
