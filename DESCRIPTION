@@ -1,8 +1,12 @@
 Package: msaenet
 Type: Package
 Title: Multi-Step Adaptive Estimation Methods for Sparse Regressions
-Version: 2.7.9001
-Authors@R: c(person("Nan", "Xiao", email = "me@nanx.me", role = c("aut", "cre")))
+Version: 2.7.9002
+Authors@R: c(
+    person("Nan", "Xiao",
+           email = "me@nanx.me",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-0250-5673")))
 Maintainer: Nan Xiao <me@nanx.me>
 Description: Multi-step adaptive elastic-net (MSAENet) algorithm for
     feature selection in high-dimensional regressions proposed in
