@@ -4,10 +4,10 @@
 \alias{plot.msaenet}
 \title{Plot msaenet Model Objects}
 \usage{
-\method{plot}{msaenet}(x, type = c("coef", "criterion"), nsteps = NULL,
-  highlight = TRUE, col = NULL, label = FALSE, label.vars = NULL,
-  label.pos = 2, label.offset = 0.3, label.cex = 0.7, xlab = NULL,
-  ylab = NULL, ...)
+\method{plot}{msaenet}(x, type = c("coef", "criterion", "dotplot"),
+  nsteps = NULL, highlight = TRUE, col = NULL, label = FALSE,
+  label.vars = NULL, label.pos = 2, label.offset = 0.3, label.cex = 0.7,
+  label.srt = 90, xlab = NULL, ylab = NULL, abs = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{msaenet} produced
@@ -16,7 +16,9 @@ by \code{\link{aenet}}, \code{amnet}, \code{asnet},
 
 \item{type}{Plot type, \code{"coef"} for a coefficient path plot
 across all estimation steps; \code{"criterion"} for a scree plot of
-the model evaluation criterion used (CV error, AIC, BIC, or EBIC).}
+the model evaluation criterion used (CV error, AIC, BIC, or EBIC);
+\code{"dotplot"} for a Cleveland dot plot of the coefficients
+estimated by the model at the optimal step.}
 
 \item{nsteps}{Maximum number of estimation steps to plot.
 Default is to plot all steps.}
@@ -28,9 +30,9 @@ according to the criterion? Default is \code{TRUE}.}
 If it is \code{NULL}, a default color palette will be assigned.}
 
 \item{label}{Should we label all the non-zero variables of the
-optimal step in the coefficient plot? Default is \code{FALSE}.
-If \code{TRUE} and \code{label.vars = NULL}, the index of the
-variables will be used as labels.}
+optimal step in the coefficient plot or the dot plot?
+Default is \code{FALSE}. If \code{TRUE} and \code{label.vars = NULL},
+the index of the non-zero variables will be used as labels.}
 
 \item{label.vars}{Labels to use for all the variables
 if \code{label = "TRUE"}.}
@@ -44,9 +46,17 @@ if \code{label = "TRUE"}.}
 \item{label.cex}{Character expansion factor of the labels.
 See argument \code{cex} in \code{\link[graphics]{text}} for details.}
 
+\item{label.srt}{Label rotation in degrees for the Cleveland dot plot.
+Default is \code{90}. See argument \code{srt} in
+\code{\link[graphics]{par}} for details.}
+
 \item{xlab}{Title for x axis. If is \code{NULL}, will use the default title.}
 
 \item{ylab}{Title for y axis. If is \code{NULL}, will use the default title.}
+
+\item{abs}{Should we plot the absolute values of the coefficients
+instead of the raw coefficients in the Cleveland dot plot?
+Default is \code{FALSE}.}
 
 \item{...}{Other parameters (not used).}
 }
@@ -70,6 +80,8 @@ plot(msasnet.fit, label = TRUE)
 plot(msasnet.fit, label = TRUE, nsteps = 5)
 plot(msasnet.fit, type = "criterion")
 plot(msasnet.fit, type = "criterion", nsteps = 5)
+plot(msasnet.fit, type = "dotplot", label = TRUE)
+plot(msasnet.fit, type = "dotplot", label = TRUE, abs = TRUE)
 }
 \author{
 Nan Xiao <\url{https://nanx.me}>

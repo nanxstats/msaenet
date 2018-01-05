@@ -1,3 +1,9 @@
+# msaenet 2.8 (2018-01-05)
+
+## New Features
+
+- Added a Cleveland dot plot option `type = "dotplot"` in `plot.msaenet()`. This plot offers a direct visualization of the model coefficients at the optimal step.
+
 # msaenet 2.7 (2017-09-24)
 
 ## Bug Fixes

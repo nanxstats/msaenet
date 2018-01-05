@@ -85,13 +85,21 @@ A coefficient plot that shows the coefficient changes of all the variables acros
 plot(msaenet.fit, label = TRUE)
 ```
 
+The y-axis in the plot represents the relative effect size estimations (standardized into [0, 1]) of the variables.
+
 Plot the change of the information criterion (EBIC here) used to select the optimal step:
 
 ```{r, fig.width = 10, fig.height = 6, out.width = 750, out.height = 450, fig.retina = 2}
 plot(msaenet.fit, type = "criterion")
 ```
 
-The y-axis in the plot represents the relative effect size estimations (standardized into [0, 1]) of the variables.
+Create a Cleveland dot plot for the model coefficients at the optimal step:
+
+```{r, fig.width = 10, fig.height = 8, out.width = 750, out.height = 600, fig.retina = 2}
+plot(msaenet.fit, type = "dotplot", label = TRUE, label.cex = 1)
+```
+
+To plot the absolute values of the coefficients instead of the raw coefficients, use `abs = TRUE`.
 
 The vanilla adaptive elastic-net [@zou2009aenet] is implemented by the function `aenet()`. For multi-step adaptive estimation based on MCP-net or SCAD-net, see `?amnet`, `?asnet`, `?msamnet`, and `?msasnet` for details. All the analyses above apply to the models fitted by these functions as well.
 
