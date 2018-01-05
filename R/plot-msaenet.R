@@ -42,7 +42,8 @@
 #'
 #' @author Nan Xiao <\url{https://nanx.me}>
 #'
-#' @importFrom graphics axis lines matlines matplot plot text
+#' @importFrom graphics axis lines matlines matplot plot text abline points
+#' @importFrom stats coef
 #'
 #' @export
 #'
