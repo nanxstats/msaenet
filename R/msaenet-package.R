@@ -3,8 +3,8 @@
 #' Multi-step adaptive elastic-net (MSAENet) algorithm for
 #' feature selection in high-dimensional regressions proposed in
 #' Xiao and Xu (2015) <DOI:10.1080/00949655.2015.1016944>,
-#' with additional support for multi-step adaptive MCP-Net
-#' (MSAMNet) and multi-step adaptive SCAD-Net (MSASNet) methods.
+#' with support for multi-step adaptive MCP-Net (MSAMNet) and
+#' multi-step adaptive SCAD-Net (MSASNet) methods.
 #'
 #' Browse the vignette with \code{vignette("msaenet")}.
 #'

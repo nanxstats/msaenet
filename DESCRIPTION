@@ -3,16 +3,15 @@ Type: Package
 Title: Multi-Step Adaptive Estimation Methods for Sparse Regressions
 Version: 2.7.9002
 Authors@R: c(
-    person("Nan", "Xiao",
-           email = "me@nanx.me",
-           role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-0250-5673")))
+    person("Nan", "Xiao", email = "me@nanx.me", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-0250-5673")),
+    person("Qing-Song", "Xu", email = "qsxu@csu.edu.cn", role = c("aut")))
 Maintainer: Nan Xiao <me@nanx.me>
 Description: Multi-step adaptive elastic-net (MSAENet) algorithm for
     feature selection in high-dimensional regressions proposed in
     Xiao and Xu (2015) <DOI:10.1080/00949655.2015.1016944>,
-    with additional support for multi-step adaptive MCP-net
-    (MSAMNet) and multi-step adaptive SCAD-net (MSASNet) methods.
+    with support for multi-step adaptive MCP-net (MSAMNet) and
+    multi-step adaptive SCAD-net (MSASNet) methods.
 License: GPL-3 | file LICENSE
 URL: https://msaenet.com, https://github.com/road2stat/msaenet
 Encoding: UTF-8
