@@ -21,6 +21,7 @@ reference:
       - msamnet
       - asnet
       - msasnet
+      - msaenet-package
   - title: "Model Inspection"
     desc: >
       Functions for inspecting the fitted AENet/MSAENet models.
