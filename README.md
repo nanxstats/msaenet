@@ -1,4 +1,4 @@
-# msaenet  <a href="https://msaenet.com"><img src="https://nanx.me/images/project-msaenet.png" align="right" alt="logo" height="180" width="180" /></a>
+# msaenet  <a href="https://nanx.me/msaenet/"><img src="https://nanx.me/images/project-msaenet.png" align="right" alt="logo" height="180" width="180" /></a>
 
 [![Build Status](https://travis-ci.org/road2stat/msaenet.svg?branch=master)](https://travis-ci.org/road2stat/msaenet)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/road2stat/msaenet?branch=master&svg=true)](https://ci.appveyor.com/project/road2stat/msaenet)
@@ -34,15 +34,15 @@ BibTeX entry:
 
 ### Adaptive Elastic-Net / Multi-Step Adaptive Elastic-Net
 
-<img src="https://msaenet.com/img/enet.png" width="100%" alt="enet">
+<img src="https://nanx.me/msaenet/img/enet.png" width="100%" alt="enet">
 
 ### Adaptive MCP-Net / Multi-Step Adaptive MCP-Net
 
-<img src="https://msaenet.com/img/mnet.png" width="100%" alt="mnet">
+<img src="https://nanx.me/msaenet/img/mnet.png" width="100%" alt="mnet">
 
 ### Adaptive SCAD-Net / Multi-Step Adaptive SCAD-Net
 
-<img src="https://msaenet.com/img/snet.png" width="100%" alt="snet">
+<img src="https://nanx.me/msaenet/img/snet.png" width="100%" alt="snet">
 
 ## Installation
 
@@ -59,9 +59,7 @@ Or try the development version on GitHub:
 devtools::install_github("road2stat/msaenet")
 ```
 
-[Browse the vignette](https://msaenet.com/articles/msaenet.html) (can be opened with `vignette("msaenet")` in R) for a quick-start.
-
-[Visit the website](https://msaenet.com/) for more documentation.
+[Browse the vignette](https://nanx.me/msaenet/articles/msaenet.html) (can be opened with `vignette("msaenet")` in R) for a quick-start.
 
 ## Contribute
 

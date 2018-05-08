@@ -1,7 +1,7 @@
 template:
   params:
     bootswatch: flatly
-    ganalytics: UA-84529029-1
+    ganalytics: UA-66394392-1
 
 reference:
   - title: "Data Simulation"
