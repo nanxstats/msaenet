@@ -19,12 +19,12 @@
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-84529029-1"></script><script>
+<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-66394392-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-84529029-1');
+  gtag('config', 'UA-66394392-1');
 </script>
 </head>
 <body>
@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">msaenet</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.8.9000</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
   <div class="contents col-md-9">
     <div id="msaenet" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#msaenet" class="anchor"></a>msaenet <a href="https://msaenet.com"><img src="https://nanx.me/images/project-msaenet.png" align="right" alt="logo" height="180" width="180"></a>
+<a href="#msaenet" class="anchor"></a>msaenet <a href="https://nanx.me/msaenet/"><img src="https://nanx.me/images/project-msaenet.png" align="right" alt="logo" height="180" width="180"></a>
 </h1></div>
 
 <p><code>msaenet</code> implements the multi-step adaptive elastic-net (MSAENet) algorithm for feature selection in high-dimensional regressions proposed in Xiao and Xu (2015) &lt;<a href="http://www.tandfonline.com/doi/full/10.1080/00949655.2015.1016944">DOI:10.1080/00949655.2015.1016944</a>&gt; (<a href="https://nanx.me/papers/msaenet.pdf">PDF</a>).</p>
@@ -109,29 +109,28 @@
 <div id="adaptive-elastic-net-multi-step-adaptive-elastic-net" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adaptive-elastic-net-multi-step-adaptive-elastic-net" class="anchor"></a>Adaptive Elastic-Net / Multi-Step Adaptive Elastic-Net</h3>
-<p><img src="https://msaenet.com/img/enet.png" width="100%" alt="enet"></p>
+<p><img src="https://nanx.me/msaenet/img/enet.png" width="100%" alt="enet"></p>
 </div>
 <div id="adaptive-mcp-net-multi-step-adaptive-mcp-net" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adaptive-mcp-net-multi-step-adaptive-mcp-net" class="anchor"></a>Adaptive MCP-Net / Multi-Step Adaptive MCP-Net</h3>
-<p><img src="https://msaenet.com/img/mnet.png" width="100%" alt="mnet"></p>
+<p><img src="https://nanx.me/msaenet/img/mnet.png" width="100%" alt="mnet"></p>
 </div>
 <div id="adaptive-scad-net-multi-step-adaptive-scad-net" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adaptive-scad-net-multi-step-adaptive-scad-net" class="anchor"></a>Adaptive SCAD-Net / Multi-Step Adaptive SCAD-Net</h3>
-<p><img src="https://msaenet.com/img/snet.png" width="100%" alt="snet"></p>
+<p><img src="https://nanx.me/msaenet/img/snet.png" width="100%" alt="snet"></p>
 </div>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>To download and install <code>msaenet</code> from CRAN:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"msaenet"</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"msaenet"</span>)</code></pre></div>
 <p>Or try the development version on GitHub:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"road2stat/msaenet"</span>)</a></code></pre></div>
-<p><a href="https://msaenet.com/articles/msaenet.html">Browse the vignette</a> (can be opened with <code><a href="articles/msaenet.html">vignette("msaenet")</a></code> in R) for a quick-start.</p>
-<p><a href="https://msaenet.com/">Visit the website</a> for more documentation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"road2stat/msaenet"</span>)</code></pre></div>
+<p><a href="https://nanx.me/msaenet/articles/msaenet.html">Browse the vignette</a> (can be opened with <code><a href="articles/msaenet.html">vignette("msaenet")</a></code> in R) for a quick-start.</p>
 </div>
 <div id="contribute" class="section level2">
 <h2 class="hasAnchor">

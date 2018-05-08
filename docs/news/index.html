@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Changelog" />
 
 
@@ -38,16 +41,14 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-84529029-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-66394392-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-84529029-1');
+  gtag('config', 'UA-66394392-1');
 </script>
-
-
 
   </head>
 
@@ -64,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">msaenet</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.8.9000</span>
       </span>
     </div>
 
@@ -110,6 +111,18 @@
       <small>Source: <a href='https://github.com/road2stat/msaenet/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="msaenet-2-8-9000-2018-05-07" class="section level1">
+<h1 class="page-header">
+<a href="#msaenet-2-8-9000-2018-05-07" class="anchor"></a>msaenet 2.8.9000 (2018-05-07)<small> Unreleased </small>
+</h1>
+<div id="improvements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#improvements" class="anchor"></a>Improvements</h2>
+<ul>
+<li>New URL for the documentation website: <a href="https://nanx.me/msaenet/" class="uri">https://nanx.me/msaenet/</a>.</li>
+</ul>
+</div>
+</div>
     <div id="msaenet-2-8-2018-01-05" class="section level1">
 <h1 class="page-header">
 <a href="#msaenet-2-8-2018-01-05" class="anchor"></a>msaenet 2.8 (2018-01-05)<small> 2018-01-05 </small>
@@ -138,9 +151,9 @@
 <h1 class="page-header">
 <a href="#msaenet-2-6-2017-04-23" class="anchor"></a>msaenet 2.6 (2017-04-23)<small> 2017-04-24 </small>
 </h1>
-<div id="improvements" class="section level2">
+<div id="improvements-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements" class="anchor"></a>Improvements</h2>
+<a href="#improvements-1" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Added two arguments <code>lower.limits</code> and <code>upper.limits</code> to support coefficient constraints in <code><a href="../reference/aenet.html">aenet()</a></code> and <code><a href="../reference/msaenet.html">msaenet()</a></code> [<a href="https://github.com/road2stat/msaenet/issues/1"><a href='https://github.com/road2stat/msaenet/issues/1'>#1</a></a>].</li>
 </ul>
@@ -150,9 +163,9 @@
 <h1 class="page-header">
 <a href="#msaenet-2-5-2017-03-24" class="anchor"></a>msaenet 2.5 (2017-03-24)<small> 2017-03-25 </small>
 </h1>
-<div id="improvements-1" class="section level2">
+<div id="improvements-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-1" class="anchor"></a>Improvements</h2>
+<a href="#improvements-2" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Better code indentation style.</li>
 <li>Update gallery images in <code>README.md</code>.</li>
@@ -163,9 +176,9 @@
 <h1 class="page-header">
 <a href="#msaenet-2-4-2017-02-17" class="anchor"></a>msaenet 2.4 (2017-02-17)<small> 2017-02-18 </small>
 </h1>
-<div id="improvements-2" class="section level2">
+<div id="improvements-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-2" class="anchor"></a>Improvements</h2>
+<a href="#improvements-3" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Improved graphical details for coefficient path plots, following the general graphic style in the ESL (<em>The Elements of Statistical Learning</em>) book.</li>
 <li>More options available in <code><a href="../reference/plot.msaenet.html">plot.msaenet()</a></code> for extra flexibility: it is now possible to set important properties of the label appearance such as position, offset, font size, and axis titles via the new arguments <code>label.pos</code>, <code>label.offset</code>, <code>label.cex</code>, <code>xlab</code>, and <code>ylab</code>.</li>
@@ -176,9 +189,9 @@
 <h1 class="page-header">
 <a href="#msaenet-2-3-2017-02-09" class="anchor"></a>msaenet 2.3 (2017-02-09)<small> 2017-02-10 </small>
 </h1>
-<div id="improvements-3" class="section level2">
+<div id="improvements-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-3" class="anchor"></a>Improvements</h2>
+<a href="#improvements-4" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Reduced model saturation cases and improved speed at the initialization step for MCP-net and SCAD-net based models when <code>init = "ridge"</code>, by using the ridge estimation implementation from <code>glmnet</code>. As a benefit, we now have a more aligned baseline for the comparison between elastic-net based models and MCP-net/SCAD-net based models when <code>init = "ridge"</code>.</li>
 <li>Style improvements in code and examples: reduced whitespace with a new formatting scheme.</li>
@@ -199,9 +212,9 @@
 <li>Redesigned plot function: now supports two types of plots (coefficient path, screeplot of the optimal step selection criterion), optimal step highlighting, variable labeling, and color palette customization. See <code><a href="../reference/plot.msaenet.html">?plot.msaenet</a></code> for details.</li>
 </ul>
 </div>
-<div id="improvements-4" class="section level2">
+<div id="improvements-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-4" class="anchor"></a>Improvements</h2>
+<a href="#improvements-5" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Renamed previous argument <code>gamma</code> (scaling factor for adaptive weights) to <code>scale</code> to avoid possible confusion.</li>
 <li>Reset the default values of candidate concavity parameter <code>gammas</code> to be 3.7 for SCAD-net and 3 for MCP-net.</li>
@@ -222,9 +235,9 @@
 <li>Added function <code><a href="../reference/msaenet.mse.html">msaenet.mse()</a></code> for computing mean squared error (MSE).</li>
 </ul>
 </div>
-<div id="improvements-5" class="section level2">
+<div id="improvements-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-5" class="anchor"></a>Improvements</h2>
+<a href="#improvements-6" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Speed improvements in <code><a href="../reference/msaenet.sim.gaussian.html">msaenet.sim.gaussian()</a></code> by more vectorization when generating correlation matrices.</li>
 <li>Added parameters <code>max.iter</code> and <code>epsilon</code> for MCP-net and SCAD-net related functions to have finer control over convergence criterion. By default, <code>max.iter = 10000</code> and <code>epsilon = 1e-4</code>.</li>
@@ -246,9 +259,9 @@
 <li>Added <code><a href="../reference/msaenet.nzv.all.html">msaenet.nzv.all()</a></code> for displaying the indices of non-zero variables in all adaptive estimation steps.</li>
 </ul>
 </div>
-<div id="improvements-6" class="section level2">
+<div id="improvements-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-6" class="anchor"></a>Improvements</h2>
+<a href="#improvements-7" class="anchor"></a>Improvements</h2>
 <ul>
 <li>More flexible <code>predict.msaenet</code> method allowing users to specify prediction type.</li>
 </ul>
@@ -265,11 +278,11 @@
 <li>Added method <code>coef</code> for extracting model coefficients. See <code><a href="../reference/coef.msaenet.html">?coef.msaenet</a></code> for details.</li>
 </ul>
 </div>
-<div id="improvements-7" class="section level2">
+<div id="improvements-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-7" class="anchor"></a>Improvements</h2>
+<a href="#improvements-8" class="anchor"></a>Improvements</h2>
 <ul>
-<li>New website (<a href="https://msaenet.com" class="uri">https://msaenet.com</a>) generated by pkgdown, with a full set of function documentation and vignettes available.</li>
+<li>New documentation website generated by pkgdown, with a full set of function documentation and vignettes available.</li>
 <li>Added Windows continuous integration support using AppVeyor.</li>
 </ul>
 </div>
@@ -292,6 +305,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#msaenet-2-8-9000-2018-05-07">2.8.9000</a></li>
         <li><a href="#msaenet-2-8-2018-01-05">2.8</a></li>
         <li><a href="#msaenet-2-7-2017-09-24">2.7</a></li>
         <li><a href="#msaenet-2-6-2017-04-23">2.6</a></li>
