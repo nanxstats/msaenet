@@ -96,6 +96,7 @@ msaenet <- function(
   scale = 1,
   lower.limits = -Inf, upper.limits = Inf,
   seed = 1001, parallel = FALSE, verbose = FALSE) {
+
   if (nsteps < 2L) stop("nsteps must be an integer >= 2")
 
   family <- match.arg(family)

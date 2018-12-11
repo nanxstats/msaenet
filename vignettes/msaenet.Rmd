@@ -28,10 +28,11 @@ library("msaenet")
 First, we generate some simulated data under a setting often used for testing high-dimensional linear models, with the function `msaenet.sim.gaussian()`:
 
 ```{r}
-dat = msaenet.sim.gaussian(
+dat <- msaenet.sim.gaussian(
   n = 150, p = 500, rho = 0.7,
   coef = rep(1, 5), snr = 3, p.train = 0.7,
-  seed = 1001)
+  seed = 1001
+)
 ```
 
 The parameter `rho` controls the degree of correlation among the variables. The parameter `coef` sets the coefficients of the "true" variables, and in this case, the first 5 variables will have coefficient 1 while the other 495 variables will have coefficient 0. `snr` represents the designated signal-to-noise ratio (SNR) in the simulated data. Parameter `p.train` decides the proportion of the training set (relative to the total number of observations `n`).
@@ -41,11 +42,12 @@ To generate simulation data for the other types of generalized linear models sup
 The returned object `dat` contains both the training and test set. We will only use the training set to do the modeling (parameter tuning and model fitting), and then evaluate the model's performance on the test set independently.
 
 ```{r}
-msaenet.fit = msaenet(
+msaenet.fit <- msaenet(
   dat$x.tr, dat$y.tr,
   alphas = seq(0.1, 0.9, 0.1),
   nsteps = 10L, tune.nsteps = "ebic",
-  seed   = 1005)
+  seed = 1005
+)
 ```
 
 The parameter `alphas` sets the alpha tuning grid for elastic-net in all adaptive estimation steps. `nsteps` indicates how many adaptive estimation steps should be used.
@@ -53,7 +55,7 @@ The parameter `alphas` sets the alpha tuning grid for elastic-net in all adaptiv
 By default, the internal parameter tuning is done by k-fold cross-validation, and the parameters which produce the minimum prediction errors will be selected. You could also set `parallel = TRUE` and run
 
 ```{r, eval=FALSE}
-library(doParallel)
+library("doParallel")
 registerDoParallel(detectCores())
 ```
 
@@ -74,7 +76,7 @@ msaenet.tp(msaenet.fit, 1:5)
 Next, we make predictions on the test set using the fitted model, and compute some evaluation metrics, such as RMSE and MAE:
 
 ```{r}
-msaenet.pred = predict(msaenet.fit, dat$x.te)
+msaenet.pred <- predict(msaenet.fit, dat$x.te)
 msaenet.rmse(dat$y.te, msaenet.pred)
 msaenet.mae(dat$y.te, msaenet.pred)
 ```
