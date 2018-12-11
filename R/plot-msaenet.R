@@ -48,16 +48,18 @@
 #' @export
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(
+#' dat <- msaenet.sim.gaussian(
 #'   n = 150, p = 500, rho = 0.6,
 #'   coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'   seed = 1001)
+#'   seed = 1001
+#' )
 #'
-#' msasnet.fit = msasnet(
+#' msasnet.fit <- msasnet(
 #'   dat$x.tr, dat$y.tr,
 #'   alphas = seq(0.2, 0.8, 0.2),
 #'   nsteps = 5L, tune.nsteps = "ebic",
-#'   seed = 1003)
+#'   seed = 1003
+#' )
 #'
 #' plot(msasnet.fit)
 #' plot(msasnet.fit, label = TRUE)
@@ -66,9 +68,8 @@
 #' plot(msasnet.fit, type = "criterion", nsteps = 5)
 #' plot(msasnet.fit, type = "dotplot", label = TRUE)
 #' plot(msasnet.fit, type = "dotplot", label = TRUE, abs = TRUE)
-
-plot.msaenet = function(
-  x, type = c('coef', 'criterion', 'dotplot'), nsteps = NULL,
+plot.msaenet <- function(
+  x, type = c("coef", "criterion", "dotplot"), nsteps = NULL,
   highlight = TRUE, col = NULL,
   label = FALSE, label.vars = NULL,
   label.pos = 2, label.offset = 0.3, label.cex = 0.7,
@@ -76,187 +77,220 @@ plot.msaenet = function(
   xlab = NULL, ylab = NULL,
   abs = FALSE, ...) {
 
-  type = match.arg(type)
+  type <- match.arg(type)
 
-  if (!.is.msaenet(x))
+  if (!.is.msaenet(x)) {
     stop('object class must be "msaenet"')
+  }
 
   if (.is.multistep(x)) {
-    beta.mat = do.call(cbind, x$'beta.list')
-    best.step = x$'best.step'
+    beta.mat <- do.call(cbind, x$"beta.list")
+    best.step <- x$"best.step"
   }
 
   if (.is.adaptive(x)) {
-    beta.mat = as.matrix(cbind(x$'beta.first', x$'beta'))
-    best.step = 2L
+    beta.mat <- as.matrix(cbind(x$"beta.first", x$"beta"))
+    best.step <- 2L
   }
 
-  if (is.null(nsteps))
-    nsteps = ncol(beta.mat)
+  if (is.null(nsteps)) {
+    nsteps <- ncol(beta.mat)
+  }
 
-  if (type == 'coef') {
-    nzv.idx = msaenet.nzv(x)
+  if (type == "coef") {
+    nzv.idx <- msaenet.nzv(x)
     .parcor(
       beta.mat, nsteps, best.step, nzv.idx,
       highlight, col,
       label, label.vars,
       label.pos, label.offset, label.cex,
-      xlab, ylab)
+      xlab, ylab
+    )
   }
 
-  if (type == 'criterion') {
-    if (is.null(x$'post.criterion'))
-      stop('No post selection ICs available, since `tune.nsteps = "max"
-           or it is a one-step-only adaptive model object`') else
-             .scree(x$'post.criterion',
-                    nsteps, best.step, highlight,
-                    xlab, ylab)
+  if (type == "criterion") {
+    if (is.null(x$"post.criterion")) {
+      stop('No post selection ICs available, since `tune.nsteps = "max" or it is a one-step-only adaptive model object`')
+    } else {
+      .scree(
+        x$"post.criterion",
+        nsteps, best.step, highlight,
+        xlab, ylab
+      )
+    }
   }
 
-  if (type == 'dotplot') {
+  if (type == "dotplot") {
     .dotplot(
       x, abs,
       label, label.vars, label.cex, label.srt,
-      xlab, ylab)
+      xlab, ylab
+    )
   }
 
   invisible()
-
 }
 
 # parallel coordinates plot
-.parcor = function(
+.parcor <- function(
   x, nsteps, best.step, nzv.idx,
   highlight, col,
   label, label.vars,
   label.pos, label.offset, label.cex,
   xlab, ylab) {
 
-  x = x[, 1L:nsteps]
-  xmin = min(x)
-  xmax = max(x)
+  x <- x[, 1L:nsteps]
+  xmin <- min(x)
+  xmax <- max(x)
 
-  if (is.null(xlab)) xlab = 'Number of Estimation Steps'
-  if (is.null(ylab)) ylab = 'Coefficients'
+  if (is.null(xlab)) xlab <- "Number of Estimation Steps"
+  if (is.null(ylab)) ylab <- "Coefficients"
 
   # box
-  matplot(1L:nsteps, t(x), xlab = xlab, ylab = ylab,
-          xaxt = 'n', yaxt = 'n', type = 'n', axes = TRUE)
+  matplot(1L:nsteps, t(x),
+          xlab = xlab, ylab = ylab,
+          xaxt = "n", yaxt = "n", type = "n", axes = TRUE
+  )
 
   # axes with only ticks
-  axis(2, at = c(xmin, 0, xmax), labels = c('Min', '0', 'Max'), lwd = 0, lwd.ticks = 1)
+  axis(2, at = c(xmin, 0, xmax), labels = c("Min", "0", "Max"), lwd = 0, lwd.ticks = 1)
   axis(1, at = 1L:nsteps, labels = as.character(1L:nsteps), lwd = 0, lwd.ticks = 1)
 
   # step lines
   for (i in 1L:nsteps)
-    lines(x = c(i, i), y = c(xmin - 42, xmax + 42), lty = 3, col = 'grey70')
+    lines(x = c(i, i), y = c(xmin - 42, xmax + 42), lty = 3, col = "grey70")
 
   # highlight optimal step
   if (highlight) {
-    lines(x = c(best.step, best.step), y = c(xmin - 42, xmax + 42),
-          col = 'white', lty = 1, lwd = 1.5)
-    lines(x = c(best.step, best.step), y = c(xmin - 42, xmax + 42),
-          col = 'darkred', lty = 2, lwd = 1.5)
+    lines(
+      x = c(best.step, best.step), y = c(xmin - 42, xmax + 42),
+      col = "white", lty = 1, lwd = 1.5
+    )
+    lines(
+      x = c(best.step, best.step), y = c(xmin - 42, xmax + 42),
+      col = "darkred", lty = 2, lwd = 1.5
+    )
   }
 
   # coefficient paths
-  if (is.null(col))  # 10-color palette from D3 (v3)
-    col = c('#1F77B4', '#FF7F0E', '#2CA02C', '#D62728', '#9467BD',
-            '#8C564B', '#E377C2', '#7F7F7F', '#BCBD22', '#17BECF')
+  if (is.null(col)) { # 10-color palette from D3 (v3)
+    col <- c(
+      "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD",
+      "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF"
+    )
+  }
   matlines(1L:nsteps, t(x), lty = 1, lwd = 1.2, col = col)
 
   # zero line
   lines(x = c(0L, nsteps + 1L), y = c(0, 0), lwd = 1.2)
 
   # label variables
-  if (label & is.null(label.vars))
-    text(x = best.step, y = x[nzv.idx, best.step],
-         labels = as.character(nzv.idx),
-         pos = label.pos, offset = label.offset, cex = label.cex)
+  if (label & is.null(label.vars)) {
+    text(
+      x = best.step, y = x[nzv.idx, best.step],
+      labels = as.character(nzv.idx),
+      pos = label.pos, offset = label.offset, cex = label.cex
+    )
+  }
 
   if (label & !is.null(label.vars)) {
-
-    if (length(label.vars) != nrow(x))
-      stop('Length of `label.vars` should be the same as the number of variables') else
-        text(x = best.step, y = x[nzv.idx, best.step],
-             labels = label.vars[nzv.idx],
-             pos = label.pos, offset = label.offset, cex = label.cex)
-
+    if (length(label.vars) != nrow(x)) {
+      stop("Length of `label.vars` should be the same as the number of variables")
+    } else {
+      text(
+        x = best.step, y = x[nzv.idx, best.step],
+        labels = label.vars[nzv.idx],
+        pos = label.pos, offset = label.offset, cex = label.cex
+      )
+    }
   }
 
   invisible()
-
 }
 
-.scree = function(x, nsteps, best.step, highlight, xlab, ylab) {
+.scree <- function(x, nsteps, best.step, highlight, xlab, ylab) {
+  x <- x[1L:nsteps]
 
-  x = x[1L:nsteps]
+  if (is.null(xlab)) xlab <- "Number of Estimation Steps"
+  if (is.null(ylab)) ylab <- "Model Selection Criterion"
 
-  if (is.null(xlab)) xlab = 'Number of Estimation Steps'
-  if (is.null(ylab)) ylab = 'Model Selection Criterion'
+  plot(1L:length(x), x, type = "b", xaxt = "n", xlab = xlab, ylab = ylab)
 
-  plot(1L:length(x), x, type = 'b', xaxt = 'n', xlab = xlab, ylab = ylab)
+  axis(1,
+       at = 1L:nsteps, labels = as.character(1L:nsteps),
+       lwd = 0, lwd.ticks = 1
+  )
 
-  axis(1, at = 1L:nsteps, labels = as.character(1L:nsteps),
-       lwd = 0, lwd.ticks = 1)
-
-  if (highlight) lines(
-    x = c(best.step, best.step),
-    y = c(min(x) - 0.5, max(x) + 0.5),
-    col = 'darkred', lty = 2, lwd = 1.5)
-
+  if (highlight) {
+    lines(
+      x = c(best.step, best.step),
+      y = c(min(x) - 0.5, max(x) + 0.5),
+      col = "darkred", lty = 2, lwd = 1.5
+    )
+  }
 }
 
 # Cleveland dot plot for model coefficients at the optimal step
-.dotplot = function(
+.dotplot <- function(
   x, abs, label, label.vars, label.cex, label.srt, xlab, ylab) {
 
-  idx.nzv = msaenet.nzv(x)
+  idx.nzv <- msaenet.nzv(x)
 
-  if (is.null(xlab)) xlab = 'Selected Variables'
-  if (is.null(ylab)) ylab = 'Coefficients'
+  if (is.null(xlab)) xlab <- "Selected Variables"
+  if (is.null(ylab)) ylab <- "Coefficients"
 
   if (label & is.null(label.vars)) {
-    label.nzv = as.character(idx.nzv)
+    label.nzv <- as.character(idx.nzv)
   } else if (label & !is.null(label.vars)) {
-    label.nzv = label.vars[idx.nzv]
+    label.nzv <- label.vars[idx.nzv]
   } else {
-    label.nzv = rep('', length(idx.nzv))
+    label.nzv <- rep("", length(idx.nzv))
   }
 
-  coef.nzv = coef(x)[idx.nzv]
-  if (abs) coef.nzv = abs(coef.nzv)
+  coef.nzv <- coef(x)[idx.nzv]
+  if (abs) coef.nzv <- abs(coef.nzv)
 
-  ord.nzv = order(coef.nzv, decreasing = TRUE)
+  ord.nzv <- order(coef.nzv, decreasing = TRUE)
 
   if (all(coef.nzv > 0)) {
-    plot(coef.nzv[ord.nzv], type = 'h', xaxt = 'n', xlab = xlab, ylab = ylab,
-         ylim = c(-0.3, max(coef.nzv) + 0.05))
+    plot(coef.nzv[ord.nzv],
+         type = "h", xaxt = "n", xlab = xlab, ylab = ylab,
+         ylim = c(-0.3, max(coef.nzv) + 0.05)
+    )
   } else if (all(coef.nzv < 0)) {
-    plot(coef.nzv[ord.nzv], type = 'h', xaxt = 'n', xlab = xlab, ylab = ylab,
-         ylim = c(min(coef.nzv) - 0.05, 0.3))
+    plot(coef.nzv[ord.nzv],
+         type = "h", xaxt = "n", xlab = xlab, ylab = ylab,
+         ylim = c(min(coef.nzv) - 0.05, 0.3)
+    )
   } else {
-    plot(coef.nzv[ord.nzv], type = 'h', xaxt = 'n', xlab = xlab, ylab = ylab)
+    plot(coef.nzv[ord.nzv], type = "h", xaxt = "n", xlab = xlab, ylab = ylab)
   }
 
   abline(a = 0, b = 0)
 
-  col.vec = ifelse(coef.nzv > 0, '#BC3C29', '#0072B5')
+  col.vec <- ifelse(coef.nzv > 0, "#BC3C29", "#0072B5")
   points(
-    1L:length(coef.nzv), coef.nzv[ord.nzv], pch = 21,
-    bg = col.vec[ord.nzv], col = col.vec[ord.nzv])
+    1L:length(coef.nzv), coef.nzv[ord.nzv],
+    pch = 21,
+    bg = col.vec[ord.nzv], col = col.vec[ord.nzv]
+  )
 
-  idx.pos = which(coef.nzv[ord.nzv] > 0)
-  idx.neg = which(coef.nzv[ord.nzv] <= 0)
+  idx.pos <- which(coef.nzv[ord.nzv] > 0)
+  idx.neg <- which(coef.nzv[ord.nzv] <= 0)
 
-  if (length(idx.pos) > 0L)
+  if (length(idx.pos) > 0L) {
     text(
-      idx.pos, -0.05, labels = label.nzv[ord.nzv][idx.pos],
-      srt = label.srt, cex = label.cex, adj = 1)
+      idx.pos, -0.05,
+      labels = label.nzv[ord.nzv][idx.pos],
+      srt = label.srt, cex = label.cex, adj = 1
+    )
+  }
 
-  if (length(idx.neg) > 0L)
+  if (length(idx.neg) > 0L) {
     text(
-      idx.neg, 0.05, labels = label.nzv[ord.nzv][idx.neg],
-      srt = label.srt, cex = label.cex, adj = 0)
-
+      idx.neg, 0.05,
+      labels = label.nzv[ord.nzv][idx.neg],
+      srt = label.srt, cex = label.cex, adj = 0
+    )
+  }
 }

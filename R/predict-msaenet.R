@@ -21,32 +21,34 @@
 #' @export
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(
+#' dat <- msaenet.sim.gaussian(
 #'   n = 150, p = 500, rho = 0.6,
 #'   coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'   seed = 1001)
+#'   seed = 1001
+#' )
 #'
-#' msaenet.fit = msaenet(
+#' msaenet.fit <- msaenet(
 #'   dat$x.tr, dat$y.tr,
 #'   alphas = seq(0.2, 0.8, 0.2),
-#'   nsteps = 3L, seed = 1003)
+#'   nsteps = 3L, seed = 1003
+#' )
 #'
-#' msaenet.pred = predict(msaenet.fit, dat$x.te)
+#' msaenet.pred <- predict(msaenet.fit, dat$x.te)
 #' msaenet.rmse(dat$y.te, msaenet.pred)
+predict.msaenet <- function(object, newx, ...) {
+  if (missing(newx)) stop("Please specify newx to predict on")
 
-predict.msaenet = function(object, newx, ...) {
-
-  if (missing(newx)) stop('Please specify newx to predict on')
-
-  if (!.is.msaenet(object))
+  if (!.is.msaenet(object)) {
     stop('object class must be "msaenet"')
+  }
 
-  if (.is.glmnet(object$'model'))
-    pred = predict(object$'model', newx = newx, ...)
+  if (.is.glmnet(object$"model")) {
+    pred <- predict(object$"model", newx = newx, ...)
+  }
 
-  if (.is.ncvreg(object$'model'))
-    pred = predict(object$'model', X = newx, ...)
+  if (.is.ncvreg(object$"model")) {
+    pred <- predict(object$"model", X = newx, ...)
+  }
 
   pred
-
 }

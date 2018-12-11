@@ -10,7 +10,7 @@
 #' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.mse
-msaenet.mse = function(yreal, ypred)
+msaenet.mse <- function(yreal, ypred)
   mean((yreal - ypred)^2)
 
 #' Root Mean Squared Error (RMSE)
@@ -25,7 +25,7 @@ msaenet.mse = function(yreal, ypred)
 #' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.rmse
-msaenet.rmse = function(yreal, ypred)
+msaenet.rmse <- function(yreal, ypred)
   sqrt(mean((yreal - ypred)^2))
 
 #' Mean Absolute Error (MAE)
@@ -40,7 +40,7 @@ msaenet.rmse = function(yreal, ypred)
 #' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.mae
-msaenet.mae = function(yreal, ypred)
+msaenet.mae <- function(yreal, ypred)
   mean(abs(yreal - ypred))
 
 #' Root Mean Squared Logarithmic Error (RMSLE)
@@ -55,5 +55,5 @@ msaenet.mae = function(yreal, ypred)
 #' @author Nan Xiao <\url{https://nanx.me}>
 #'
 #' @export msaenet.rmsle
-msaenet.rmsle = function(yreal, ypred)
+msaenet.rmsle <- function(yreal, ypred)
   sqrt(mean((log(ypred + 1) - log(yreal + 1))^2))

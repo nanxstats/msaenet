@@ -21,5 +21,4 @@
 #' @name msaenet-package
 #' @docType package
 #' @author Nan Xiao <\email{me@@nanx.me}>
-#'
 NULL

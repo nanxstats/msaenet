@@ -42,145 +42,148 @@
 #' @export asnet
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(
+#' dat <- msaenet.sim.gaussian(
 #'   n = 150, p = 500, rho = 0.6,
 #'   coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'   seed = 1001)
+#'   seed = 1001
+#' )
 #'
-#' asnet.fit = asnet(
+#' asnet.fit <- asnet(
 #'   dat$x.tr, dat$y.tr,
-#'   alphas = seq(0.2, 0.8, 0.2), seed = 1002)
+#'   alphas = seq(0.2, 0.8, 0.2), seed = 1002
+#' )
 #'
 #' print(asnet.fit)
 #' msaenet.nzv(asnet.fit)
 #' msaenet.fp(asnet.fit, 1:5)
 #' msaenet.tp(asnet.fit, 1:5)
-#' asnet.pred = predict(asnet.fit, dat$x.te)
+#' asnet.pred <- predict(asnet.fit, dat$x.te)
 #' msaenet.rmse(dat$y.te, asnet.pred)
 #' plot(asnet.fit)
-
-asnet = function(
+asnet <- function(
   x, y,
-  family = c('gaussian', 'binomial', 'poisson', 'cox'),
-  init   = c('snet', 'ridge'),
+  family = c("gaussian", "binomial", "poisson", "cox"),
+  init = c("snet", "ridge"),
   gammas = 3.7, alphas = seq(0.05, 0.95, 0.05),
-  tune   = c('cv', 'ebic', 'bic', 'aic'),
+  tune = c("cv", "ebic", "bic", "aic"),
   nfolds = 5L,
   ebic.gamma = 1,
-  scale  = 1,
-  eps    = 1e-4, max.iter = 10000L,
-  seed   = 1001, parallel = FALSE, verbose = FALSE) {
+  scale = 1,
+  eps = 1e-4, max.iter = 10000L,
+  seed = 1001, parallel = FALSE, verbose = FALSE) {
 
-  family = match.arg(family)
-  init   = match.arg(init)
-  tune   = match.arg(tune)
-  call   = match.call()
-  nvar   = ncol(x)
+  family <- match.arg(family)
+  init <- match.arg(init)
+  tune <- match.arg(tune)
+  call <- match.call()
+  nvar <- ncol(x)
 
-  if (verbose) cat('Starting step 1 ...\n')
+  if (verbose) cat("Starting step 1 ...\n")
 
-  if (init == 'snet') {
-
-    snet.cv = msaenet.tune.ncvreg(
-      x = x, y = y, family = family, penalty = 'SCAD',
+  if (init == "snet") {
+    snet.cv <- msaenet.tune.ncvreg(
+      x = x, y = y, family = family, penalty = "SCAD",
       gammas = gammas, alphas = alphas,
       tune = tune,
       nfolds = nfolds,
       ebic.gamma = ebic.gamma,
       eps = eps, max.iter = max.iter,
-      seed = seed, parallel = parallel)
+      seed = seed, parallel = parallel
+    )
 
-    best.gamma.snet     = snet.cv$'best.gamma'
-    best.alpha.snet     = snet.cv$'best.alpha'
-    best.lambda.snet    = snet.cv$'best.lambda'
-    step.criterion.snet = snet.cv$'step.criterion'
+    best.gamma.snet <- snet.cv$"best.gamma"
+    best.alpha.snet <- snet.cv$"best.alpha"
+    best.lambda.snet <- snet.cv$"best.lambda"
+    step.criterion.snet <- snet.cv$"step.criterion"
 
-    snet.full = .ncvnet(
-      x = x, y = y, family = family, penalty = 'SCAD',
-      gamma  = best.gamma.snet,
-      alpha  = best.alpha.snet,
+    snet.full <- .ncvnet(
+      x = x, y = y, family = family, penalty = "SCAD",
+      gamma = best.gamma.snet,
+      alpha = best.alpha.snet,
       lambda = best.lambda.snet,
-      eps = eps, max.iter = max.iter)
+      eps = eps, max.iter = max.iter
+    )
 
-    bhat = .coef.ncvreg(snet.full, nvar)
-
+    bhat <- .coef.ncvreg(snet.full, nvar)
   }
 
-  if (init == 'ridge') {
-
-    snet.cv = msaenet.tune.glmnet(
+  if (init == "ridge") {
+    snet.cv <- msaenet.tune.glmnet(
       x = x, y = y, family = family,
       alphas = 0,
       tune = tune,
-      nfolds = nfolds, rule = 'lambda.min',
+      nfolds = nfolds, rule = "lambda.min",
       ebic.gamma = ebic.gamma,
       lower.limits = -Inf, upper.limits = Inf,
-      seed = seed, parallel = parallel)
+      seed = seed, parallel = parallel
+    )
 
-    best.gamma.snet     = NA
-    best.alpha.snet     = snet.cv$'best.alpha'
-    best.lambda.snet    = snet.cv$'best.lambda'
-    step.criterion.snet = snet.cv$'step.criterion'
+    best.gamma.snet <- NA
+    best.alpha.snet <- snet.cv$"best.alpha"
+    best.lambda.snet <- snet.cv$"best.lambda"
+    step.criterion.snet <- snet.cv$"step.criterion"
 
-    snet.full = glmnet(
+    snet.full <- glmnet(
       x = x, y = y, family = family,
-      alpha  = best.alpha.snet,
-      lambda = best.lambda.snet)
+      alpha = best.alpha.snet,
+      lambda = best.lambda.snet
+    )
 
-    bhat = as.matrix(snet.full$'beta')
-
+    bhat <- as.matrix(snet.full$"beta")
   }
 
-  if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
+  if (all(bhat == 0)) bhat <- rep(.Machine$double.eps * 2, length(bhat))
 
-  adpen = (pmax(abs(bhat), .Machine$double.eps))^(-scale)
+  adpen <- (pmax(abs(bhat), .Machine$double.eps))^(-scale)
 
-  if (verbose) cat('Starting step 2 ...\n')
+  if (verbose) cat("Starting step 2 ...\n")
 
-  asnet.cv = msaenet.tune.ncvreg(
-    x = x, y = y, family = family, penalty = 'SCAD',
+  asnet.cv <- msaenet.tune.ncvreg(
+    x = x, y = y, family = family, penalty = "SCAD",
     gammas = gammas, alphas = alphas,
     tune = tune,
     nfolds = nfolds,
     ebic.gamma = ebic.gamma,
     eps = eps, max.iter = max.iter,
     seed = seed + 1L, parallel = parallel,
-    penalty.factor = adpen)
+    penalty.factor = adpen
+  )
 
-  best.gamma.asnet     = asnet.cv$'best.gamma'
-  best.alpha.asnet     = asnet.cv$'best.alpha'
-  best.lambda.asnet    = asnet.cv$'best.lambda'
-  step.criterion.asnet = asnet.cv$'step.criterion'
+  best.gamma.asnet <- asnet.cv$"best.gamma"
+  best.alpha.asnet <- asnet.cv$"best.alpha"
+  best.lambda.asnet <- asnet.cv$"best.lambda"
+  step.criterion.asnet <- asnet.cv$"step.criterion"
 
-  asnet.full = .ncvnet(
-    x = x, y = y, family = family, penalty = 'SCAD',
-    gamma  = best.gamma.asnet,
-    alpha  = best.alpha.asnet,
+  asnet.full <- .ncvnet(
+    x = x, y = y, family = family, penalty = "SCAD",
+    gamma = best.gamma.asnet,
+    alpha = best.alpha.asnet,
     lambda = best.lambda.asnet,
     eps = eps, max.iter = max.iter,
-    penalty.factor = adpen)
+    penalty.factor = adpen
+  )
 
   # final beta stored as sparse matrix
-  bhat.full  = Matrix(.coef.ncvreg(asnet.full, nvar), sparse = TRUE)
-  bhat.first = Matrix(.coef.ncvreg(snet.full,  nvar), sparse = TRUE)
+  bhat.full <- Matrix(.coef.ncvreg(asnet.full, nvar), sparse = TRUE)
+  bhat.first <- Matrix(.coef.ncvreg(snet.full, nvar), sparse = TRUE)
 
-  asnet.model = list(
-    'beta'              = bhat.full,
-    'model'             = asnet.full,
-    'beta.first'        = bhat.first,
-    'model.first'       = snet.full,
-    'best.alpha.snet'   = best.alpha.snet,
-    'best.alpha.asnet'  = best.alpha.asnet,
-    'best.lambda.snet'  = best.lambda.snet,
-    'best.lambda.asnet' = best.lambda.asnet,
-    'best.gamma.snet'   = best.gamma.snet,
-    'best.gamma.asnet'  = best.gamma.asnet,
-    'step.criterion'    = c(step.criterion.snet, step.criterion.asnet),
-    'adpen'             = adpen,
-    'seed'              = seed,
-    'call'              = call)
+  asnet.model <- list(
+    "beta" = bhat.full,
+    "model" = asnet.full,
+    "beta.first" = bhat.first,
+    "model.first" = snet.full,
+    "best.alpha.snet" = best.alpha.snet,
+    "best.alpha.asnet" = best.alpha.asnet,
+    "best.lambda.snet" = best.lambda.snet,
+    "best.lambda.asnet" = best.lambda.asnet,
+    "best.gamma.snet" = best.gamma.snet,
+    "best.gamma.asnet" = best.gamma.asnet,
+    "step.criterion" = c(step.criterion.snet, step.criterion.asnet),
+    "adpen" = adpen,
+    "seed" = seed,
+    "call" = call
+  )
 
-  class(asnet.model) = c('msaenet', 'msaenet.asnet')
+  class(asnet.model) <- c("msaenet", "msaenet.asnet")
   asnet.model
-
 }

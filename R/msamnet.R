@@ -53,185 +53,187 @@
 #' @export msamnet
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(
+#' dat <- msaenet.sim.gaussian(
 #'   n = 150, p = 500, rho = 0.6,
 #'   coef = rep(1, 5), snr = 2, p.train = 0.7,
-#'   seed = 1001)
+#'   seed = 1001
+#' )
 #'
-#' msamnet.fit = msamnet(
+#' msamnet.fit <- msamnet(
 #'   dat$x.tr, dat$y.tr,
 #'   alphas = seq(0.3, 0.9, 0.3),
-#'   nsteps = 3L, seed = 1003)
+#'   nsteps = 3L, seed = 1003
+#' )
 #'
 #' print(msamnet.fit)
 #' msaenet.nzv(msamnet.fit)
 #' msaenet.fp(msamnet.fit, 1:5)
 #' msaenet.tp(msamnet.fit, 1:5)
-#' msamnet.pred = predict(msamnet.fit, dat$x.te)
+#' msamnet.pred <- predict(msamnet.fit, dat$x.te)
 #' msaenet.rmse(dat$y.te, msamnet.pred)
 #' plot(msamnet.fit)
-
-msamnet = function(
+msamnet <- function(
   x, y,
-  family = c('gaussian', 'binomial', 'poisson', 'cox'),
-  init   = c('mnet', 'ridge'),
+  family = c("gaussian", "binomial", "poisson", "cox"),
+  init = c("mnet", "ridge"),
   gammas = 3, alphas = seq(0.05, 0.95, 0.05),
-  tune   = c('cv', 'ebic', 'bic', 'aic'),
+  tune = c("cv", "ebic", "bic", "aic"),
   nfolds = 5L,
   ebic.gamma = 1,
   nsteps = 2L,
-  tune.nsteps = c('max', 'ebic', 'bic', 'aic'),
+  tune.nsteps = c("max", "ebic", "bic", "aic"),
   ebic.gamma.nsteps = 1,
-  scale  = 1,
-  eps    = 1e-4, max.iter = 10000L,
-  seed   = 1001, parallel = FALSE, verbose = FALSE) {
+  scale = 1,
+  eps = 1e-4, max.iter = 10000L,
+  seed = 1001, parallel = FALSE, verbose = FALSE) {
 
-  if (nsteps < 2L) stop('nsteps must be an integer >= 2')
+  if (nsteps < 2L) stop("nsteps must be an integer >= 2")
 
-  family      = match.arg(family)
-  init        = match.arg(init)
-  tune        = match.arg(tune)
-  tune.nsteps = match.arg(tune.nsteps)
-  call        = match.call()
-  nvar        = ncol(x)
+  family <- match.arg(family)
+  init <- match.arg(init)
+  tune <- match.arg(tune)
+  tune.nsteps <- match.arg(tune.nsteps)
+  call <- match.call()
+  nvar <- ncol(x)
 
-  best.gammas    = rep(NA, nsteps + 1L)
-  best.alphas    = rep(NA, nsteps + 1L)
-  best.lambdas   = rep(NA, nsteps + 1L)
-  step.criterion = rep(NA, nsteps + 1L)
-  beta.list      = vector('list', nsteps + 1L)
-  model.list     = vector('list', nsteps + 1L)
-  adapen.list    = vector('list', nsteps)
+  best.gammas <- rep(NA, nsteps + 1L)
+  best.alphas <- rep(NA, nsteps + 1L)
+  best.lambdas <- rep(NA, nsteps + 1L)
+  step.criterion <- rep(NA, nsteps + 1L)
+  beta.list <- vector("list", nsteps + 1L)
+  model.list <- vector("list", nsteps + 1L)
+  adapen.list <- vector("list", nsteps)
 
-  if (verbose) cat('Starting step 1 ...\n')
+  if (verbose) cat("Starting step 1 ...\n")
 
-  if (init == 'mnet') {
-
-    model.cv = msaenet.tune.ncvreg(
-      x = x, y = y, family = family, penalty = 'MCP',
+  if (init == "mnet") {
+    model.cv <- msaenet.tune.ncvreg(
+      x = x, y = y, family = family, penalty = "MCP",
       gammas = gammas, alphas = alphas,
       tune = tune,
       nfolds = nfolds,
       ebic.gamma = ebic.gamma,
       eps = eps, max.iter = max.iter,
-      seed = seed, parallel = parallel)
+      seed = seed, parallel = parallel
+    )
 
-    best.gammas[[1L]]    = model.cv$'best.gamma'
-    best.alphas[[1L]]    = model.cv$'best.alpha'
-    best.lambdas[[1L]]   = model.cv$'best.lambda'
-    step.criterion[[1L]] = model.cv$'step.criterion'
+    best.gammas[[1L]] <- model.cv$"best.gamma"
+    best.alphas[[1L]] <- model.cv$"best.alpha"
+    best.lambdas[[1L]] <- model.cv$"best.lambda"
+    step.criterion[[1L]] <- model.cv$"step.criterion"
 
-    model.list[[1L]] = .ncvnet(
-      x = x, y = y, family = family, penalty = 'MCP',
-      gamma  = best.gammas[[1L]],
-      alpha  = best.alphas[[1L]],
+    model.list[[1L]] <- .ncvnet(
+      x = x, y = y, family = family, penalty = "MCP",
+      gamma = best.gammas[[1L]],
+      alpha = best.alphas[[1L]],
       lambda = best.lambdas[[1L]],
-      eps = eps, max.iter = max.iter)
+      eps = eps, max.iter = max.iter
+    )
 
-    if (.df(model.list[[1L]]) < 0.5)
-      stop('Null model produced by the full fit (all coefficients are zero).
-           Please try a different parameter setting.')
+    if (.df(model.list[[1L]]) < 0.5) {
+      stop("Null model produced by the full fit (all coefficients are zero). Please try a different parameter setting.")
+    }
 
-    bhat = .coef.ncvreg(model.list[[1L]], nvar)
-
+    bhat <- .coef.ncvreg(model.list[[1L]], nvar)
   }
 
-  if (init == 'ridge') {
-
-    model.cv = msaenet.tune.glmnet(
+  if (init == "ridge") {
+    model.cv <- msaenet.tune.glmnet(
       x = x, y = y, family = family,
       alphas = 0,
       tune = tune,
-      nfolds = nfolds, rule = 'lambda.min',
+      nfolds = nfolds, rule = "lambda.min",
       ebic.gamma = ebic.gamma,
       lower.limits = -Inf, upper.limits = Inf,
-      seed = seed, parallel = parallel)
+      seed = seed, parallel = parallel
+    )
 
-    best.gammas[[1L]]    = NA
-    best.alphas[[1L]]    = model.cv$'best.alpha'
-    best.lambdas[[1L]]   = model.cv$'best.lambda'
-    step.criterion[[1L]] = model.cv$'step.criterion'
+    best.gammas[[1L]] <- NA
+    best.alphas[[1L]] <- model.cv$"best.alpha"
+    best.lambdas[[1L]] <- model.cv$"best.lambda"
+    step.criterion[[1L]] <- model.cv$"step.criterion"
 
-    model.list[[1L]] = glmnet(
+    model.list[[1L]] <- glmnet(
       x = x, y = y, family = family,
-      alpha  = best.alphas[[1L]],
-      lambda = best.lambdas[[1L]])
+      alpha = best.alphas[[1L]],
+      lambda = best.lambdas[[1L]]
+    )
 
-    if (.df(model.list[[1L]]) < 0.5)
-      stop('Null model produced by the full fit (all coefficients are zero).
-           Please try a different parameter setting.')
+    if (.df(model.list[[1L]]) < 0.5) {
+      stop("Null model produced by the full fit (all coefficients are zero). Please try a different parameter setting.")
+    }
 
-    bhat = as.matrix(model.list[[1L]][['beta']])
-
+    bhat <- as.matrix(model.list[[1L]][["beta"]])
   }
 
-  if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
-  beta.list[[1L]] = bhat
+  if (all(bhat == 0)) bhat <- rep(.Machine$double.eps * 2, length(bhat))
+  beta.list[[1L]] <- bhat
 
   # MSAMNet steps
   for (i in 1L:nsteps) {
+    adpen.raw <- (pmax(abs(beta.list[[i]]), .Machine$double.eps))^(-scale)
+    adapen.list[[i]] <- as.vector(adpen.raw)
 
-    adpen.raw = (pmax(abs(beta.list[[i]]), .Machine$double.eps))^(-scale)
-    adapen.list[[i]] = as.vector(adpen.raw)
+    if (verbose) cat("Starting step", i + 1, "...\n")
 
-    if (verbose) cat('Starting step', i + 1, '...\n')
-
-    model.cv = msaenet.tune.ncvreg(
-      x = x, y = y, family = family, penalty = 'MCP',
+    model.cv <- msaenet.tune.ncvreg(
+      x = x, y = y, family = family, penalty = "MCP",
       gammas = gammas, alphas = alphas,
       tune = tune,
       nfolds = nfolds,
       ebic.gamma = ebic.gamma,
       eps = eps, max.iter = max.iter,
       seed = seed + i, parallel = parallel,
-      penalty.factor = adapen.list[[i]])
+      penalty.factor = adapen.list[[i]]
+    )
 
-    best.gammas[[i + 1L]]    = model.cv$'best.gamma'
-    best.alphas[[i + 1L]]    = model.cv$'best.alpha'
-    best.lambdas[[i + 1L]]   = model.cv$'best.lambda'
-    step.criterion[[i + 1L]] = model.cv$'step.criterion'
+    best.gammas[[i + 1L]] <- model.cv$"best.gamma"
+    best.alphas[[i + 1L]] <- model.cv$"best.alpha"
+    best.lambdas[[i + 1L]] <- model.cv$"best.lambda"
+    step.criterion[[i + 1L]] <- model.cv$"step.criterion"
 
-    model.list[[i + 1L]] = .ncvnet(
-      x = x, y = y, family = family, penalty = 'MCP',
-      gamma  = best.gammas[[i + 1L]],
-      alpha  = best.alphas[[i + 1L]],
+    model.list[[i + 1L]] <- .ncvnet(
+      x = x, y = y, family = family, penalty = "MCP",
+      gamma = best.gammas[[i + 1L]],
+      alpha = best.alphas[[i + 1L]],
       lambda = best.lambdas[[i + 1L]],
       eps = eps, max.iter = max.iter,
-      penalty.factor = adapen.list[[i]])
+      penalty.factor = adapen.list[[i]]
+    )
 
-    if (.df(model.list[[i + 1L]]) < 0.5)
-      stop('Null model produced by the full fit (all coefficients are zero).
-           Please try a different parameter setting.')
+    if (.df(model.list[[i + 1L]]) < 0.5) {
+      stop("Null model produced by the full fit (all coefficients are zero). Please try a different parameter setting.")
+    }
 
-    bhat = .coef.ncvreg(model.list[[i + 1L]], nvar)
-    if (all(bhat == 0)) bhat = rep(.Machine$double.eps * 2, length(bhat))
-    beta.list[[i + 1L]] = bhat
-
+    bhat <- .coef.ncvreg(model.list[[i + 1L]], nvar)
+    if (all(bhat == 0)) bhat <- rep(.Machine$double.eps * 2, length(bhat))
+    beta.list[[i + 1L]] <- bhat
   }
 
   # select optimal step
-  post.ics = msaenet.tune.nsteps.ncvreg(
-    model.list, tune.nsteps, ebic.gamma.nsteps)
+  post.ics <- msaenet.tune.nsteps.ncvreg(
+    model.list, tune.nsteps, ebic.gamma.nsteps
+  )
 
-  best.step = post.ics$'best.step'
-  post.criterion = post.ics$'ics'
+  best.step <- post.ics$"best.step"
+  post.criterion <- post.ics$"ics"
 
-  msamnet.model = list(
-    'beta'           = Matrix(beta.list[[best.step]], sparse = TRUE),
-    'model'          = model.list[[best.step]],
-    'best.step'      = best.step,
-    'best.alphas'    = best.alphas,
-    'best.gammas'    = best.gammas,
-    'best.lambdas'   = best.lambdas,
-    'step.criterion' = step.criterion,
-    'post.criterion' = post.criterion,
-    'beta.list'      = beta.list,
-    'model.list'     = model.list,
-    'adapen.list'    = adapen.list,
-    'seed'           = seed,
-    'call'           = call)
+  msamnet.model <- list(
+    "beta" = Matrix(beta.list[[best.step]], sparse = TRUE),
+    "model" = model.list[[best.step]],
+    "best.step" = best.step,
+    "best.alphas" = best.alphas,
+    "best.gammas" = best.gammas,
+    "best.lambdas" = best.lambdas,
+    "step.criterion" = step.criterion,
+    "post.criterion" = post.criterion,
+    "beta.list" = beta.list,
+    "model.list" = model.list,
+    "adapen.list" = adapen.list,
+    "seed" = seed,
+    "call" = call
+  )
 
-  class(msamnet.model) = c('msaenet', 'msaenet.msamnet')
+  class(msamnet.model) <- c("msaenet", "msaenet.msamnet")
   msamnet.model
-
 }

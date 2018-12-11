@@ -27,51 +27,52 @@
 #' @export msaenet.sim.gaussian
 #'
 #' @examples
-#' dat = msaenet.sim.gaussian(
+#' dat <- msaenet.sim.gaussian(
 #'   n = 300, p = 500, rho = 0.6,
 #'   coef = rep(1, 10), snr = 3, p.train = 0.7,
-#'   seed = 1001)
+#'   seed = 1001
+#' )
 #'
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
-
-msaenet.sim.gaussian = function(
+msaenet.sim.gaussian <- function(
   n = 300, p = 500,
   rho = 0.5, coef = rep(0.2, 50), snr = 1,
   p.train = 0.7, seed = 1001) {
 
-  call = match.call()
+  call <- match.call()
 
   set.seed(seed)
 
-  sigma = matrix(0, p, p)
-  corvec = function(i, p, rho) rho^(abs(i - 1L:p))
-  for (i in 1:p) sigma[i, ] = corvec(i, p, rho)
+  sigma <- matrix(0, p, p)
+  corvec <- function(i, p, rho) rho^(abs(i - 1L:p))
+  for (i in 1:p) sigma[i, ] <- corvec(i, p, rho)
 
-  X = rmvnorm(n, rep(0, p), sigma)
+  X <- rmvnorm(n, rep(0, p), sigma)
 
   # non-zero coefficients
-  beta0 = matrix(c(coef, rep(0, (p - length(coef)))))
+  beta0 <- matrix(c(coef, rep(0, (p - length(coef)))))
 
-  snr.numerator = as.vector(t(beta0) %*% sigma %*% beta0)
-  snr.denominator = snr.numerator/snr
-  sd = sqrt(snr.denominator)
-  eps = matrix(rnorm(n, 0, sd))
+  snr.numerator <- as.vector(t(beta0) %*% sigma %*% beta0)
+  snr.denominator <- snr.numerator / snr
+  sd <- sqrt(snr.denominator)
+  eps <- matrix(rnorm(n, 0, sd))
 
-  y = as.matrix((X %*% beta0) + eps)
+  y <- as.matrix((X %*% beta0) + eps)
 
   # training / test set splitting
-  tr.row = sample(1L:n, round(n * p.train), replace = FALSE)
+  tr.row <- sample(1L:n, round(n * p.train), replace = FALSE)
 
-  x.tr = X[tr.row,  , drop = FALSE]
-  y.tr = y[tr.row,  , drop = FALSE]
-  x.te = X[-tr.row, , drop = FALSE]
-  y.te = y[-tr.row, , drop = FALSE]
+  x.tr <- X[tr.row, , drop = FALSE]
+  y.tr <- y[tr.row, , drop = FALSE]
+  x.te <- X[-tr.row, , drop = FALSE]
+  y.te <- y[-tr.row, , drop = FALSE]
 
-  list('x.tr' = x.tr, 'y.tr' = y.tr,
-       'x.te' = x.te, 'y.te' = y.te,
-       'call' = call)
-
+  list(
+    "x.tr" = x.tr, "y.tr" = y.tr,
+    "x.te" = x.te, "y.te" = y.te,
+    "call" = call
+  )
 }
 
 #' Generate Simulation Data for Benchmarking Sparse Regressions
@@ -98,55 +99,56 @@ msaenet.sim.gaussian = function(
 #' @export msaenet.sim.binomial
 #'
 #' @examples
-#' dat = msaenet.sim.binomial(
+#' dat <- msaenet.sim.binomial(
 #'   n = 300, p = 500, rho = 0.6,
 #'   coef = rep(1, 10), snr = 3, p.train = 0.7,
-#'   seed = 1001)
+#'   seed = 1001
+#' )
 #'
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
 #' table(dat$y.tr)
 #' table(dat$y.te)
-
-msaenet.sim.binomial = function(
+msaenet.sim.binomial <- function(
   n = 300, p = 500,
   rho = 0.5, coef = rep(0.2, 50), snr = 1,
   p.train = 0.7, seed = 1001) {
 
-  call = match.call()
+  call <- match.call()
 
   set.seed(seed)
 
-  sigma = matrix(0, p, p)
-  corvec = function(i, p, rho) rho^(abs(i - 1L:p))
-  for (i in 1:p) sigma[i, ] = corvec(i, p, rho)
+  sigma <- matrix(0, p, p)
+  corvec <- function(i, p, rho) rho^(abs(i - 1L:p))
+  for (i in 1:p) sigma[i, ] <- corvec(i, p, rho)
 
-  X = rmvnorm(n, rep(0, p), sigma)
+  X <- rmvnorm(n, rep(0, p), sigma)
 
   # non-zero coefficients
-  beta0 = matrix(c(coef, rep(0, (p - length(coef)))))
+  beta0 <- matrix(c(coef, rep(0, (p - length(coef)))))
 
-  snr.numerator = as.vector(t(beta0) %*% sigma %*% beta0)
-  snr.denominator = snr.numerator/snr
-  sd = sqrt(snr.denominator)
-  eps = matrix(rnorm(n, 0, sd))
+  snr.numerator <- as.vector(t(beta0) %*% sigma %*% beta0)
+  snr.denominator <- snr.numerator / snr
+  sd <- sqrt(snr.denominator)
+  eps <- matrix(rnorm(n, 0, sd))
 
-  f.eta  = (X %*% beta0) + eps
-  f.prob = exp(f.eta)/(1L + exp(f.eta))
-  y = as.matrix(rbinom(n, 1L, f.prob))
+  f.eta <- (X %*% beta0) + eps
+  f.prob <- exp(f.eta) / (1L + exp(f.eta))
+  y <- as.matrix(rbinom(n, 1L, f.prob))
 
   # training / test set splitting
-  tr.row = sample(1L:n, round(n * p.train), replace = FALSE)
+  tr.row <- sample(1L:n, round(n * p.train), replace = FALSE)
 
-  x.tr = X[tr.row,  , drop = FALSE]
-  y.tr = y[tr.row,  , drop = FALSE]
-  x.te = X[-tr.row, , drop = FALSE]
-  y.te = y[-tr.row, , drop = FALSE]
+  x.tr <- X[tr.row, , drop = FALSE]
+  y.tr <- y[tr.row, , drop = FALSE]
+  x.te <- X[-tr.row, , drop = FALSE]
+  y.te <- y[-tr.row, , drop = FALSE]
 
-  list('x.tr' = x.tr, 'y.tr' = y.tr,
-       'x.te' = x.te, 'y.te' = y.te,
-       'call' = call)
-
+  list(
+    "x.tr" = x.tr, "y.tr" = y.tr,
+    "x.te" = x.te, "y.te" = y.te,
+    "call" = call
+  )
 }
 
 #' Generate Simulation Data for Benchmarking Sparse Regressions
@@ -173,52 +175,53 @@ msaenet.sim.binomial = function(
 #' @export msaenet.sim.poisson
 #'
 #' @examples
-#' dat = msaenet.sim.poisson(
+#' dat <- msaenet.sim.poisson(
 #'   n = 300, p = 500, rho = 0.6,
 #'   coef = rep(1, 10), snr = 3, p.train = 0.7,
-#'   seed = 1001)
+#'   seed = 1001
+#' )
 #'
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
-
-msaenet.sim.poisson = function(
+msaenet.sim.poisson <- function(
   n = 300, p = 500,
   rho = 0.5, coef = rep(0.2, 50), snr = 1,
   p.train = 0.7, seed = 1001) {
 
-  call = match.call()
+  call <- match.call()
 
   set.seed(seed)
 
-  sigma = matrix(0, p, p)
-  corvec = function(i, p, rho) rho^(abs(i - 1L:p))
-  for (i in 1:p) sigma[i, ] = corvec(i, p, rho)
+  sigma <- matrix(0, p, p)
+  corvec <- function(i, p, rho) rho^(abs(i - 1L:p))
+  for (i in 1:p) sigma[i, ] <- corvec(i, p, rho)
 
-  X = rmvnorm(n, rep(0, p), sigma)
+  X <- rmvnorm(n, rep(0, p), sigma)
 
   # non-zero coefficients
-  beta0 = matrix(c(coef, rep(0, (p - length(coef)))))
+  beta0 <- matrix(c(coef, rep(0, (p - length(coef)))))
 
-  snr.numerator = as.vector(t(beta0) %*% sigma %*% beta0)
-  snr.denominator = snr.numerator/snr
-  sd = sqrt(snr.denominator)
-  eps = matrix(rnorm(n, 0, sd))
+  snr.numerator <- as.vector(t(beta0) %*% sigma %*% beta0)
+  snr.denominator <- snr.numerator / snr
+  sd <- sqrt(snr.denominator)
+  eps <- matrix(rnorm(n, 0, sd))
 
-  rates = exp((X %*% beta0) + eps)
-  y = as.matrix(rpois(n, rates))
+  rates <- exp((X %*% beta0) + eps)
+  y <- as.matrix(rpois(n, rates))
 
   # training / test set splitting
-  tr.row = sample(1L:n, round(n * p.train), replace = FALSE)
+  tr.row <- sample(1L:n, round(n * p.train), replace = FALSE)
 
-  x.tr = X[tr.row,  , drop = FALSE]
-  y.tr = y[tr.row,  , drop = FALSE]
-  x.te = X[-tr.row, , drop = FALSE]
-  y.te = y[-tr.row, , drop = FALSE]
+  x.tr <- X[tr.row, , drop = FALSE]
+  y.tr <- y[tr.row, , drop = FALSE]
+  x.te <- X[-tr.row, , drop = FALSE]
+  y.te <- y[-tr.row, , drop = FALSE]
 
-  list('x.tr' = x.tr, 'y.tr' = y.tr,
-       'x.te' = x.te, 'y.te' = y.te,
-       'call' = call)
-
+  list(
+    "x.tr" = x.tr, "y.tr" = y.tr,
+    "x.te" = x.te, "y.te" = y.te,
+    "call" = call
+  )
 }
 
 #' Generate Simulation Data for Benchmarking Sparse Regressions (Cox Model)
@@ -249,58 +252,59 @@ msaenet.sim.poisson = function(
 #' @export msaenet.sim.cox
 #'
 #' @examples
-#' dat = msaenet.sim.cox(
+#' dat <- msaenet.sim.cox(
 #'   n = 300, p = 500, rho = 0.6,
 #'   coef = rep(1, 10), snr = 3, p.train = 0.7,
-#'   seed = 1001)
+#'   seed = 1001
+#' )
 #'
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
 #' dim(dat$y.tr)
 #' dim(dat$y.te)
-
-msaenet.sim.cox = function(
+msaenet.sim.cox <- function(
   n = 300, p = 500,
   rho = 0.5, coef = rep(0.2, 50), snr = 1,
   p.train = 0.7, seed = 1001) {
 
-  call = match.call()
+  call <- match.call()
 
   set.seed(seed)
 
-  sigma = matrix(0, p, p)
-  corvec = function(i, p, rho) rho^(abs(i - 1L:p))
-  for (i in 1:p) sigma[i, ] = corvec(i, p, rho)
+  sigma <- matrix(0, p, p)
+  corvec <- function(i, p, rho) rho^(abs(i - 1L:p))
+  for (i in 1:p) sigma[i, ] <- corvec(i, p, rho)
 
-  X = rmvnorm(n, rep(0, p), sigma)
+  X <- rmvnorm(n, rep(0, p), sigma)
 
   # non-zero coefficients
-  beta0 = matrix(c(coef, rep(0, (p - length(coef)))))
+  beta0 <- matrix(c(coef, rep(0, (p - length(coef)))))
 
-  snr.numerator = as.vector(t(beta0) %*% sigma %*% beta0)
-  snr.denominator = snr.numerator/snr
-  k = sqrt(snr.denominator)
-  Z = rnorm(n, 0, 1)
-  eps = matrix(k * Z)
+  snr.numerator <- as.vector(t(beta0) %*% sigma %*% beta0)
+  snr.denominator <- snr.numerator / snr
+  k <- sqrt(snr.denominator)
+  Z <- rnorm(n, 0, 1)
+  eps <- matrix(k * Z)
 
-  y.true      = exp((X %*% beta0) + eps)
-  time.censor = exp(k * Z)
-  time.record = pmin(y.true, time.censor)
-  event       = as.integer(y.true <= time.censor)
+  y.true <- exp((X %*% beta0) + eps)
+  time.censor <- exp(k * Z)
+  time.record <- pmin(y.true, time.censor)
+  event <- as.integer(y.true <= time.censor)
 
-  y = Surv(time = time.record, event = event, type = 'right')
-  colnames(y) = c('time', 'status')  # for glmnet
+  y <- Surv(time = time.record, event = event, type = "right")
+  colnames(y) <- c("time", "status") # for glmnet
 
   # training / test set splitting
-  tr.row = sample(1L:n, round(n * p.train), replace = FALSE)
+  tr.row <- sample(1L:n, round(n * p.train), replace = FALSE)
 
-  x.tr = X[tr.row,  , drop = FALSE]
-  y.tr = y[tr.row,  , drop = FALSE]
-  x.te = X[-tr.row, , drop = FALSE]
-  y.te = y[-tr.row, , drop = FALSE]
+  x.tr <- X[tr.row, , drop = FALSE]
+  y.tr <- y[tr.row, , drop = FALSE]
+  x.te <- X[-tr.row, , drop = FALSE]
+  y.te <- y[-tr.row, , drop = FALSE]
 
-  list('x.tr' = x.tr, 'y.tr' = y.tr,
-       'x.te' = x.te, 'y.te' = y.te,
-       'call' = call)
-
+  list(
+    "x.tr" = x.tr, "y.tr" = y.tr,
+    "x.te" = x.te, "y.te" = y.te,
+    "call" = call
+  )
 }
