@@ -1,3 +1,9 @@
+# msaenet 3.0 (2018-12-14)
+
+## New Features
+
+- Added a new argument `penalty.factor.init` to support customized penalty factor applied to each coefficient in the initial estimation step. This is useful for incorporating prior information about variable weights, for example, emphasizing specific clinical variables. We thank Xin Wang from University of Michigan for this feedback [[#4](https://github.com/road2stat/msaenet/issues/4)].
+
 # msaenet 2.9 (2018-05-13)
 
 ## Improvements
