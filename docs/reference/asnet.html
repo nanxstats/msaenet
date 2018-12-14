@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">msaenet</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0</span>
       </span>
     </div>
 
@@ -130,7 +130,8 @@
   <span class='kw'>init</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"snet"</span>, <span class='st'>"ridge"</span>), <span class='kw'>gammas</span> <span class='kw'>=</span> <span class='fl'>3.7</span>, <span class='kw'>alphas</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.95</span>,
   <span class='fl'>0.05</span>), <span class='kw'>tune</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"cv"</span>, <span class='st'>"ebic"</span>, <span class='st'>"bic"</span>, <span class='st'>"aic"</span>), <span class='kw'>nfolds</span> <span class='kw'>=</span> <span class='fl'>5L</span>,
   <span class='kw'>ebic.gamma</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>eps</span> <span class='kw'>=</span> <span class='fl'>1e-04</span>, <span class='kw'>max.iter</span> <span class='kw'>=</span> <span class='fl'>10000L</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1001</span>, <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>penalty.factor.init</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>ncol</a></span>(<span class='no'>x</span>)), <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1001</span>,
+  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,6 +193,15 @@ default is <code>1</code>. For details, see Chen and Chen (2008).</p></td>
     <tr>
       <th>max.iter</th>
       <td><p>Maximum number of iterations to use in SCAD-net.</p></td>
+    </tr>
+    <tr>
+      <th>penalty.factor.init</th>
+      <td><p>The multiplicative factor for the penalty
+applied to each coefficient in the initial estimation step. This is
+useful for incorporating prior information about variable weights,
+for example, emphasizing specific clinical variables. To make certain
+variables more likely to be selected, assign a smaller value.
+Default is <code><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep(1, ncol(x))</a></code>.</p></td>
     </tr>
     <tr>
       <th>seed</th>

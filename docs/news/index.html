@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">msaenet</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0</span>
       </span>
     </div>
 
@@ -116,6 +116,18 @@
       <small>Source: <a href='https://github.com/road2stat/msaenet/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="msaenet-30-2018-12-14" class="section level1">
+<h1 class="page-header">
+<a href="#msaenet-30-2018-12-14" class="anchor"></a>msaenet 3.0 (2018-12-14)<small> Unreleased </small>
+</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New Features</h2>
+<ul>
+<li>Added a new argument <code>penalty.factor.init</code> to support customized penalty factor applied to each coefficient in the initial estimation step. This is useful for incorporating prior information about variable weights, for example, emphasizing specific clinical variables. We thank Xin Wang from University of Michigan for this feedback [<a href="https://github.com/road2stat/msaenet/issues/4"><a href='https://github.com/road2stat/msaenet/issues/4'>#4</a></a>].</li>
+</ul>
+</div>
+</div>
     <div id="msaenet-29-2018-05-13" class="section level1">
 <h1 class="page-header">
 <a href="#msaenet-29-2018-05-13" class="anchor"></a>msaenet 2.9 (2018-05-13)<small> 2018-05-14 </small>
@@ -132,9 +144,9 @@
 <h1 class="page-header">
 <a href="#msaenet-28-2018-01-05" class="anchor"></a>msaenet 2.8 (2018-01-05)<small> 2018-01-05 </small>
 </h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New Features</h2>
+<a href="#new-features-1" class="anchor"></a>New Features</h2>
 <ul>
 <li>Added a Cleveland dot plot option <code>type = "dotplot"</code> in <code><a href="../reference/plot.msaenet.html">plot.msaenet()</a></code>. This plot offers a direct visualization of the model coefficients at the optimal step.</li>
 </ul>
@@ -207,9 +219,9 @@
 <h1 class="page-header">
 <a href="#msaenet-22-2017-02-02" class="anchor"></a>msaenet 2.2 (2017-02-02)<small> 2017-02-02 </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New Features</h2>
+<a href="#new-features-2" class="anchor"></a>New Features</h2>
 <ul>
 <li>Added BIC, EBIC, and AIC in addition to k-fold cross-validation for model selection.</li>
 <li>Added new arguments <code>tune</code> and <code>tune.nsteps</code> to controls this for selecting the optimal model for each step, and the optimal model among all steps (i.e. the optimal step).</li>
@@ -231,9 +243,9 @@
 <h1 class="page-header">
 <a href="#msaenet-21-2017-01-15" class="anchor"></a>msaenet 2.1 (2017-01-15)<small> 2017-01-15 </small>
 </h1>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New Features</h2>
+<a href="#new-features-3" class="anchor"></a>New Features</h2>
 <ul>
 <li>Added functions <code><a href="../reference/msaenet.sim.binomial.html">msaenet.sim.binomial()</a></code>, <code><a href="../reference/msaenet.sim.poisson.html">msaenet.sim.poisson()</a></code>, <code><a href="../reference/msaenet.sim.cox.html">msaenet.sim.cox()</a></code> to generate simulation data for logistic, Poisson, and Cox regression models.</li>
 <li>Added function <code><a href="../reference/msaenet.fn.html">msaenet.fn()</a></code> for computing the number of false negative selections in msaenet models.</li>
@@ -253,9 +265,9 @@
 <h1 class="page-header">
 <a href="#msaenet-20-2017-01-05" class="anchor"></a>msaenet 2.0 (2017-01-05)<small> 2017-01-05 </small>
 </h1>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>New Features</h2>
+<a href="#new-features-4" class="anchor"></a>New Features</h2>
 <ul>
 <li>Added support for adaptive MCP-net. See <code><a href="../reference/amnet.html">?amnet</a></code> for details.</li>
 <li>Added support for adaptive SCAD-net. See <code><a href="../reference/asnet.html">?asnet</a></code> for details.</li>
@@ -276,9 +288,9 @@
 <h1 class="page-header">
 <a href="#msaenet-11-2016-12-28" class="anchor"></a>msaenet 1.1 (2016-12-28)<small> 2016-12-29 </small>
 </h1>
-<div id="new-features-4" class="section level2">
+<div id="new-features-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>New Features</h2>
+<a href="#new-features-5" class="anchor"></a>New Features</h2>
 <ul>
 <li>Added method <code>coef</code> for extracting model coefficients. See <code><a href="../reference/coef.msaenet.html">?coef.msaenet</a></code> for details.</li>
 </ul>
@@ -296,9 +308,9 @@
 <h1 class="page-header">
 <a href="#msaenet-10-2016-09-20" class="anchor"></a>msaenet 1.0 (2016-09-20)<small> 2016-09-20 </small>
 </h1>
-<div id="new-features-5" class="section level2">
+<div id="new-features-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-5" class="anchor"></a>New Features</h2>
+<a href="#new-features-6" class="anchor"></a>New Features</h2>
 <ul>
 <li>Initial version of the msaenet package</li>
 </ul>
@@ -310,6 +322,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#msaenet-30-2018-12-14">3.0</a></li>
         <li><a href="#msaenet-29-2018-05-13">2.9</a></li>
         <li><a href="#msaenet-28-2018-01-05">2.8</a></li>
         <li><a href="#msaenet-27-2017-09-24">2.7</a></li>
