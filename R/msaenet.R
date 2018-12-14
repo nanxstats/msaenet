@@ -40,6 +40,12 @@
 #' Default is \code{-Inf}. For details, see \code{\link[glmnet]{glmnet}}.
 #' @param upper.limits Upper limits for coefficients.
 #' Default is \code{Inf}. For details, see \code{\link[glmnet]{glmnet}}.
+#' @param penalty.factor.init The multiplicative factor for the penalty
+#' applied to each coefficient in the initial estimation step. This is
+#' useful for incorporating prior information about variable weights,
+#' for example, emphasizing specific clinical variables. To make certain
+#' variables more likely to be selected, assign a smaller value.
+#' Default is \code{rep(1, ncol(x))}.
 #' @param seed Random seed for cross-validation fold division.
 #' @param parallel Logical. Enable parallel parameter tuning or not,
 #' default is {FALSE}. To enable parallel tuning, load the
@@ -95,6 +101,7 @@ msaenet <- function(
   ebic.gamma.nsteps = 1,
   scale = 1,
   lower.limits = -Inf, upper.limits = Inf,
+  penalty.factor.init = rep(1, ncol(x)),
   seed = 1001, parallel = FALSE, verbose = FALSE) {
 
   if (nsteps < 2L) stop("nsteps must be an integer >= 2")
@@ -124,6 +131,7 @@ msaenet <- function(
       ebic.gamma = ebic.gamma,
       lower.limits = lower.limits,
       upper.limits = upper.limits,
+      penalty.factor = penalty.factor.init,
       seed = seed, parallel = parallel
     )
   }
@@ -137,6 +145,7 @@ msaenet <- function(
       ebic.gamma = ebic.gamma,
       lower.limits = lower.limits,
       upper.limits = upper.limits,
+      penalty.factor = penalty.factor.init,
       seed = seed, parallel = parallel
     )
   }
@@ -150,7 +159,8 @@ msaenet <- function(
     alpha = best.alphas[[1L]],
     lambda = best.lambdas[[1L]],
     lower.limits = lower.limits,
-    upper.limits = upper.limits
+    upper.limits = upper.limits,
+    penalty.factor = penalty.factor.init
   )
 
   if (.df(model.list[[1L]]) < 0.5) {

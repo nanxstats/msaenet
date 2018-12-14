@@ -35,6 +35,12 @@
 #' \code{weights = coefficients^(-scale)}.
 #' @param eps Convergence threshhold to use in MCP-net.
 #' @param max.iter Maximum number of iterations to use in MCP-net.
+#' @param penalty.factor.init The multiplicative factor for the penalty
+#' applied to each coefficient in the initial estimation step. This is
+#' useful for incorporating prior information about variable weights,
+#' for example, emphasizing specific clinical variables. To make certain
+#' variables more likely to be selected, assign a smaller value.
+#' Default is \code{rep(1, ncol(x))}.
 #' @param seed Random seed for cross-validation fold division.
 #' @param parallel Logical. Enable parallel parameter tuning or not,
 #' default is {FALSE}. To enable parallel tuning, load the
@@ -85,6 +91,7 @@ msamnet <- function(
   ebic.gamma.nsteps = 1,
   scale = 1,
   eps = 1e-4, max.iter = 10000L,
+  penalty.factor.init = rep(1, ncol(x)),
   seed = 1001, parallel = FALSE, verbose = FALSE) {
 
   if (nsteps < 2L) stop("nsteps must be an integer >= 2")
@@ -114,6 +121,7 @@ msamnet <- function(
       nfolds = nfolds,
       ebic.gamma = ebic.gamma,
       eps = eps, max.iter = max.iter,
+      penalty.factor = penalty.factor.init,
       seed = seed, parallel = parallel
     )
 
@@ -127,7 +135,8 @@ msamnet <- function(
       gamma = best.gammas[[1L]],
       alpha = best.alphas[[1L]],
       lambda = best.lambdas[[1L]],
-      eps = eps, max.iter = max.iter
+      eps = eps, max.iter = max.iter,
+      penalty.factor = penalty.factor.init
     )
 
     if (.df(model.list[[1L]]) < 0.5) {
@@ -145,6 +154,7 @@ msamnet <- function(
       nfolds = nfolds, rule = "lambda.min",
       ebic.gamma = ebic.gamma,
       lower.limits = -Inf, upper.limits = Inf,
+      penalty.factor = penalty.factor.init,
       seed = seed, parallel = parallel
     )
 
@@ -156,7 +166,8 @@ msamnet <- function(
     model.list[[1L]] <- glmnet(
       x = x, y = y, family = family,
       alpha = best.alphas[[1L]],
-      lambda = best.lambdas[[1L]]
+      lambda = best.lambdas[[1L]],
+      penalty.factor = penalty.factor.init
     )
 
     if (.df(model.list[[1L]]) < 0.5) {
