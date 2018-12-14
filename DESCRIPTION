@@ -1,7 +1,7 @@
 Package: msaenet
 Type: Package
 Title: Multi-Step Adaptive Estimation Methods for Sparse Regressions
-Version: 2.9
+Version: 3.0
 Authors@R: c(
     person("Nan", "Xiao", email = "me@nanx.me", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0250-5673")),
