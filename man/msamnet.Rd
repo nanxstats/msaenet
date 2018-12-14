@@ -9,8 +9,8 @@ msamnet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
   0.05), tune = c("cv", "ebic", "bic", "aic"), nfolds = 5L,
   ebic.gamma = 1, nsteps = 2L, tune.nsteps = c("max", "ebic", "bic",
   "aic"), ebic.gamma.nsteps = 1, scale = 1, eps = 1e-04,
-  max.iter = 10000L, seed = 1001, parallel = FALSE,
-  verbose = FALSE)
+  max.iter = 10000L, penalty.factor.init = rep(1, ncol(x)),
+  seed = 1001, parallel = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{x}{Data matrix.}
@@ -60,6 +60,13 @@ default is \code{1}.}
 \item{eps}{Convergence threshhold to use in MCP-net.}
 
 \item{max.iter}{Maximum number of iterations to use in MCP-net.}
+
+\item{penalty.factor.init}{The multiplicative factor for the penalty
+applied to each coefficient in the initial estimation step. This is
+useful for incorporating prior information about variable weights,
+for example, emphasizing specific clinical variables. To make certain
+variables more likely to be selected, assign a smaller value.
+Default is \code{rep(1, ncol(x))}.}
 
 \item{seed}{Random seed for cross-validation fold division.}
 

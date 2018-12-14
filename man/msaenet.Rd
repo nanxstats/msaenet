@@ -9,7 +9,8 @@ msaenet(x, y, family = c("gaussian", "binomial", "poisson", "cox"),
   tune = c("cv", "ebic", "bic", "aic"), nfolds = 5L,
   rule = c("lambda.min", "lambda.1se"), ebic.gamma = 1, nsteps = 2L,
   tune.nsteps = c("max", "ebic", "bic", "aic"), ebic.gamma.nsteps = 1,
-  scale = 1, lower.limits = -Inf, upper.limits = Inf, seed = 1001,
+  scale = 1, lower.limits = -Inf, upper.limits = Inf,
+  penalty.factor.init = rep(1, ncol(x)), seed = 1001,
   parallel = FALSE, verbose = FALSE)
 }
 \arguments{
@@ -65,6 +66,13 @@ Default is \code{-Inf}. For details, see \code{\link[glmnet]{glmnet}}.}
 
 \item{upper.limits}{Upper limits for coefficients.
 Default is \code{Inf}. For details, see \code{\link[glmnet]{glmnet}}.}
+
+\item{penalty.factor.init}{The multiplicative factor for the penalty
+applied to each coefficient in the initial estimation step. This is
+useful for incorporating prior information about variable weights,
+for example, emphasizing specific clinical variables. To make certain
+variables more likely to be selected, assign a smaller value.
+Default is \code{rep(1, ncol(x))}.}
 
 \item{seed}{Random seed for cross-validation fold division.}
 
