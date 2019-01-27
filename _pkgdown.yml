@@ -1,7 +1,3 @@
-template:
-  params:
-    bootswatch: flatly
-
 reference:
   - title: "Data Simulation"
     desc: >
