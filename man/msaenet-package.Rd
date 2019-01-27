@@ -13,11 +13,6 @@ multi-step adaptive SCAD-Net (MSASNet) methods.
 }
 \details{
 Browse the vignette with \code{vignette("msaenet")}.
-
-\tabular{ll}{
-Package: \tab msaenet\cr
-Type: \tab Package\cr
-License: \tab GPL-3}
 }
 \references{
 Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net:
