@@ -1,7 +1,7 @@
 # msaenet  <a href="https://nanx.me/msaenet/"><img src="https://i.imgur.com/IUrYMK6.png" align="right" alt="logo" height="180" width="180" /></a>
 
-[![Build Status](https://travis-ci.org/road2stat/msaenet.svg?branch=master)](https://travis-ci.org/road2stat/msaenet)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/road2stat/msaenet?branch=master&svg=true)](https://ci.appveyor.com/project/road2stat/msaenet)
+[![Build Status](https://travis-ci.org/nanxstats/msaenet.svg?branch=master)](https://travis-ci.org/nanxstats/msaenet)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/nanxstats/msaenet?branch=master&svg=true)](https://ci.appveyor.com/project/nanxstats/msaenet)
 [![CRAN Version](https://www.r-pkg.org/badges/version/msaenet)](https://cran.r-project.org/package=msaenet)
 [![Downloads from the RStudio CRAN mirror](https://cranlogs.r-pkg.org/badges/msaenet)](https://cran.r-project.org/package=msaenet)
 
@@ -56,7 +56,7 @@ Or try the development version on GitHub:
 
 ```r
 # install.packages("devtools")
-devtools::install_github("road2stat/msaenet")
+devtools::install_github("nanxstats/msaenet")
 ```
 
 [Browse the vignette](https://nanx.me/msaenet/articles/msaenet.html) (can be opened with `vignette("msaenet")` in R) for a quick-start.

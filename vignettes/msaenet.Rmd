@@ -107,6 +107,6 @@ The vanilla adaptive elastic-net [@zou2009aenet] is implemented by the function 
 
 # Summary
 
-If you used `msaenet` in your research, please feel free to cite our paper [@xiao2015msaenet] in your publications. If you have any questions or have a bug to report, please [email me](mailto:me@nanx.me) or [create an issue](https://github.com/road2stat/msaenet/issues) on GitHub.
+If you used `msaenet` in your research, please feel free to cite our paper [@xiao2015msaenet] in your publications. If you have any questions or have a bug to report, please [email me](mailto:me@nanx.me) or [create an issue](https://github.com/nanxstats/msaenet/issues) on GitHub.
 
 # References
