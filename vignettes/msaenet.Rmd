@@ -4,10 +4,13 @@ author: "Nan Xiao <<https://nanx.me>>"
 date: "`r Sys.Date()`"
 bibliography: msaenet.bib
 output:
-  rmarkdown::html_vignette:
+  rmarkdown::html_document:
     toc: true
+    toc_float: false
+    toc_depth: 4
     number_sections: true
-    css: msaenet.css
+    highlight: "textmate"
+    css: "custom.css"
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{A Quick Introduction to msaenet}
@@ -29,13 +32,13 @@ First, we generate some simulated data under a setting often used for testing hi
 
 ```{r}
 dat <- msaenet.sim.gaussian(
-  n = 150, p = 500, rho = 0.7,
-  coef = rep(1, 5), snr = 3, p.train = 0.7,
+  n = 150, p = 500, rho = 0.5,
+  coef = rep(1, 10), snr = 5, p.train = 0.7,
   seed = 1001
 )
 ```
 
-The parameter `rho` controls the degree of correlation among the variables. The parameter `coef` sets the coefficients of the "true" variables, and in this case, the first 5 variables will have coefficient 1 while the other 495 variables will have coefficient 0. `snr` represents the designated signal-to-noise ratio (SNR) in the simulated data. Parameter `p.train` decides the proportion of the training set (relative to the total number of observations `n`).
+The parameter `rho` controls the degree of correlation among the variables. `coef` sets the coefficients of the "true" variables, and in this case, the first 10 variables will have coefficient 1 while the other 490 variables will have coefficient 0. `snr` represents the designated signal-to-noise ratio (SNR) in the simulated data. The parameter `p.train` decides the proportion of the training set (relative to the total number of observations `n`).
 
 To generate simulation data for the other types of generalized linear models supported by `msaenet`, simply use `msaenet.sim.binomial()` (logistic regression), `msaenet.sim.cox()` (Cox regression), or `msaenet.sim.poisson()` (Poisson regression).
 
@@ -69,8 +72,8 @@ Let's inspect the fitted model, by looking into the best step and the selected v
 msaenet.fit$best.step
 msaenet.nzv(msaenet.fit)
 msaenet.nzv.all(msaenet.fit)
-msaenet.fp(msaenet.fit, 1:5)
-msaenet.tp(msaenet.fit, 1:5)
+msaenet.fp(msaenet.fit, 1:10)
+msaenet.tp(msaenet.fit, 1:10)
 ```
 
 Next, we make predictions on the test set using the fitted model, and compute some evaluation metrics, such as RMSE and MAE:
