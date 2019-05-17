@@ -1,3 +1,12 @@
+# msaenet 3.1 (2019-05-17)
+
+## Improvements
+
+- Added detailed signal-to-noise ratio (SNR) definition in `msaenet.sim.gaussian()`.
+- Updated the example code in the vignette to make it work better with the most recent version of glmnet (2.0-16).
+- Updated GitHub repository links due to the handle change.
+- Updated the vignette style.
+
 # msaenet 3.0 (2018-12-14)
 
 ## New Features
