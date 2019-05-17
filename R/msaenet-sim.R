@@ -9,6 +9,13 @@
 #' @param rho Correlation base for generating correlated variables.
 #' @param coef Vector of non-zero coefficients.
 #' @param snr Signal-to-noise ratio (SNR).
+#' SNR is defined as
+#' \deqn{
+#' \frac{Var(E(y | X))}{Var(Y - E(y | X))} =
+#' \frac{Var(f(X))}{Var(\varepsilon)} =
+#' \frac{Var(X^T \beta)}{Var(\varepsilon)} =
+#' \frac{Var(\beta^T \Sigma \beta)}{\sigma^2}.
+#' }
 #' @param p.train Percentage of training set.
 #' @param seed Random seed for reproducibility.
 #'
