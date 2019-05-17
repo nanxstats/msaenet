@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">msaenet</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1</span>
       </span>
     </div>
 
@@ -255,8 +255,8 @@ and the optimal parameter set.</p>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>msamnet.fit</span>)</div><div class='output co'>#&gt; Call: msamnet(x = dat$x.tr, y = dat$y.tr, alphas = seq(0.3, 0.9, 0.3), 
 #&gt;     nsteps = 3L, seed = 1003) 
 #&gt;   Df    Lambda Gamma Alpha
-#&gt; 1  4 0.4260659     3   0.6</div><div class='input'><span class='fu'><a href='msaenet.nzv.html'>msaenet.nzv</a></span>(<span class='no'>msamnet.fit</span>)</div><div class='output co'>#&gt; [1] 2 3 4 5</div><div class='input'><span class='fu'><a href='msaenet.fp.html'>msaenet.fp</a></span>(<span class='no'>msamnet.fit</span>, <span class='fl'>1</span>:<span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='fu'><a href='msaenet.tp.html'>msaenet.tp</a></span>(<span class='no'>msamnet.fit</span>, <span class='fl'>1</span>:<span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] 4</div><div class='input'><span class='no'>msamnet.pred</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>msamnet.fit</span>, <span class='no'>dat</span>$<span class='no'>x.te</span>)
-<span class='fu'><a href='msaenet.rmse.html'>msaenet.rmse</a></span>(<span class='no'>dat</span>$<span class='no'>y.te</span>, <span class='no'>msamnet.pred</span>)</div><div class='output co'>#&gt; [1] 2.183295</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>msamnet.fit</span>)</div><div class='img'><img src='msamnet-1.png' alt='' width='700' height='433' /></div></pre>
+#&gt; 1  2 0.4303307     3   0.9</div><div class='input'><span class='fu'><a href='msaenet.nzv.html'>msaenet.nzv</a></span>(<span class='no'>msamnet.fit</span>)</div><div class='output co'>#&gt; [1] 2 4</div><div class='input'><span class='fu'><a href='msaenet.fp.html'>msaenet.fp</a></span>(<span class='no'>msamnet.fit</span>, <span class='fl'>1</span>:<span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='fu'><a href='msaenet.tp.html'>msaenet.tp</a></span>(<span class='no'>msamnet.fit</span>, <span class='fl'>1</span>:<span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='no'>msamnet.pred</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>msamnet.fit</span>, <span class='no'>dat</span>$<span class='no'>x.te</span>)
+<span class='fu'><a href='msaenet.rmse.html'>msaenet.rmse</a></span>(<span class='no'>dat</span>$<span class='no'>y.te</span>, <span class='no'>msamnet.pred</span>)</div><div class='output co'>#&gt; [1] 2.724557</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>msamnet.fit</span>)</div><div class='img'><img src='msamnet-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -68,7 +68,7 @@ settings in Xiao and Xu (2015)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">msaenet</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1</span>
       </span>
     </div>
 
@@ -147,7 +147,14 @@ settings in Xiao and Xu (2015).</p>
     </tr>
     <tr>
       <th>snr</th>
-      <td><p>Signal-to-noise ratio (SNR).</p></td>
+      <td><p>Signal-to-noise ratio (SNR).
+SNR is defined as
+$$
+\frac{Var(E(y | X))}{Var(Y - E(y | X))} =
+\frac{Var(f(X))}{Var(\varepsilon)} =
+\frac{Var(X^T \beta)}{Var(\varepsilon)} =
+\frac{Var(\beta^T \Sigma \beta)}{\sigma^2}.
+$$</p></td>
     </tr>
     <tr>
       <th>p.train</th>
