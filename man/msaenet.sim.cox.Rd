@@ -4,8 +4,15 @@
 \alias{msaenet.sim.cox}
 \title{Generate Simulation Data for Benchmarking Sparse Regressions (Cox Model)}
 \usage{
-msaenet.sim.cox(n = 300, p = 500, rho = 0.5, coef = rep(0.2, 50),
-  snr = 1, p.train = 0.7, seed = 1001)
+msaenet.sim.cox(
+  n = 300,
+  p = 500,
+  rho = 0.5,
+  coef = rep(0.2, 50),
+  snr = 1,
+  p.train = 0.7,
+  seed = 1001
+)
 }
 \arguments{
 \item{n}{Number of observations.}

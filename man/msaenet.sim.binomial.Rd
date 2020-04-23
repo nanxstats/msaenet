@@ -5,8 +5,15 @@
 \title{Generate Simulation Data for Benchmarking Sparse Regressions
 (Binomial Response)}
 \usage{
-msaenet.sim.binomial(n = 300, p = 500, rho = 0.5, coef = rep(0.2,
-  50), snr = 1, p.train = 0.7, seed = 1001)
+msaenet.sim.binomial(
+  n = 300,
+  p = 500,
+  rho = 0.5,
+  coef = rep(0.2, 50),
+  snr = 1,
+  p.train = 0.7,
+  seed = 1001
+)
 }
 \arguments{
 \item{n}{Number of observations.}

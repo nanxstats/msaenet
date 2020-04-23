@@ -4,8 +4,22 @@
 \alias{msaenet.tune.ncvreg}
 \title{Automatic (parallel) parameter tuning for ncvreg models}
 \usage{
-msaenet.tune.ncvreg(x, y, family, penalty, gammas, alphas, tune, nfolds,
-  ebic.gamma, eps, max.iter, seed, parallel, ...)
+msaenet.tune.ncvreg(
+  x,
+  y,
+  family,
+  penalty,
+  gammas,
+  alphas,
+  tune,
+  nfolds,
+  ebic.gamma,
+  eps,
+  max.iter,
+  seed,
+  parallel,
+  ...
+)
 }
 \value{
 Optimal model object, parameter set, and criterion value

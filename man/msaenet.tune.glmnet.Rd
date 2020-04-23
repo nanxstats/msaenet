@@ -4,8 +4,21 @@
 \alias{msaenet.tune.glmnet}
 \title{Automatic (parallel) parameter tuning for glmnet models}
 \usage{
-msaenet.tune.glmnet(x, y, family, alphas, tune, nfolds, rule, ebic.gamma,
-  lower.limits, upper.limits, seed, parallel, ...)
+msaenet.tune.glmnet(
+  x,
+  y,
+  family,
+  alphas,
+  tune,
+  nfolds,
+  rule,
+  ebic.gamma,
+  lower.limits,
+  upper.limits,
+  seed,
+  parallel,
+  ...
+)
 }
 \value{
 Optimal model object, parameter set, and criterion value

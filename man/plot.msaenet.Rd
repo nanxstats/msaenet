@@ -4,11 +4,23 @@
 \alias{plot.msaenet}
 \title{Plot msaenet Model Objects}
 \usage{
-\method{plot}{msaenet}(x, type = c("coef", "criterion", "dotplot"),
-  nsteps = NULL, highlight = TRUE, col = NULL, label = FALSE,
-  label.vars = NULL, label.pos = 2, label.offset = 0.3,
-  label.cex = 0.7, label.srt = 90, xlab = NULL, ylab = NULL,
-  abs = FALSE, ...)
+\method{plot}{msaenet}(
+  x,
+  type = c("coef", "criterion", "dotplot"),
+  nsteps = NULL,
+  highlight = TRUE,
+  col = NULL,
+  label = FALSE,
+  label.vars = NULL,
+  label.pos = 2,
+  label.offset = 0.3,
+  label.cex = 0.7,
+  label.srt = 90,
+  xlab = NULL,
+  ylab = NULL,
+  abs = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class \code{msaenet} produced
