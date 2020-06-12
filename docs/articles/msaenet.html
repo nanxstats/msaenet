@@ -71,13 +71,13 @@
 
       
 
-      </header><script src="msaenet_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="msaenet_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>A Quick Introduction to msaenet</h1>
                         <h4 class="author">Nan Xiao &lt;<a href="https://nanx.me" class="uri">https://nanx.me</a>&gt;</h4>
             
-            <h4 class="date">2020-04-23</h4>
+            <h4 class="date">2020-06-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/nanxstats/msaenet/blob/master/vignettes/msaenet.Rmd"><code>vignettes/msaenet.Rmd</code></a></small>
       <div class="hidden name"><code>msaenet.Rmd</code></div>
@@ -167,14 +167,14 @@
 <div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="../reference/msaenet.mae.html">msaenet.mae</a></span>(<span class="no">dat</span>$<span class="no">y.te</span>, <span class="no">msaenet.pred</span>)</pre></body></html></div>
 <pre><code>## [1] 2.172675</code></pre>
 <p>A coefficient plot that shows the coefficient changes of all the variables across every adaptive estimation step:</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">msaenet.fit</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">msaenet.fit</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="msaenet_files/figure-html/unnamed-chunk-7-1.png" width="750" height="600"></p>
 <p>The y-axis in the plot represents the relative effect size estimations (standardized into [0, 1]) of the variables.</p>
 <p>Plot the change of the information criterion (EBIC here) used to select the optimal step:</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">msaenet.fit</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"criterion"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">msaenet.fit</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"criterion"</span>)</pre></body></html></div>
 <p><img src="msaenet_files/figure-html/unnamed-chunk-8-1.png" width="750" height="450"></p>
 <p>Create a Cleveland dot plot for the model coefficients at the optimal step:</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">msaenet.fit</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"dotplot"</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">label.cex</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">msaenet.fit</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"dotplot"</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">label.cex</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
 <p><img src="msaenet_files/figure-html/unnamed-chunk-9-1.png" width="750" height="600"></p>
 <p>To plot the absolute values of the coefficients instead of the raw coefficients, use <code>abs = TRUE</code>.</p>
 <p>The vanilla adaptive elastic-net <span class="citation">(Zou and Zhang 2009)</span> is implemented by the function <code><a href="../reference/aenet.html">aenet()</a></code>. For multi-step adaptive estimation based on MCP-net or SCAD-net, see <code><a href="../reference/amnet.html">?amnet</a></code>, <code><a href="../reference/asnet.html">?asnet</a></code>, <code><a href="../reference/msamnet.html">?msamnet</a></code>, and <code><a href="../reference/msasnet.html">?msasnet</a></code> for details. All the analyses above apply to the models fitted by these functions as well.</p>
