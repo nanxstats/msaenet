@@ -1,4 +1,4 @@
-# msaenet  <a href="https://nanx.me/msaenet/"><img src="https://i.imgur.com/IUrYMK6.png" align="right" alt="logo" height="180" width="180" /></a>
+# msaenet  <a href="https://nanx.me/msaenet/"><img src="https://i.imgur.com/IUrYMK6.png" align="right" alt="" height="180" width="180" /></a>
 
 [![Build Status](https://travis-ci.org/nanxstats/msaenet.svg?branch=master)](https://travis-ci.org/nanxstats/msaenet)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/nanxstats/msaenet?branch=master&svg=true)](https://ci.appveyor.com/project/nanxstats/msaenet)
