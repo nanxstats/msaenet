@@ -8,6 +8,13 @@
 
 <title>Automatic (parallel) parameter tuning for ncvreg models — msaenet.tune.ncvreg • msaenet</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -43,6 +50,7 @@
 
 <meta property="og:title" content="Automatic (parallel) parameter tuning for ncvreg models — msaenet.tune.ncvreg" />
 <meta property="og:description" content="Automatic (parallel) parameter tuning for ncvreg models" />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -82,7 +90,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,7 +107,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/nanxstats/msaenet/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,22 +133,22 @@
     <p>Automatic (parallel) parameter tuning for ncvreg models</p>
     </div>
 
-    <pre class="usage"><span class='fu'>msaenet.tune.ncvreg</span>(
-  <span class='no'>x</span>,
-  <span class='no'>y</span>,
-  <span class='no'>family</span>,
-  <span class='no'>penalty</span>,
-  <span class='no'>gammas</span>,
-  <span class='no'>alphas</span>,
-  <span class='no'>tune</span>,
-  <span class='no'>nfolds</span>,
-  <span class='no'>ebic.gamma</span>,
-  <span class='no'>eps</span>,
-  <span class='no'>max.iter</span>,
-  <span class='no'>seed</span>,
-  <span class='no'>parallel</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>msaenet.tune.ncvreg</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>y</span>,
+  <span class='va'>family</span>,
+  <span class='va'>penalty</span>,
+  <span class='va'>gammas</span>,
+  <span class='va'>alphas</span>,
+  <span class='va'>tune</span>,
+  <span class='va'>nfolds</span>,
+  <span class='va'>ebic.gamma</span>,
+  <span class='va'>eps</span>,
+  <span class='va'>max.iter</span>,
+  <span class='va'>seed</span>,
+  <span class='va'>parallel</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -151,6 +159,9 @@
     <p>Chen, Jiahua, and Zehua Chen. (2008).
 Extended Bayesian information criteria for model selection with
 large model spaces. <em>Biometrika</em> 95(3), 759--771.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Nan Xiao &lt;<a href='https://nanx.me'>https://nanx.me</a>&gt;</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -167,7 +178,7 @@ large model spaces. <em>Biometrika</em> 95(3), 759--771.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

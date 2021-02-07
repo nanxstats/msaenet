@@ -8,6 +8,13 @@
 
 <title>Get the Number of True Positive Selections — msaenet.tp • msaenet</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -44,6 +51,7 @@
 <meta property="og:title" content="Get the Number of True Positive Selections — msaenet.tp" />
 <meta property="og:description" content="Get the number of true positive selections from msaenet model objects,
 given the indices of true variables (if known)." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -83,7 +91,7 @@ given the indices of true variables (if known)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -100,7 +108,7 @@ given the indices of true variables (if known)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/nanxstats/msaenet/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -127,7 +135,7 @@ given the indices of true variables (if known)." />
 given the indices of true variables (if known).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>msaenet.tp</span>(<span class='no'>object</span>, <span class='no'>true.idx</span>)</pre>
+    <pre class="usage"><span class='fu'>msaenet.tp</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>true.idx</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,21 +155,25 @@ by <code><a href='aenet.html'>aenet</a></code>, <code>amnet</code>, <code>asnet<
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Number of true positive variables in the model.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Nan Xiao &lt;<a href='https://nanx.me'>https://nanx.me</a>&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='msaenet.sim.gaussian.html'>msaenet.sim.gaussian</a></span>(
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>150</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>rho</span> <span class='kw'>=</span> <span class='fl'>0.6</span>,
-  <span class='kw'>coef</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>), <span class='kw'>snr</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>p.train</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1001</span>
-)
+    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='msaenet.sim.gaussian.html'>msaenet.sim.gaussian</a></span><span class='op'>(</span>
+  n <span class='op'>=</span> <span class='fl'>150</span>, p <span class='op'>=</span> <span class='fl'>500</span>, rho <span class='op'>=</span> <span class='fl'>0.6</span>,
+  coef <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span><span class='op'>)</span>, snr <span class='op'>=</span> <span class='fl'>2</span>, p.train <span class='op'>=</span> <span class='fl'>0.7</span>,
+  seed <span class='op'>=</span> <span class='fl'>1001</span>
+<span class='op'>)</span>
 
-<span class='no'>msaenet.fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='msaenet.html'>msaenet</a></span>(
-  <span class='no'>dat</span>$<span class='no'>x.tr</span>, <span class='no'>dat</span>$<span class='no'>y.tr</span>,
-  <span class='kw'>alphas</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0.2</span>, <span class='fl'>0.8</span>, <span class='fl'>0.2</span>),
-  <span class='kw'>nsteps</span> <span class='kw'>=</span> <span class='fl'>3L</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1003</span>
-)
+<span class='va'>msaenet.fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='msaenet.html'>msaenet</a></span><span class='op'>(</span>
+  <span class='va'>dat</span><span class='op'>$</span><span class='va'>x.tr</span>, <span class='va'>dat</span><span class='op'>$</span><span class='va'>y.tr</span>,
+  alphas <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.8</span>, <span class='fl'>0.2</span><span class='op'>)</span>,
+  nsteps <span class='op'>=</span> <span class='fl'>3L</span>, seed <span class='op'>=</span> <span class='fl'>1003</span>
+<span class='op'>)</span>
 
-<span class='fu'>msaenet.tp</span>(<span class='no'>msaenet.fit</span>, <span class='fl'>1</span>:<span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] 3</div></pre>
+<span class='fu'>msaenet.tp</span><span class='op'>(</span><span class='va'>msaenet.fit</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 3</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -177,7 +189,7 @@ by <code><a href='aenet.html'>aenet</a></code>, <code>amnet</code>, <code>asnet<
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

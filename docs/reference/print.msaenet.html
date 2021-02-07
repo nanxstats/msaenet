@@ -8,6 +8,13 @@
 
 <title>Print msaenet Model Information — print.msaenet • msaenet</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -44,6 +51,7 @@
 <meta property="og:title" content="Print msaenet Model Information — print.msaenet" />
 <meta property="og:description" content="Print msaenet model objects (currently, only
 printing the model information of the final step)." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -83,7 +91,7 @@ printing the model information of the final step)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -100,7 +108,7 @@ printing the model information of the final step)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/nanxstats/msaenet/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -128,7 +136,7 @@ printing the model information of the final step).</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for msaenet</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,21 +151,25 @@ printing the model information of the final step).</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Nan Xiao &lt;<a href='https://nanx.me'>https://nanx.me</a>&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='msaenet.sim.gaussian.html'>msaenet.sim.gaussian</a></span>(
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>150</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>rho</span> <span class='kw'>=</span> <span class='fl'>0.6</span>,
-  <span class='kw'>coef</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>), <span class='kw'>snr</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>p.train</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1001</span>
-)
+    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='msaenet.sim.gaussian.html'>msaenet.sim.gaussian</a></span><span class='op'>(</span>
+  n <span class='op'>=</span> <span class='fl'>150</span>, p <span class='op'>=</span> <span class='fl'>500</span>, rho <span class='op'>=</span> <span class='fl'>0.6</span>,
+  coef <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span><span class='op'>)</span>, snr <span class='op'>=</span> <span class='fl'>2</span>, p.train <span class='op'>=</span> <span class='fl'>0.7</span>,
+  seed <span class='op'>=</span> <span class='fl'>1001</span>
+<span class='op'>)</span>
 
-<span class='no'>msaenet.fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='msaenet.html'>msaenet</a></span>(
-  <span class='no'>dat</span>$<span class='no'>x.tr</span>, <span class='no'>dat</span>$<span class='no'>y.tr</span>,
-  <span class='kw'>alphas</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0.2</span>, <span class='fl'>0.8</span>, <span class='fl'>0.2</span>),
-  <span class='kw'>nsteps</span> <span class='kw'>=</span> <span class='fl'>3L</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1003</span>
-)
+<span class='va'>msaenet.fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='msaenet.html'>msaenet</a></span><span class='op'>(</span>
+  <span class='va'>dat</span><span class='op'>$</span><span class='va'>x.tr</span>, <span class='va'>dat</span><span class='op'>$</span><span class='va'>y.tr</span>,
+  alphas <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.8</span>, <span class='fl'>0.2</span><span class='op'>)</span>,
+  nsteps <span class='op'>=</span> <span class='fl'>3L</span>, seed <span class='op'>=</span> <span class='fl'>1003</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>msaenet.fit</span>)</div><div class='output co'>#&gt; Call: msaenet(x = dat$x.tr, y = dat$y.tr, alphas = seq(0.2, 0.8, 0.2), 
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>msaenet.fit</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Call: msaenet(x = dat$x.tr, y = dat$y.tr, alphas = seq(0.2, 0.8, 0.2), 
 #&gt;     nsteps = 3L, seed = 1003) 
 #&gt;   Df     %Dev       Lambda
 #&gt; 1  8 0.797121 1.219202e+15</div></pre>
@@ -176,7 +188,7 @@ printing the model information of the final step).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
