@@ -31,4 +31,4 @@ Suggests:
     knitr,
     rmarkdown,
     doParallel
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
