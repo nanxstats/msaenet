@@ -1,7 +1,6 @@
 ---
 title: "A Quick Introduction to msaenet"
 author: "Nan Xiao <<https://nanx.me>>"
-date: "`r Sys.Date()`"
 bibliography: msaenet.bib
 output:
   rmarkdown::html_document:
