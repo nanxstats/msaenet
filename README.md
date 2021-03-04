@@ -1,7 +1,10 @@
 # msaenet  <a href="https://nanx.me/msaenet/"><img src="man/figures/logo.png" align="right" height="180" /></a>
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/nanxstats/msaenet/workflows/R-CMD-check/badge.svg)](https://github.com/nanxstats/msaenet/actions)
 [![CRAN Version](https://www.r-pkg.org/badges/version/msaenet)](https://cran.r-project.org/package=msaenet)
 [![Downloads from the RStudio CRAN mirror](https://cranlogs.r-pkg.org/badges/msaenet)](https://cran.r-project.org/package=msaenet)
+<!-- badges: end -->
 
 `msaenet` implements the multi-step adaptive elastic-net (MSAENet) algorithm for feature selection in high-dimensional regressions proposed in Xiao and Xu (2015) <[DOI:10.1080/00949655.2015.1016944](https://www.tandfonline.com/doi/full/10.1080/00949655.2015.1016944)> ([PDF](https://nanx.me/papers/msaenet.pdf)).
 
