@@ -92,22 +92,23 @@
 
 <p><code>msaenet</code> implements the multi-step adaptive elastic-net (MSAENet) algorithm for feature selection in high-dimensional regressions proposed in Xiao and Xu (2015) &lt;<a href="https://www.tandfonline.com/doi/full/10.1080/00949655.2015.1016944">DOI:10.1080/00949655.2015.1016944</a>&gt; (<a href="https://nanx.me/papers/msaenet.pdf">PDF</a>).</p>
 <p>Nonconvex multi-step adaptive estimations based on MCP-net or SCAD-net are also supported.</p>
-<div id="paper-citation" class="section level2">
+<p>Check <code><a href="articles/msaenet.html">vignette("msaenet")</a></code> for a quick-start.</p>
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#paper-citation" class="anchor"></a>Paper Citation</h2>
-<p>Formatted citation:</p>
-<p>Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net: reducing false positives in high-dimensional variable selection. <em>Journal of Statistical Computation and Simulation</em> 85(18), 3755-3765.</p>
-<p>BibTeX entry:</p>
-<pre><code>@article{xiao2015msaenet,
-  title={Multi-step adaptive elastic-net: reducing false positives in high-dimensional variable selection},
-  author={Xiao, Nan and Xu, Qing-Song},
-  journal={Journal of Statistical Computation and Simulation},
-  volume={85},
-  number={18},
-  pages={3755--3765},
-  year={2015},
-  publisher={Taylor \&amp; Francis}
-}</code></pre>
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can install <code>msaenet</code> from CRAN:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"msaenet"</span><span class="op">)</span></code></pre></div>
+<p>Or try the development version on GitHub:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"nanxstats/msaenet"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="citation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#citation" class="anchor"></a>Citation</h2>
+<blockquote>
+<p>Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net: reducing false positives in high-dimensional variable selection. <em>Journal of Statistical Computation and Simulation</em> 85(18), 3755–3765.</p>
+</blockquote>
 </div>
 <div id="gallery" class="section level2">
 <h2 class="hasAnchor">
@@ -115,30 +116,18 @@
 <div id="adaptive-elastic-net--multi-step-adaptive-elastic-net" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adaptive-elastic-net--multi-step-adaptive-elastic-net" class="anchor"></a>Adaptive Elastic-Net / Multi-Step Adaptive Elastic-Net</h3>
-<p><img src="https://nanx.me/msaenet/img/enet.png" width="100%" alt="enet"></p>
+<p><img src="reference/figures/README-msaenet-1.png" width="100%"></p>
 </div>
 <div id="adaptive-mcp-net--multi-step-adaptive-mcp-net" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adaptive-mcp-net--multi-step-adaptive-mcp-net" class="anchor"></a>Adaptive MCP-Net / Multi-Step Adaptive MCP-Net</h3>
-<p><img src="https://nanx.me/msaenet/img/mnet.png" width="100%" alt="mnet"></p>
+<p><img src="reference/figures/README-msamnet-1.png" width="100%"></p>
 </div>
 <div id="adaptive-scad-net--multi-step-adaptive-scad-net" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adaptive-scad-net--multi-step-adaptive-scad-net" class="anchor"></a>Adaptive SCAD-Net / Multi-Step Adaptive SCAD-Net</h3>
-<p><img src="https://nanx.me/msaenet/img/snet.png" width="100%" alt="snet"></p>
+<p><img src="reference/figures/README-msasnet-1.png" width="100%"></p>
 </div>
-</div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>To download and install <code>msaenet</code> from CRAN:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"msaenet"</span><span class="op">)</span></code></pre></div>
-<p>Or try the development version on GitHub:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"nanxstats/msaenet"</span><span class="op">)</span></code></pre></div>
-<p><a href="https://nanx.me/msaenet/articles/msaenet.html">Browse the vignette</a> (can be opened with <code><a href="articles/msaenet.html">vignette("msaenet")</a></code> in R) for a quick-start.</p>
 </div>
 <div id="contribute" class="section level2">
 <h2 class="hasAnchor">
