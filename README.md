@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# msaenet <a href="https://nanx.me/msaenet/"><img src="man/figures/logo.png" align="right" height="180" /></a>
+# msaenet <img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
 

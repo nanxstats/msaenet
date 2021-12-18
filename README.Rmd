@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# msaenet <a href="https://nanx.me/msaenet/"><img src="man/figures/logo.png" align="right" height="180" /></a>
+# msaenet <img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/nanxstats/msaenet/workflows/R-CMD-check/badge.svg)](https://github.com/nanxstats/msaenet/actions)

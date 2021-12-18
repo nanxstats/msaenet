@@ -7,7 +7,7 @@ output:
     toc: true
     toc_float: false
     toc_depth: 4
-    number_sections: true
+    number_sections: false
     highlight: "textmate"
     css: "custom.css"
 vignette: >
@@ -15,11 +15,18 @@ vignette: >
   %\VignetteIndexEntry{A Quick Introduction to msaenet}
 ---
 
-# Introduction
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE
+)
+```
+
+## Introduction
 
 The `msaenet` package implemented the multi-step adaptive elastic-net method introduced in @xiao2015msaenet for feature selection in high-dimensional regressions.
 
-# Walkthrough
+## Walkthrough
 
 Let's load the package:
 
@@ -107,8 +114,8 @@ To plot the absolute values of the coefficients instead of the raw coefficients,
 
 The vanilla adaptive elastic-net [@zou2009aenet] is implemented by the function `aenet()`. For multi-step adaptive estimation based on MCP-net or SCAD-net, see `?amnet`, `?asnet`, `?msamnet`, and `?msasnet` for details. All the analyses above apply to the models fitted by these functions as well.
 
-# Summary
+## Summary
 
 If you used `msaenet` in your research, please feel free to cite our paper [@xiao2015msaenet] in your publications. If you have any questions or have a bug to report, please [email me](mailto:me@nanx.me) or [create an issue](https://github.com/nanxstats/msaenet/issues) on GitHub.
 
-# References
+## References
