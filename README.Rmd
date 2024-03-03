@@ -5,7 +5,7 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
-knitr::knit_hooks$set(optipng = knitr::hook_optipng)
+knitr::knit_hooks$set(pngquant = knitr::hook_pngquant)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -15,14 +15,14 @@ knitr::opts_chunk$set(
   echo = FALSE,
   message = FALSE,
   warning = FALSE,
-  optipng = "-o1"
+  pngquant = "--speed=1 --quality=50"
 )
 ```
 
 # msaenet <img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/nanxstats/msaenet/workflows/R-CMD-check/badge.svg)](https://github.com/nanxstats/msaenet/actions)
+[![R-CMD-check](https://github.com/nanxstats/msaenet/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nanxstats/msaenet/actions/workflows/R-CMD-check.yaml)
 [![CRAN Version](https://www.r-pkg.org/badges/version/msaenet)](https://cran.r-project.org/package=msaenet)
 [![Downloads from the RStudio CRAN mirror](https://cranlogs.r-pkg.org/badges/msaenet)](https://cran.r-project.org/package=msaenet)
 <!-- badges: end -->

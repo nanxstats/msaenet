@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/nanxstats/msaenet/workflows/R-CMD-check/badge.svg)](https://github.com/nanxstats/msaenet/actions)
+[![R-CMD-check](https://github.com/nanxstats/msaenet/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nanxstats/msaenet/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 Version](https://www.r-pkg.org/badges/version/msaenet)](https://cran.r-project.org/package=msaenet)
 [![Downloads from the RStudio CRAN
