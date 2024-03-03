@@ -12,7 +12,7 @@ Description: Multi-step adaptive elastic-net (MSAENet) algorithm for
     Xiao and Xu (2015) <DOI:10.1080/00949655.2015.1016944>,
     with support for multi-step adaptive MCP-net (MSAMNet) and
     multi-step adaptive SCAD-net (MSASNet) methods.
-License: GPL-3 | file LICENSE
+License: GPL (>= 3)
 URL: https://nanx.me/msaenet/, https://github.com/nanxstats/msaenet
 Encoding: UTF-8
 VignetteBuilder: knitr
