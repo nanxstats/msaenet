@@ -77,26 +77,28 @@ Default is \code{FALSE}.}
 Plot msaenet model objects.
 }
 \examples{
+\donttest{
 dat <- msaenet.sim.gaussian(
   n = 150, p = 500, rho = 0.6,
   coef = rep(1, 5), snr = 2, p.train = 0.7,
   seed = 1001
 )
 
-msasnet.fit <- msasnet(
+fit <- msaenet(
   dat$x.tr, dat$y.tr,
   alphas = seq(0.2, 0.8, 0.2),
-  nsteps = 5L, tune.nsteps = "ebic",
-  seed = 1003
+  nsteps = 5L, tune.nsteps = "bic",
+  seed = 1002
 )
 
-plot(msasnet.fit)
-plot(msasnet.fit, label = TRUE)
-plot(msasnet.fit, label = TRUE, nsteps = 5)
-plot(msasnet.fit, type = "criterion")
-plot(msasnet.fit, type = "criterion", nsteps = 5)
-plot(msasnet.fit, type = "dotplot", label = TRUE)
-plot(msasnet.fit, type = "dotplot", label = TRUE, abs = TRUE)
+plot(fit)
+plot(fit, label = TRUE)
+plot(fit, label = TRUE, nsteps = 5)
+plot(fit, type = "criterion")
+plot(fit, type = "criterion", nsteps = 5)
+plot(fit, type = "dotplot", label = TRUE)
+plot(fit, type = "dotplot", label = TRUE, abs = TRUE)
+}
 }
 \author{
 Nan Xiao <\url{https://nanx.me}>

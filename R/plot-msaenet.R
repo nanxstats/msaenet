@@ -48,35 +48,36 @@
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' dat <- msaenet.sim.gaussian(
 #'   n = 150, p = 500, rho = 0.6,
 #'   coef = rep(1, 5), snr = 2, p.train = 0.7,
 #'   seed = 1001
 #' )
 #'
-#' msasnet.fit <- msasnet(
+#' fit <- msaenet(
 #'   dat$x.tr, dat$y.tr,
 #'   alphas = seq(0.2, 0.8, 0.2),
-#'   nsteps = 5L, tune.nsteps = "ebic",
-#'   seed = 1003
+#'   nsteps = 5L, tune.nsteps = "bic",
+#'   seed = 1002
 #' )
 #'
-#' plot(msasnet.fit)
-#' plot(msasnet.fit, label = TRUE)
-#' plot(msasnet.fit, label = TRUE, nsteps = 5)
-#' plot(msasnet.fit, type = "criterion")
-#' plot(msasnet.fit, type = "criterion", nsteps = 5)
-#' plot(msasnet.fit, type = "dotplot", label = TRUE)
-#' plot(msasnet.fit, type = "dotplot", label = TRUE, abs = TRUE)
+#' plot(fit)
+#' plot(fit, label = TRUE)
+#' plot(fit, label = TRUE, nsteps = 5)
+#' plot(fit, type = "criterion")
+#' plot(fit, type = "criterion", nsteps = 5)
+#' plot(fit, type = "dotplot", label = TRUE)
+#' plot(fit, type = "dotplot", label = TRUE, abs = TRUE)
+#' }
 plot.msaenet <- function(
-  x, type = c("coef", "criterion", "dotplot"), nsteps = NULL,
-  highlight = TRUE, col = NULL,
-  label = FALSE, label.vars = NULL,
-  label.pos = 2, label.offset = 0.3, label.cex = 0.7,
-  label.srt = 90,
-  xlab = NULL, ylab = NULL,
-  abs = FALSE, ...) {
-
+    x, type = c("coef", "criterion", "dotplot"), nsteps = NULL,
+    highlight = TRUE, col = NULL,
+    label = FALSE, label.vars = NULL,
+    label.pos = 2, label.offset = 0.3, label.cex = 0.7,
+    label.srt = 90,
+    xlab = NULL, ylab = NULL,
+    abs = FALSE, ...) {
   type <- match.arg(type)
 
   if (!.is.msaenet(x)) {
@@ -133,12 +134,11 @@ plot.msaenet <- function(
 
 # parallel coordinates plot
 .parcor <- function(
-  x, nsteps, best.step, nzv.idx,
-  highlight, col,
-  label, label.vars,
-  label.pos, label.offset, label.cex,
-  xlab, ylab) {
-
+    x, nsteps, best.step, nzv.idx,
+    highlight, col,
+    label, label.vars,
+    label.pos, label.offset, label.cex,
+    xlab, ylab) {
   x <- x[, 1L:nsteps]
   xmin <- min(x)
   xmax <- max(x)
@@ -148,8 +148,8 @@ plot.msaenet <- function(
 
   # box
   matplot(1L:nsteps, t(x),
-          xlab = xlab, ylab = ylab,
-          xaxt = "n", yaxt = "n", type = "n", axes = TRUE
+    xlab = xlab, ylab = ylab,
+    xaxt = "n", yaxt = "n", type = "n", axes = TRUE
   )
 
   # axes with only ticks
@@ -157,8 +157,9 @@ plot.msaenet <- function(
   axis(1, at = 1L:nsteps, labels = as.character(1L:nsteps), lwd = 0, lwd.ticks = 1)
 
   # step lines
-  for (i in 1L:nsteps)
+  for (i in 1L:nsteps) {
     lines(x = c(i, i), y = c(xmin - 42, xmax + 42), lty = 3, col = "grey70")
+  }
 
   # highlight optimal step
   if (highlight) {
@@ -217,8 +218,8 @@ plot.msaenet <- function(
   plot(1L:length(x), x, type = "b", xaxt = "n", xlab = xlab, ylab = ylab)
 
   axis(1,
-       at = 1L:nsteps, labels = as.character(1L:nsteps),
-       lwd = 0, lwd.ticks = 1
+    at = 1L:nsteps, labels = as.character(1L:nsteps),
+    lwd = 0, lwd.ticks = 1
   )
 
   if (highlight) {
@@ -232,8 +233,7 @@ plot.msaenet <- function(
 
 # Cleveland dot plot for model coefficients at the optimal step
 .dotplot <- function(
-  x, abs, label, label.vars, label.cex, label.srt, xlab, ylab) {
-
+    x, abs, label, label.vars, label.cex, label.srt, xlab, ylab) {
   idx.nzv <- msaenet.nzv(x)
 
   if (is.null(xlab)) xlab <- "Selected Variables"
@@ -254,13 +254,13 @@ plot.msaenet <- function(
 
   if (all(coef.nzv > 0)) {
     plot(coef.nzv[ord.nzv],
-         type = "h", xaxt = "n", xlab = xlab, ylab = ylab,
-         ylim = c(-0.3, max(coef.nzv) + 0.05)
+      type = "h", xaxt = "n", xlab = xlab, ylab = ylab,
+      ylim = c(-0.3, max(coef.nzv) + 0.05)
     )
   } else if (all(coef.nzv < 0)) {
     plot(coef.nzv[ord.nzv],
-         type = "h", xaxt = "n", xlab = xlab, ylab = ylab,
-         ylim = c(min(coef.nzv) - 0.05, 0.3)
+      type = "h", xaxt = "n", xlab = xlab, ylab = ylab,
+      ylim = c(min(coef.nzv) - 0.05, 0.3)
     )
   } else {
     plot(coef.nzv[ord.nzv], type = "h", xaxt = "n", xlab = xlab, ylab = ylab)
