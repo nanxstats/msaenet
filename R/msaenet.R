@@ -89,22 +89,21 @@
 #' msaenet.rmse(dat$y.te, msaenet.pred)
 #' plot(msaenet.fit)
 msaenet <- function(
-  x, y,
-  family = c("gaussian", "binomial", "poisson", "cox"),
-  init = c("enet", "ridge"),
-  alphas = seq(0.05, 0.95, 0.05),
-  tune = c("cv", "ebic", "bic", "aic"),
-  nfolds = 5L, rule = c("lambda.min", "lambda.1se"),
-  ebic.gamma = 1,
-  nsteps = 2L,
-  tune.nsteps = c("max", "ebic", "bic", "aic"),
-  ebic.gamma.nsteps = 1,
-  scale = 1,
-  lower.limits = -Inf, upper.limits = Inf,
-  penalty.factor.init = rep(1, ncol(x)),
-  seed = 1001, parallel = FALSE, verbose = FALSE) {
-
-  if (nsteps < 2L) stop("nsteps must be an integer >= 2")
+    x, y,
+    family = c("gaussian", "binomial", "poisson", "cox"),
+    init = c("enet", "ridge"),
+    alphas = seq(0.05, 0.95, 0.05),
+    tune = c("cv", "ebic", "bic", "aic"),
+    nfolds = 5L, rule = c("lambda.min", "lambda.1se"),
+    ebic.gamma = 1,
+    nsteps = 2L,
+    tune.nsteps = c("max", "ebic", "bic", "aic"),
+    ebic.gamma.nsteps = 1,
+    scale = 1,
+    lower.limits = -Inf, upper.limits = Inf,
+    penalty.factor.init = rep(1, ncol(x)),
+    seed = 1001, parallel = FALSE, verbose = FALSE) {
+  if (nsteps < 2L) stop("`nsteps` must be an integer >= 2.")
 
   family <- match.arg(family)
   init <- match.arg(init)
@@ -164,7 +163,12 @@ msaenet <- function(
   )
 
   if (.df(model.list[[1L]]) < 0.5) {
-    stop("Null model produced by the full fit (all coefficients are zero). Please try a different parameter setting.")
+    stop(
+      paste0(
+        "Null model produced by the full fit (all coefficients are zero). ",
+        "Please try a different parameter setting."
+      )
+    )
   }
 
   bhat <- as.matrix(model.list[[1L]][["beta"]])
@@ -206,7 +210,12 @@ msaenet <- function(
     )
 
     if (.df(model.list[[i + 1L]]) < 0.5) {
-      stop("Null model produced by the full fit (all coefficients are zero). Please try a different parameter setting.")
+      stop(
+        paste0(
+          "Null model produced by the full fit (all coefficients are zero). ",
+          "Please try a different parameter setting."
+        )
+      )
     }
 
     bhat <- as.matrix(model.list[[i + 1L]][["beta"]])

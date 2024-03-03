@@ -76,18 +76,17 @@
 #' msaenet.rmse(dat$y.te, aenet.pred)
 #' plot(aenet.fit)
 aenet <- function(
-  x, y,
-  family = c("gaussian", "binomial", "poisson", "cox"),
-  init = c("enet", "ridge"),
-  alphas = seq(0.05, 0.95, 0.05),
-  tune = c("cv", "ebic", "bic", "aic"),
-  nfolds = 5L, rule = c("lambda.min", "lambda.1se"),
-  ebic.gamma = 1,
-  scale = 1,
-  lower.limits = -Inf, upper.limits = Inf,
-  penalty.factor.init = rep(1, ncol(x)),
-  seed = 1001, parallel = FALSE, verbose = FALSE) {
-
+    x, y,
+    family = c("gaussian", "binomial", "poisson", "cox"),
+    init = c("enet", "ridge"),
+    alphas = seq(0.05, 0.95, 0.05),
+    tune = c("cv", "ebic", "bic", "aic"),
+    nfolds = 5L, rule = c("lambda.min", "lambda.1se"),
+    ebic.gamma = 1,
+    scale = 1,
+    lower.limits = -Inf, upper.limits = Inf,
+    penalty.factor.init = rep(1, ncol(x)),
+    seed = 1001, parallel = FALSE, verbose = FALSE) {
   family <- match.arg(family)
   init <- match.arg(init)
   tune <- match.arg(tune)

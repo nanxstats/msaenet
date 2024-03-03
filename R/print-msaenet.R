@@ -29,12 +29,7 @@
 #'
 #' print(msaenet.fit)
 print.msaenet <- function(x, ...) {
-  cat(paste(
-    "Call:",
-    paste(capture.output(x$"call"),
-          collapse = "\n"
-    )
-  ), "\n")
+  cat(paste("Call:", paste(capture.output(x$"call"), collapse = "\n")), "\n")
 
   if (.is.ncvreg(x$"model")) {
     model.info <- data.frame(

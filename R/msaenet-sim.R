@@ -43,10 +43,9 @@
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
 msaenet.sim.gaussian <- function(
-  n = 300, p = 500,
-  rho = 0.5, coef = rep(0.2, 50), snr = 1,
-  p.train = 0.7, seed = 1001) {
-
+    n = 300, p = 500,
+    rho = 0.5, coef = rep(0.2, 50), snr = 1,
+    p.train = 0.7, seed = 1001) {
   call <- match.call()
 
   set.seed(seed)
@@ -57,7 +56,7 @@ msaenet.sim.gaussian <- function(
 
   X <- rmvnorm(n, rep(0, p), sigma)
 
-  # non-zero coefficients
+  # Non-zero coefficients
   beta0 <- matrix(c(coef, rep(0, (p - length(coef)))))
 
   snr.numerator <- as.vector(t(beta0) %*% sigma %*% beta0)
@@ -117,10 +116,9 @@ msaenet.sim.gaussian <- function(
 #' table(dat$y.tr)
 #' table(dat$y.te)
 msaenet.sim.binomial <- function(
-  n = 300, p = 500,
-  rho = 0.5, coef = rep(0.2, 50), snr = 1,
-  p.train = 0.7, seed = 1001) {
-
+    n = 300, p = 500,
+    rho = 0.5, coef = rep(0.2, 50), snr = 1,
+    p.train = 0.7, seed = 1001) {
   call <- match.call()
 
   set.seed(seed)
@@ -131,7 +129,7 @@ msaenet.sim.binomial <- function(
 
   X <- rmvnorm(n, rep(0, p), sigma)
 
-  # non-zero coefficients
+  # Non-zero coefficients
   beta0 <- matrix(c(coef, rep(0, (p - length(coef)))))
 
   snr.numerator <- as.vector(t(beta0) %*% sigma %*% beta0)
@@ -191,10 +189,9 @@ msaenet.sim.binomial <- function(
 #' dim(dat$x.tr)
 #' dim(dat$x.te)
 msaenet.sim.poisson <- function(
-  n = 300, p = 500,
-  rho = 0.5, coef = rep(0.2, 50), snr = 1,
-  p.train = 0.7, seed = 1001) {
-
+    n = 300, p = 500,
+    rho = 0.5, coef = rep(0.2, 50), snr = 1,
+    p.train = 0.7, seed = 1001) {
   call <- match.call()
 
   set.seed(seed)
@@ -205,7 +202,7 @@ msaenet.sim.poisson <- function(
 
   X <- rmvnorm(n, rep(0, p), sigma)
 
-  # non-zero coefficients
+  # Non-zero coefficients
   beta0 <- matrix(c(coef, rep(0, (p - length(coef)))))
 
   snr.numerator <- as.vector(t(beta0) %*% sigma %*% beta0)
@@ -270,10 +267,9 @@ msaenet.sim.poisson <- function(
 #' dim(dat$y.tr)
 #' dim(dat$y.te)
 msaenet.sim.cox <- function(
-  n = 300, p = 500,
-  rho = 0.5, coef = rep(0.2, 50), snr = 1,
-  p.train = 0.7, seed = 1001) {
-
+    n = 300, p = 500,
+    rho = 0.5, coef = rep(0.2, 50), snr = 1,
+    p.train = 0.7, seed = 1001) {
   call <- match.call()
 
   set.seed(seed)
@@ -284,7 +280,7 @@ msaenet.sim.cox <- function(
 
   X <- rmvnorm(n, rep(0, p), sigma)
 
-  # non-zero coefficients
+  # Non-zero coefficients
   beta0 <- matrix(c(coef, rep(0, (p - length(coef)))))
 
   snr.numerator <- as.vector(t(beta0) %*% sigma %*% beta0)

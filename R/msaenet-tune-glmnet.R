@@ -16,18 +16,17 @@
 #' @keywords internal
 
 msaenet.tune.glmnet <- function(
-  x, y, family,
-  alphas,
-  tune,
-  nfolds, rule,
-  ebic.gamma,
-  lower.limits, upper.limits,
-  seed, parallel, ...) {
-
+    x, y, family,
+    alphas,
+    tune,
+    nfolds, rule,
+    ebic.gamma,
+    lower.limits, upper.limits,
+    seed, parallel, ...) {
   if (tune == "cv") {
     if (!parallel) {
       model.list <- vector("list", length(alphas))
-      for (i in 1L:length(alphas)) {
+      for (i in seq_along(alphas)) {
         set.seed(seed)
         model.list[[i]] <- cv.glmnet(
           x = x, y = y, family = family,
@@ -61,7 +60,7 @@ msaenet.tune.glmnet <- function(
   } else {
     if (!parallel) {
       model.list <- vector("list", length(alphas))
-      for (i in 1L:length(alphas)) {
+      for (i in seq_along(alphas)) {
         set.seed(seed)
         model.list[[i]] <- glmnet(
           x = x, y = y, family = family,
@@ -142,9 +141,9 @@ msaenet.tune.glmnet <- function(
 #' @keywords internal
 
 msaenet.tune.nsteps.glmnet <- function(
-  model.list,
-  tune.nsteps, ebic.gamma.nsteps) {
-
+    model.list,
+    tune.nsteps,
+    ebic.gamma.nsteps) {
   nmods <- length(model.list)
 
   if (tune.nsteps == "max") {
