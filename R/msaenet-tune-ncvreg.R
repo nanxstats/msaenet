@@ -239,7 +239,9 @@ msaenet.tune.nsteps.ncvreg <- function(
   list("best.step" = best.step, "ics" = ics)
 }
 
-# wrapper for ncvreg::ncvreg and ncvreg::ncvsurv with two hotfixes
+# Wrapper for ncvreg that works around the "single lambda" warning.
+# After balancing all other options, this seems to be the simplest solution
+# without causing confusions or complications in this context (cross validation).
 .ncvnet <- function(
     x, y, family, penalty,
     gamma, alpha, lambda,
@@ -247,16 +249,23 @@ msaenet.tune.nsteps.ncvreg <- function(
   if (family == "cox") {
     fit <- ncvreg::ncvsurv(
       X = x, y = y, penalty = penalty,
-      gamma = gamma, alpha = alpha, lambda = lambda,
+      gamma = gamma, alpha = alpha, lambda = c(lambda + 0.001, lambda),
       eps = eps, max.iter = max.iter, ...
     )
   } else {
     fit <- ncvreg::ncvreg(
       X = x, y = y, family = family, penalty = penalty,
-      gamma = gamma, alpha = alpha, lambda = lambda,
+      gamma = gamma, alpha = alpha, lambda = c(lambda + 0.001, lambda),
       eps = eps, max.iter = max.iter, ...
     )
   }
+
+  # Remove results corresponding to lambda + 0.001
+  fit$beta <- fit$beta[, -c(1), drop = FALSE]
+  fit$iter <- fit$iter[-c(1)]
+  fit$lambda <- fit$lambda[-c(1)]
+  fit$loss <- fit$loss[-c(1)]
+  fit$linear.predictors <- fit$linear.predictors[, -c(1), drop = FALSE]
 
   fit
 }
