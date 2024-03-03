@@ -1,0 +1,10 @@
+pandoc: 3.1.11
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  msaenet: msaenet.html
+last_built: 2024-03-03T03:17Z
+urls:
+  reference: https://nanx.me/msaenet/reference
+  article: https://nanx.me/msaenet/articles
+
