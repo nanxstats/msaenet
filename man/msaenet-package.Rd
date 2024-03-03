@@ -3,22 +3,28 @@
 \docType{package}
 \name{msaenet-package}
 \alias{msaenet-package}
-\title{Multi-Step Adaptive Estimation Methods for Sparse Regressions}
+\title{msaenet: Multi-Step Adaptive Estimation Methods for Sparse Regressions}
 \description{
-Multi-step adaptive elastic-net (MSAENet) algorithm for
-feature selection in high-dimensional regressions proposed in
-Xiao and Xu (2015) <DOI:10.1080/00949655.2015.1016944>,
-with support for multi-step adaptive MCP-Net (MSAMNet) and
-multi-step adaptive SCAD-Net (MSASNet) methods.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Multi-step adaptive elastic-net (MSAENet) algorithm for feature selection in high-dimensional regressions proposed in Xiao and Xu (2015) \doi{10.1080/00949655.2015.1016944}, with support for multi-step adaptive MCP-net (MSAMNet) and multi-step adaptive SCAD-net (MSASNet) methods.
 }
-\details{
-Browse the vignette with \code{vignette("msaenet")}.
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://nanx.me/msaenet/}
+  \item \url{https://github.com/nanxstats/msaenet}
+  \item Report bugs at \url{https://github.com/nanxstats/msaenet/issues}
 }
-\references{
-Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net:
-reducing false positives in high-dimensional variable selection.
-\emph{Journal of Statistical Computation and Simulation} 85(18), 3755--3765.
+
 }
 \author{
-Nan Xiao <\email{me@nanx.me}>
+\strong{Maintainer}: Nan Xiao \email{me@nanx.me} (\href{https://orcid.org/0000-0002-0250-5673}{ORCID})
+
+Authors:
+\itemize{
+  \item Qing-Song Xu \email{qsxu@csu.edu.cn}
 }
+
+}
+\keyword{internal}
