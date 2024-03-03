@@ -182,20 +182,12 @@ and the optimal parameter set.</p>
 <span class="r-in"><span>  <span class="va">dat</span><span class="op">$</span><span class="va">x.tr</span>, <span class="va">dat</span><span class="op">$</span><span class="va">y.tr</span>,</span></span>
 <span class="r-in"><span>  alphas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span>, seed <span class="op">=</span> <span class="fl">1002</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ncvreg() is intended for pathwise optimization, not for single values of lambda.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   1. You are strongly encouraged to fit a path and extract the solution at the lambda value of interest, rather than use ncvreg() in this way.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   2. In particular, if you are using the MCP or SCAD penalties, be aware that you greatly increase your risk of converging to an inferior local maximum if you do not fit an entire path.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   3. You may wish to look at the ncvfit() function, which is intended for non-path (i.e., single-lambda) optimization and allows the user to supply initial values.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ncvreg() is intended for pathwise optimization, not for single values of lambda.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   1. You are strongly encouraged to fit a path and extract the solution at the lambda value of interest, rather than use ncvreg() in this way.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   2. In particular, if you are using the MCP or SCAD penalties, be aware that you greatly increase your risk of converging to an inferior local maximum if you do not fit an entire path.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   3. You may wish to look at the ncvfit() function, which is intended for non-path (i.e., single-lambda) optimization and allows the user to supply initial values.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">asnet.fit</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: asnet(x = dat$x.tr, y = dat$y.tr, alphas = seq(0.2, 0.8, 0.2), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     seed = 1002) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Df    Lambda Gamma Alpha</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  4 0.3104765   3.7   0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  4 0.3104638   3.7   0.8</span>
 <span class="r-in"><span><span class="fu"><a href="msaenet.nzv.html">msaenet.nzv</a></span><span class="op">(</span><span class="va">asnet.fit</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  2  4  5 35</span>
 <span class="r-in"><span><span class="fu"><a href="msaenet.fp.html">msaenet.fp</a></span><span class="op">(</span><span class="va">asnet.fit</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
@@ -204,7 +196,7 @@ and the optimal parameter set.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-in"><span><span class="va">asnet.pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">asnet.fit</span>, <span class="va">dat</span><span class="op">$</span><span class="va">x.te</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="msaenet.rmse.html">msaenet.rmse</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">y.te</span>, <span class="va">asnet.pred</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.693864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.693865</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">asnet.fit</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="asnet-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
