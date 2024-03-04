@@ -1,3 +1,13 @@
+# msaenet 3.1.1
+
+## Improvements
+
+- Use a proper, three-component version number following Semantic Versioning.
+- Fix warnings about single lambda (#11).
+- Fix "lost braces" check notes on r-devel and check notes about `LazyData`.
+- Fix code linting issues.
+- Use GitHub Actions to build the pkgdown site.
+
 # msaenet 3.1
 
 ## Improvements
