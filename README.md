@@ -12,20 +12,18 @@ Version](https://www.r-pkg.org/badges/version/msaenet)](https://cran.r-project.o
 mirror](https://cranlogs.r-pkg.org/badges/msaenet)](https://cran.r-project.org/package=msaenet)
 <!-- badges: end -->
 
-`msaenet` implements the multi-step adaptive elastic-net (MSAENet)
+msaenet implements the multi-step adaptive elastic-net (MSAENet)
 algorithm for feature selection in high-dimensional regressions proposed
-in Xiao and Xu (2015)
-\<[DOI:10.1080/00949655.2015.1016944](https://www.tandfonline.com/doi/full/10.1080/00949655.2015.1016944)\>
-([PDF](https://nanx.me/papers/msaenet.pdf)).
+in Xiao and Xu (2015) \[[PDF](https://nanx.me/papers/msaenet.pdf)\].
 
 Nonconvex multi-step adaptive estimations based on MCP-net or SCAD-net
 are also supported.
 
-Check `vignette("msaenet")` for a quick-start.
+Check `vignette("msaenet")` to get started.
 
 ## Installation
 
-You can install `msaenet` from CRAN:
+You can install msaenet from CRAN:
 
 ``` r
 install.packages("msaenet")
@@ -39,9 +37,26 @@ remotes::install_github("nanxstats/msaenet")
 
 ## Citation
 
+To cite the msaenet package in publications, please use
+
 > Nan Xiao and Qing-Song Xu. (2015). Multi-step adaptive elastic-net:
 > reducing false positives in high-dimensional variable selection.
 > *Journal of Statistical Computation and Simulation* 85(18), 3755–3765.
+
+A BibTeX entry for LaTeX users is
+
+``` bibtex
+@article{,
+  title   = {Multi-step adaptive elastic-net: reducing false positives in high-dimensional variable selection},
+  author  = {Nan Xiao and Qing-Song Xu},
+  journal = {Journal of Statistical Computation and Simulation},
+  volume  = {85},
+  number  = {18},
+  pages   = {3755--3765},
+  year    = {2015},
+  doi     = {10.1080/00949655.2015.1016944}
+}
+```
 
 ## Gallery
 
