@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   msaenet: msaenet.html
-last_built: 2024-03-04T00:41Z
+last_built: 2024-03-04T00:52Z
 urls:
   reference: https://nanx.me/msaenet/reference
   article: https://nanx.me/msaenet/articles
