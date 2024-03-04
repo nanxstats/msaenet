@@ -8,13 +8,14 @@ output: github_document
 knitr::knit_hooks$set(pngquant = knitr::hook_pngquant)
 
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%",
   echo = FALSE,
   message = FALSE,
   warning = FALSE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  dev = "ragg_png",
+  out.width = "100%",
   pngquant = "--speed=1 --quality=50"
 )
 ```
