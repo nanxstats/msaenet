@@ -60,9 +60,10 @@ remotes::install_github("nanxstats/msaenet")
 ## Contribute
 
 To contribute to this project, please take a look at the [Contributing
-Guidelines](CONTRIBUTING.md) first. Please note that this project is
-released with a [Contributor Code of Conduct](CONDUCT.md). By
-participating in this project you agree to abide by its terms.
+Guidelines](https://nanx.me/msaenet/CONTRIBUTING.html) first. Please
+note that the msaenet project is released with a [Contributor Code of
+Conduct](https://nanx.me/msaenet/CODE_OF_CONDUCT.html). By contributing
+to this project, you agree to abide by its terms.
 
 ## License
 
