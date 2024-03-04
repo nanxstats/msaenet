@@ -30,10 +30,7 @@
 #' # coefficients of non-zero variables
 #' coef(msaenet.fit)[msaenet.nzv(msaenet.fit)]
 msaenet.nzv <- function(object) {
-  if (!.is.msaenet(object)) {
-    stop('Object class must be "msaenet".')
-  }
-
+  if (!.is.msaenet(object)) stop(message.object.type, call. = FALSE)
   idx <- which(abs(as.vector(object$"beta")) > .Machine$double.eps)
   idx
 }
@@ -67,9 +64,7 @@ msaenet.nzv <- function(object) {
 #'
 #' msaenet.nzv.all(msaenet.fit)
 msaenet.nzv.all <- function(object) {
-  if (!.is.msaenet(object)) {
-    stop('Object class must be "msaenet".')
-  }
+  if (!.is.msaenet(object)) stop(message.object.type, call. = FALSE)
 
   if (.is.multistep(object)) {
     n <- length(object$"beta.list")
@@ -120,10 +115,7 @@ msaenet.nzv.all <- function(object) {
 #'
 #' coef(msaenet.fit)
 coef.msaenet <- function(object, ...) {
-  if (!.is.msaenet(object)) {
-    stop('Object class must be "msaenet".')
-  }
-
+  if (!.is.msaenet(object)) stop(message.object.type, call. = FALSE)
   bhat <- as.vector(object$"beta")
   bhat
 }
@@ -159,10 +151,7 @@ coef.msaenet <- function(object, ...) {
 #'
 #' msaenet.fp(msaenet.fit, 1:5)
 msaenet.fp <- function(object, true.idx) {
-  if (!.is.msaenet(object)) {
-    stop('Object class must be "msaenet".')
-  }
-
+  if (!.is.msaenet(object)) stop(message.object.type, call. = FALSE)
   length(setdiff(msaenet.nzv(object), true.idx))
 }
 
@@ -197,10 +186,7 @@ msaenet.fp <- function(object, true.idx) {
 #'
 #' msaenet.fn(msaenet.fit, 1:5)
 msaenet.fn <- function(object, true.idx) {
-  if (!.is.msaenet(object)) {
-    stop('Object class must be "msaenet".')
-  }
-
+  if (!.is.msaenet(object)) stop(message.object.type, call. = FALSE)
   length(setdiff(true.idx, msaenet.nzv(object)))
 }
 
@@ -235,9 +221,6 @@ msaenet.fn <- function(object, true.idx) {
 #'
 #' msaenet.tp(msaenet.fit, 1:5)
 msaenet.tp <- function(object, true.idx) {
-  if (!.is.msaenet(object)) {
-    stop('Object class must be "msaenet".')
-  }
-
+  if (!.is.msaenet(object)) stop(message.object.type, call. = FALSE)
   length(intersect(msaenet.nzv(object), true.idx))
 }

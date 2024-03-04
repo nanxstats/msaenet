@@ -103,7 +103,7 @@ msaenet <- function(
     lower.limits = -Inf, upper.limits = Inf,
     penalty.factor.init = rep(1, ncol(x)),
     seed = 1001, parallel = FALSE, verbose = FALSE) {
-  if (nsteps < 2L) stop("`nsteps` must be an integer >= 2.")
+  if (nsteps < 2L) stop("`nsteps` must be an integer >= 2.", call. = FALSE)
 
   family <- match.arg(family)
   init <- match.arg(init)
@@ -162,14 +162,7 @@ msaenet <- function(
     penalty.factor = penalty.factor.init
   )
 
-  if (.df(model.list[[1L]]) < 0.5) {
-    stop(
-      paste0(
-        "Null model produced by the full fit (all coefficients are zero). ",
-        "Please try a different parameter setting."
-      )
-    )
-  }
+  if (.df(model.list[[1L]]) < 0.5) stop(message.null.model, call. = FALSE)
 
   bhat <- as.matrix(model.list[[1L]][["beta"]])
   if (all(bhat == 0)) bhat <- rep(.Machine$double.eps * 2, length(bhat))
@@ -209,14 +202,7 @@ msaenet <- function(
       penalty.factor = adapen.list[[i]]
     )
 
-    if (.df(model.list[[i + 1L]]) < 0.5) {
-      stop(
-        paste0(
-          "Null model produced by the full fit (all coefficients are zero). ",
-          "Please try a different parameter setting."
-        )
-      )
-    }
+    if (.df(model.list[[i + 1L]]) < 0.5) stop(message.null.model, call. = FALSE)
 
     bhat <- as.matrix(model.list[[i + 1L]][["beta"]])
     if (all(bhat == 0)) bhat <- rep(.Machine$double.eps * 2, length(bhat))

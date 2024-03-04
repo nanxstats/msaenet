@@ -36,11 +36,9 @@
 #' msaenet.pred <- predict(msaenet.fit, dat$x.te)
 #' msaenet.rmse(dat$y.te, msaenet.pred)
 predict.msaenet <- function(object, newx, ...) {
-  if (missing(newx)) stop("Please specify `newx` to predict on.")
+  if (missing(newx)) stop("Please specify `newx` to predict on.", call. = FALSE)
 
-  if (!.is.msaenet(object)) {
-    stop('Object class must be "msaenet".')
-  }
+  if (!.is.msaenet(object)) stop(message.object.type, call. = FALSE)
 
   if (.is.glmnet(object$"model")) {
     pred <- predict(object$"model", newx = newx, ...)

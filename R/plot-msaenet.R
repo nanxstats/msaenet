@@ -80,7 +80,7 @@ plot.msaenet <- function(
     abs = FALSE, ...) {
   type <- match.arg(type)
 
-  if (!.is.msaenet(x)) stop('Object class must be "msaenet".')
+  if (!.is.msaenet(x)) stop(message.object.type, call. = FALSE)
 
   if (.is.multistep(x)) {
     beta.mat <- do.call(cbind, x$"beta.list")
@@ -113,7 +113,8 @@ plot.msaenet <- function(
         paste0(
           'No post selection ICs available, since `tune.nsteps = "max"` ',
           "or it is a one-step-only adaptive model object."
-        )
+        ),
+        call. = FALSE
       )
     } else {
       .scree(
@@ -199,7 +200,7 @@ plot.msaenet <- function(
 
   if (label && !is.null(label.vars)) {
     if (length(label.vars) != nrow(x)) {
-      stop("Length of `label.vars` should be the same as the number of variables.")
+      stop("Length of `label.vars` should be the same as the number of variables.", call. = FALSE)
     } else {
       text(
         x = best.step, y = x[nzv.idx, best.step],
