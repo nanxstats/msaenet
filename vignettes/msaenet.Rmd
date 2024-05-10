@@ -130,8 +130,13 @@ plot(msaenet.fit, label = TRUE, label.cex = 0.5)
 The y-axis in the plot represents the relative effect size estimations
 (standardized into [0, 1]) of the variables.
 
-Plot the change of the information criterion (EBIC here) used to select the
-optimal step:
+You can customize the graphical details through additional arguments in the
+plot method, especially the variable label appearance. For example, specifying
+meaningful label text for the non-zero variables via `label.vars`.
+For all available options, see `?plot.msaenet` for details.
+
+Now, we plot the change of the information criterion (EBIC here) used to
+select the optimal step:
 
 ```{r}
 #| fig-criterion
