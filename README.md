@@ -7,9 +7,9 @@
 
 [![R-CMD-check](https://github.com/nanxstats/msaenet/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nanxstats/msaenet/actions/workflows/R-CMD-check.yaml)
 [![CRAN
-Version](https://www.r-pkg.org/badges/version/msaenet)](https://cran.r-project.org/package=msaenet)
-[![Downloads from the RStudio CRAN
-mirror](https://cranlogs.r-pkg.org/badges/msaenet)](https://cran.r-project.org/package=msaenet)
+status](https://www.r-pkg.org/badges/version/msaenet)](https://cran.r-project.org/package=msaenet)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/msaenet)](https://cran.r-project.org/package=msaenet)
 <!-- badges: end -->
 
 msaenet implements the multi-step adaptive elastic-net (MSAENet)

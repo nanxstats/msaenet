@@ -6,16 +6,18 @@ template:
     preset: "bootstrap"
 
 reference:
-  - title: "Data Simulation"
+  - title: "Data simulation"
     desc: >
-      Functions for generating simulation data.
+      Generate simulation data.
     contents:
       - msaenet.sim.gaussian
       - msaenet.sim.binomial
       - msaenet.sim.poisson
       - msaenet.sim.cox
-  - title: "Model Fitting"
-    desc: "Functions for fitting adaptive and multi-step estimation models based on elastic-net, MCP-net, or SCAD-net penalties."
+  - title: "Model fitting"
+    desc: >
+      Fit adaptive and multi-step estimation models based on
+      elastic-net, MCP-net, or SCAD-net penalties.
     contents:
       - aenet
       - msaenet
@@ -24,9 +26,16 @@ reference:
       - asnet
       - msasnet
       - msaenet-package
-  - title: "Model Inspection"
+  - title: "Inference and plotting"
     desc: >
-      Functions for inspecting the fitted AENet/MSAENet models.
+      Visualize the fitted model and predict on new data.
+    contents:
+      - plot.msaenet
+      - predict.msaenet
+      - print.msaenet
+  - title: "Model inspection"
+    desc: >
+      Inspect the fitted models with more details.
     contents:
       - msaenet.nzv
       - msaenet.nzv.all
@@ -34,17 +43,9 @@ reference:
       - msaenet.fp
       - msaenet.fn
       - coef.msaenet
-  - title: "Plot and Prediction"
+  - title: "Model evaluation"
     desc: >
-      Functions for plot, print, and make predictions based on the
-      fitted AENet/MSAENet model.
-    contents:
-      - plot.msaenet
-      - predict.msaenet
-      - print.msaenet
-  - title: "Model Evaluation"
-    desc: >
-      Utility functions for computing RMSE, MAE, and RMSLE.
+      Compute performance evaluation metrics.
     contents:
       - msaenet.rmse
       - msaenet.mse

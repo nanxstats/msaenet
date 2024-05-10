@@ -71,7 +71,7 @@ default is \code{1}.}
 \item{scale}{Scaling factor for adaptive weights:
 \code{weights = coefficients^(-scale)}.}
 
-\item{eps}{Convergence threshhold to use in SCAD-net.}
+\item{eps}{Convergence threshold to use in SCAD-net.}
 
 \item{max.iter}{Maximum number of iterations to use in SCAD-net.}
 

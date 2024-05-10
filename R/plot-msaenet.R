@@ -169,21 +169,16 @@ plot.msaenet <- function(
   if (highlight) {
     lines(
       x = c(best.step, best.step), y = c(xmin - 42, xmax + 42),
-      col = "white", lty = 1, lwd = 1.5
+      col = "#FFFFFF", lty = 1, lwd = 1.5
     )
     lines(
       x = c(best.step, best.step), y = c(xmin - 42, xmax + 42),
-      col = "darkred", lty = 2, lwd = 1.5
+      col = .col.red(), lty = 2, lwd = 1.5
     )
   }
 
   # Coefficient paths
-  if (is.null(col)) { # 10-color palette from D3 (v3)
-    col <- c(
-      "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD",
-      "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF"
-    )
-  }
+  if (is.null(col)) col <- .col.coef.path()
   matlines(1L:nsteps, t(x), lty = 1, lwd = 1.2, col = col)
 
   # Zero line
@@ -230,7 +225,7 @@ plot.msaenet <- function(
     lines(
       x = c(best.step, best.step),
       y = c(min(x) - 0.5, max(x) + 0.5),
-      col = "darkred", lty = 2, lwd = 1.5
+      col = .col.red(), lty = 2, lwd = 1.5
     )
   }
 }
@@ -272,7 +267,7 @@ plot.msaenet <- function(
 
   abline(a = 0, b = 0)
 
-  col.vec <- ifelse(coef.nzv > 0, "#BC3C29", "#0072B5")
+  col.vec <- ifelse(coef.nzv > 0, .col.orange(), .col.blue())
   points(
     seq_along(coef.nzv), coef.nzv[ord.nzv],
     pch = 21,
@@ -298,3 +293,14 @@ plot.msaenet <- function(
     )
   }
 }
+
+.col.coef.path <- function() {
+  c(
+    "#4e79a7", "#f28e2c", "#e15759", "#76b7b2", "#59a14f",
+    "#edc949", "#af7aa1", "#ff9da7", "#9c755f", "#bab0ab"
+  )
+}
+
+.col.orange <- function() "#f28e2c"
+.col.blue <- function() "#4e79a7"
+.col.red <- function() "#e15759"
