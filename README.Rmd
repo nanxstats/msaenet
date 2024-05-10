@@ -15,8 +15,12 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/README-",
   dev = "ragg_png",
+  dpi = 150,
+  fig.retina = 2,
+  fig.width = 10,
+  fig.height = 5,
   out.width = "100%",
-  pngquant = "--speed=1 --quality=50"
+  pngquant = "--speed=1 --quality=80"
 )
 ```
 
@@ -83,7 +87,8 @@ dat <- msaenet.sim.gaussian(
 )
 ```
 
-```{r, msaenet, fig.width=10, fig.height=5, dpi=227}
+```{r}
+#| msaenet
 aenet.fit <- aenet(
   dat$x.tr, dat$y.tr,
   alphas = seq(0.1, 0.9, 0.1), seed = 1003
@@ -103,7 +108,8 @@ plot(msaenet.fit)
 
 ### Adaptive MCP-Net / Multi-Step Adaptive MCP-Net
 
-```{r, msamnet, fig.width=10, fig.height=5, dpi=227}
+```{r}
+#| msamnet
 amnet.fit <- amnet(
   dat$x.tr, dat$y.tr,
   alphas = seq(0.1, 0.9, 0.1), seed = 1003
@@ -123,7 +129,8 @@ plot(msamnet.fit)
 
 ### Adaptive SCAD-Net / Multi-Step Adaptive SCAD-Net
 
-```{r, msasnet, fig.width=10, fig.height=5, dpi=227}
+```{r}
+#| msasnet
 asnet.fit <- asnet(
   dat$x.tr, dat$y.tr,
   alphas = seq(0.1, 0.9, 0.1), seed = 1003
