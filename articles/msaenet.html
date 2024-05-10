@@ -88,19 +88,18 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The <code>msaenet</code> package implemented the multi-step adaptive
-elastic-net method introduced in <span class="citation">Xiao and Xu
-(2015)</span> for feature selection in high-dimensional regressions.</p>
+<p>The msaenet package implemented the multi-step adaptive elastic-net
+method introduced in <span class="citation">Xiao and Xu (2015)</span>
+for feature selection in high-dimensional regressions.</p>
 </div>
 <div class="section level2">
 <h2 id="walkthrough">Walkthrough<a class="anchor" aria-label="anchor" href="#walkthrough"></a>
 </h2>
-<p>Let’s load the package:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://nanx.me/msaenet/">"msaenet"</a></span><span class="op">)</span></span></code></pre></div>
 <p>First, we generate some simulated data under a setting often used for
 testing high-dimensional linear models, with the function
 <code><a href="../reference/msaenet.sim.gaussian.html">msaenet.sim.gaussian()</a></code>:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://nanx.me/msaenet/">"msaenet"</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/msaenet.sim.gaussian.html">msaenet.sim.gaussian</a></span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">150</span>, p <span class="op">=</span> <span class="fl">500</span>, rho <span class="op">=</span> <span class="fl">0.5</span>,</span>
@@ -116,7 +115,7 @@ in the simulated data. The parameter <code>p.train</code> decides the
 proportion of the training set (relative to the total number of
 observations <code>n</code>).</p>
 <p>To generate simulation data for the other types of generalized linear
-models supported by <code>msaenet</code>, simply use
+models supported by msaenet, simply use
 <code><a href="../reference/msaenet.sim.binomial.html">msaenet.sim.binomial()</a></code> (logistic regression),
 <code><a href="../reference/msaenet.sim.cox.html">msaenet.sim.cox()</a></code> (Cox regression), or
 <code><a href="../reference/msaenet.sim.poisson.html">msaenet.sim.poisson()</a></code> (Poisson regression).</p>
@@ -147,7 +146,7 @@ grid is denser and the data size is larger.</p>
 <p>To select the optimal model in each estimation step with a different
 criterion, use the argument <code>tune</code>. Options include
 <code>"cv"</code> (k-fold cross-validation, default), <code>"aic"</code>
-(AIC), <code>"bic"</code> (BIC), and <code>"ebic"</code> (Extened BIC).
+(AIC), <code>"bic"</code> (BIC), and <code>"ebic"</code> (Extended BIC).
 Similarly, use <code>tune.nsteps</code> to specify the criterion for
 selecting the optimal estimation step (the optimal model from all
 steps), options include <code>"max"</code> (select the final-step,
@@ -210,20 +209,24 @@ compute some evaluation metrics, such as RMSE and MAE:</p>
 <p>A coefficient plot that shows the coefficient changes of all the
 variables across every adaptive estimation step:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">msaenet.fit</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="msaenet_files/figure-html/unnamed-chunk-8-1.png" width="750" height="600"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">msaenet.fit</span>, label <span class="op">=</span> <span class="cn">TRUE</span>, label.cex <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
+<p><img src="msaenet_files/figure-html/fig-coef-path-1.png" width="65%" style="display: block; margin: auto;"></p>
 <p>The y-axis in the plot represents the relative effect size
 estimations (standardized into [0, 1]) of the variables.</p>
-<p>Plot the change of the information criterion (EBIC here) used to
-select the optimal step:</p>
+<p>You can customize the graphical details through additional arguments
+in the plot method, especially the variable label appearance. For
+example, specifying meaningful label text for the non-zero variables via
+<code>label.vars</code>. For all available options, see
+<code><a href="../reference/plot.msaenet.html">?plot.msaenet</a></code> for details.</p>
+<p>Now, we plot the change of the information criterion (EBIC here) used
+to select the optimal step:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">msaenet.fit</span>, type <span class="op">=</span> <span class="st">"criterion"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="msaenet_files/figure-html/unnamed-chunk-9-1.png" width="750" height="450"></p>
-<p>Create a Cleveland dot plot for the model coefficients at the optimal
-step:</p>
+<p><img src="msaenet_files/figure-html/fig-criterion-1.png" width="65%" style="display: block; margin: auto;"></p>
+<p>Create a dot plot for the model coefficients at the optimal step:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">msaenet.fit</span>, type <span class="op">=</span> <span class="st">"dotplot"</span>, label <span class="op">=</span> <span class="cn">TRUE</span>, label.cex <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="msaenet_files/figure-html/unnamed-chunk-10-1.png" width="750" height="600"></p>
+<p><img src="msaenet_files/figure-html/fig-dotplot-1.png" width="65%" style="display: block; margin: auto;"></p>
 <p>To plot the absolute values of the coefficients instead of the raw
 coefficients, use <code>abs = TRUE</code>.</p>
 <p>The vanilla adaptive elastic-net <span class="citation">(Zou and
@@ -236,11 +239,11 @@ models fitted by these functions as well.</p>
 <div class="section level2">
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
-<p>If you used <code>msaenet</code> in your research, please feel free
-to cite our paper <span class="citation">(Xiao and Xu 2015)</span> in
-your publications. If you have any questions or have a bug to report,
-please <a href="mailto:me@nanx.me">email me</a> or <a href="https://github.com/nanxstats/msaenet/issues" class="external-link">create an issue</a>
-on GitHub.</p>
+<p>If you find msaenet useful for your research, please feel free to
+cite our paper <span class="citation">(Xiao and Xu 2015)</span> in your
+publications. If you have any questions or have a bug to report, please
+<a href="https://github.com/nanxstats/msaenet/issues" class="external-link">create an
+issue</a> on GitHub.</p>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
