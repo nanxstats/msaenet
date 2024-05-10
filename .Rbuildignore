@@ -9,3 +9,4 @@
 ^README\.Rmd$
 ^\.lintr$
 ^LICENSE\.md$
+^inst/logo/logo\.R$
