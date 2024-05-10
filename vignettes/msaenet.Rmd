@@ -93,7 +93,7 @@ data size is larger.
 
 To select the optimal model in each estimation step with a different criterion,
 use the argument `tune`. Options include `"cv"` (k-fold cross-validation, default),
-`"aic"` (AIC), `"bic"` (BIC), and `"ebic"` (Extened BIC).
+`"aic"` (AIC), `"bic"` (BIC), and `"ebic"` (Extended BIC).
 Similarly, use `tune.nsteps` to specify the criterion for selecting the optimal
 estimation step (the optimal model from all steps), options include
 `"max"` (select the final-step, default), `"aic"`, `"bic"`, and `"ebic"`.

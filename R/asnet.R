@@ -22,7 +22,7 @@
 #' default is \code{1}. For details, see Chen and Chen (2008).
 #' @param scale Scaling factor for adaptive weights:
 #' \code{weights = coefficients^(-scale)}.
-#' @param eps Convergence threshhold to use in SCAD-net.
+#' @param eps Convergence threshold to use in SCAD-net.
 #' @param max.iter Maximum number of iterations to use in SCAD-net.
 #' @param penalty.factor.init The multiplicative factor for the penalty
 #' applied to each coefficient in the initial estimation step. This is

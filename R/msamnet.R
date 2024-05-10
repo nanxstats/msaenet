@@ -33,7 +33,7 @@
 #' default is \code{1}.
 #' @param scale Scaling factor for adaptive weights:
 #' \code{weights = coefficients^(-scale)}.
-#' @param eps Convergence threshhold to use in MCP-net.
+#' @param eps Convergence threshold to use in MCP-net.
 #' @param max.iter Maximum number of iterations to use in MCP-net.
 #' @param penalty.factor.init The multiplicative factor for the penalty
 #' applied to each coefficient in the initial estimation step. This is
