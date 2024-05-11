@@ -1,3 +1,18 @@
+# msaenet 3.1.2
+
+## Improvements
+
+- The coefficient profile plot now has a new default color palette
+  (new Tableau 10). The updated palette offers a more refined and
+  visually appealing look, while also improving accessibility for users
+  with color-vision deficiencies. The color palette is consistency applied
+  across multiple graphical elements in all plot types (#13).
+- Added a note in the vignette about possible graphical parameters for
+  labeling the selected variables supported by the plotting methods
+  (thanks, @xingxingyanjing, #12).
+- Simplified and optimized vignette and readme plotting chunk options (#14).
+- Fixed typos and improved text style in documentation (#14).
+
 # msaenet 3.1.1
 
 ## Improvements
