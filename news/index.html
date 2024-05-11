@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">msaenet</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,14 +48,24 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="3.1.2" id="msaenet-312">msaenet 3.1.2<a class="anchor" aria-label="anchor" href="#msaenet-312"></a></h2>
+<div class="section level3">
+<h3 id="improvements-3-1-2">Improvements<a class="anchor" aria-label="anchor" href="#improvements-3-1-2"></a></h3>
+<ul><li>The coefficient profile plot now has a new default color palette (new Tableau 10). The updated palette offers a more refined and visually appealing look, while also improving accessibility for users with color-vision deficiencies. The color palette is consistency applied across multiple graphical elements in all plot types (<a href="https://github.com/nanxstats/msaenet/issues/13" class="external-link">#13</a>).</li>
+<li>Added a note in the vignette about possible graphical parameters for labeling the selected variables supported by the plotting methods (thanks, <a href="https://github.com/xingxingyanjing" class="external-link">@xingxingyanjing</a>, <a href="https://github.com/nanxstats/msaenet/issues/12" class="external-link">#12</a>).</li>
+<li>Simplified and optimized vignette and readme plotting chunk options (<a href="https://github.com/nanxstats/msaenet/issues/14" class="external-link">#14</a>).</li>
+<li>Fixed typos and improved text style in documentation (<a href="https://github.com/nanxstats/msaenet/issues/14" class="external-link">#14</a>).</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.1.1" id="msaenet-311">msaenet 3.1.1<a class="anchor" aria-label="anchor" href="#msaenet-311"></a></h2><p class="text-muted">CRAN release: 2024-03-04</p>
 <div class="section level3">
 <h3 id="improvements-3-1-1">Improvements<a class="anchor" aria-label="anchor" href="#improvements-3-1-1"></a></h3>
-<ul><li>Use a proper, three-component version number following Semantic Versioning.</li>
-<li>Fix warnings about single lambda (<a href="https://github.com/nanxstats/msaenet/issues/11" class="external-link">#11</a>).</li>
-<li>Fix “lost braces” check notes on r-devel and check notes about <code>LazyData</code>.</li>
-<li>Fix code linting issues.</li>
-<li>Use GitHub Actions to build the pkgdown site.</li>
+<ul><li>Used a proper, three-component version number following Semantic Versioning.</li>
+<li>Fixed warnings about single lambda (<a href="https://github.com/nanxstats/msaenet/issues/11" class="external-link">#11</a>).</li>
+<li>Fixed “lost braces” check notes on r-devel and check notes about <code>LazyData</code>.</li>
+<li>Fixed code linting issues.</li>
+<li>Used GitHub Actions to build the pkgdown site.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -72,7 +82,7 @@
 <h2 class="pkg-version" data-toc-text="3.0" id="msaenet-30">msaenet 3.0<a class="anchor" aria-label="anchor" href="#msaenet-30"></a></h2><p class="text-muted">CRAN release: 2018-12-14</p>
 <div class="section level3">
 <h3 id="new-features-3-0">New features<a class="anchor" aria-label="anchor" href="#new-features-3-0"></a></h3>
-<ul><li>Added a new argument <code>penalty.factor.init</code> to support customized penalty factor applied to each coefficient in the initial estimation step. This is useful for incorporating prior information about variable weights, for example, emphasizing specific clinical variables. We thank Xin Wang from University of Michigan for this feedback [<a href="https://github.com/nanxstats/msaenet/issues/4" class="external-link">#4</a>].</li>
+<ul><li>Added a new argument <code>penalty.factor.init</code> to support customized penalty factor applied to each coefficient in the initial estimation step. This is useful for incorporating prior information about variable weights, for example, emphasizing specific clinical variables. We thank Xin Wang from University of Michigan for this feedback (<a href="https://github.com/nanxstats/msaenet/issues/4" class="external-link">#4</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -100,7 +110,7 @@
 <h2 class="pkg-version" data-toc-text="2.6" id="msaenet-26">msaenet 2.6<a class="anchor" aria-label="anchor" href="#msaenet-26"></a></h2><p class="text-muted">CRAN release: 2017-04-24</p>
 <div class="section level3">
 <h3 id="improvements-2-6">Improvements<a class="anchor" aria-label="anchor" href="#improvements-2-6"></a></h3>
-<ul><li>Added two arguments <code>lower.limits</code> and <code>upper.limits</code> to support coefficient constraints in <code><a href="../reference/aenet.html">aenet()</a></code> and <code><a href="../reference/msaenet.html">msaenet()</a></code> [<a href="https://github.com/nanxstats/msaenet/issues/1" class="external-link">#1</a>].</li>
+<ul><li>Added two arguments <code>lower.limits</code> and <code>upper.limits</code> to support coefficient constraints in <code><a href="../reference/aenet.html">aenet()</a></code> and <code><a href="../reference/msaenet.html">msaenet()</a></code> (<a href="https://github.com/nanxstats/msaenet/issues/1" class="external-link">#1</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -161,10 +171,10 @@
 <h2 class="pkg-version" data-toc-text="2.0" id="msaenet-20">msaenet 2.0<a class="anchor" aria-label="anchor" href="#msaenet-20"></a></h2><p class="text-muted">CRAN release: 2017-01-05</p>
 <div class="section level3">
 <h3 id="new-features-2-0">New features<a class="anchor" aria-label="anchor" href="#new-features-2-0"></a></h3>
-<ul><li>Added support for adaptive MCP-net. See <code><a href="../reference/amnet.html">?amnet</a></code> for details.</li>
-<li>Added support for adaptive SCAD-net. See <code><a href="../reference/asnet.html">?asnet</a></code> for details.</li>
-<li>Added support for multi-step adaptive MCP-net (MSAMNet). See <code><a href="../reference/msamnet.html">?msamnet</a></code> for details.</li>
-<li>Added support for multi-step adaptive SCAD-net (MSASNet). See <code><a href="../reference/msasnet.html">?msasnet</a></code> for details.</li>
+<ul><li>Added <code><a href="../reference/amnet.html">amnet()</a></code> to support adaptive MCP-net.</li>
+<li>Added <code><a href="../reference/asnet.html">asnet()</a></code> to support adaptive SCAD-net.</li>
+<li>Added <code><a href="../reference/msamnet.html">msamnet()</a></code> to support multi-step adaptive MCP-net.</li>
+<li>Added <code><a href="../reference/msasnet.html">msasnet()</a></code> to support for multi-step adaptive SCAD-net.</li>
 <li>Added <code><a href="../reference/msaenet.nzv.all.html">msaenet.nzv.all()</a></code> for displaying the indices of non-zero variables in all adaptive estimation steps.</li>
 </ul></div>
 <div class="section level3">
@@ -188,7 +198,7 @@
 <h2 class="pkg-version" data-toc-text="1.0" id="msaenet-10">msaenet 1.0<a class="anchor" aria-label="anchor" href="#msaenet-10"></a></h2><p class="text-muted">CRAN release: 2016-09-20</p>
 <div class="section level3">
 <h3 id="new-features-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-0"></a></h3>
-<ul><li>Initial version of the msaenet package</li>
+<ul><li>Initial version of the msaenet package.</li>
 </ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
