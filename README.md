@@ -46,7 +46,7 @@ To cite the msaenet package in publications, please use
 A BibTeX entry for LaTeX users is
 
 ``` bibtex
-@article{,
+@article{xiao2015multi,
   title   = {Multi-step adaptive elastic-net: reducing false positives in high-dimensional variable selection},
   author  = {Nan Xiao and Qing-Song Xu},
   journal = {Journal of Statistical Computation and Simulation},
