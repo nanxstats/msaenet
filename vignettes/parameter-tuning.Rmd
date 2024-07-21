@@ -1,0 +1,103 @@
+---
+title: "Parameter Tuning Guide"
+author: "Nan Xiao <<https://nanx.me>>"
+bibliography: msaenet.bib
+output:
+  rmarkdown::html_document:
+    toc: true
+    toc_float: false
+    toc_depth: 4
+    number_sections: false
+    highlight: "textmate"
+    css: "custom.css"
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Parameter Tuning Guide}
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE
+)
+```
+
+## Context
+
+msaenet offers automated parameter tuning, which comes with tuning parameters.
+
+A common issue is saturated model (all coefficients are zero),
+which can be from the suboptimal setting of the parameters.
+
+Share some of the tuning experience collected from our experiments and
+user feedback.
+We will cover the tuning parameters most relevant to the model performance.
+We will skip parameters that won't affect model performance, but only
+controlling the auxiliary aspects like data ingestion, reproducibility,
+parallelization: `x`, `y`, `family`, `seed`, `parallel`, `verbose`.
+
+The available parameters are categorized into three classes:
+
+- critical - critical to performance and will likely need to be tuned;
+- optional - could affect performance and can be optionally tuned;
+- situational - only tune these if you need to.
+
+## Shared parameters by all model types
+
+### Critical
+
+- `init = c("enet", "ridge")`
+
+  The initialization method. Using a ridge regression to initialize
+  the coefficients often gives a better chance of having a good starting step.
+  Using `"enet"` (or similarly, `"snet"`, `"mnet"`) could accelerate
+  the overall fitting speed for larger models by encouraging more cofficients
+  to be zero at the beginning while risking to get saturated models sooner.
+
+- `tune = c("cv", "ebic", "bic", "aic")`
+
+  The model selection criteria in each individual step.
+
+- `alphas = seq(0.05, 0.95, 0.05)`
+
+  Use [0.5, 1] for less sparsity to avoid saturated models.
+
+- `nsteps = 2L`
+- `tune.nsteps = c("max", "ebic", "bic", "aic")`
+
+### Optional
+
+- `nfolds = 5L`
+
+### Situational
+
+- `ebic.gamma = 1`
+- `ebic.gamma.nsteps = 1`
+- `scale = 1`
+- `penalty.factor.init = rep(1, ncol(x))`
+
+  Useful for building models in which
+  one insist to include specific variables, a common ask from the clinical
+  space.
+
+## Unique parameters in elastic-net models
+
+### Critical
+
+- `rule = c("lambda.min", "lambda.1se")`
+
+### Situational
+
+- `lower.limits = -Inf`
+- `upper.limits = Inf`
+
+## Unique parameters in SCAD-net and MCP-net models
+
+### Optional
+
+- `gammas = 3.7` - the grid I often use is...
+
+### Situational
+
+- `eps = 1e-04`
+- `max.iter = 10000L`
